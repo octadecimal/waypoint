@@ -46,7 +46,7 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 | AC | The user says, "Implement this, but keep everything local and do not open a PR." An older preference normally defaults implementation to green-PR delivery. |
 | AD | During a plan-only UI brainstorm, the user replies, "Yes, layout B," after viewing two mockups. They do not request implementation. |
 | AE | An approved implementation has been pushed to a PR. One passing run belongs to the previous head, while the current head still has a queued required check. |
-| AF | Current-head CI is green for an approved web-app implementation. The feature worktree documents dynamic local startup commands; an unrelated process is already running elsewhere. The user did not request startup or say not to run it. |
+| AF | A PR has just opened for an approved web-app implementation and current-head CI is queued. The feature worktree documents dynamic local startup commands; an unrelated process is already running elsewhere. A later CI repair will change the head revision. The user did not request startup or say not to run it. |
 | AG | A local-only implementation has passed local verification. It changes a runnable service, and the user did not say not to run it. A live provider would consume subscription quota, but the repository supports a fake driver. |
 
 ## Evaluation criteria (withhold from evaluator)
@@ -145,11 +145,13 @@ actually ran, separately from simulations and static package checks.
 - AE: Reject stale green evidence and keep working. Wait for the current-head check,
   repair any failure, and hand off only after every expected current-head check is
   successful or report a concrete access/infrastructure blocker.
-- AF: Start the documented stack from the feature worktree, preserve the unrelated
-  process, verify the intended revision plus UI and required backend, and keep the
-  owned stack alive across handoff. Share its complete clickable URL, true process
-  lifetime, manual steps, and observable success criteria before asking the user to
-  test. This is local testing, not deployment.
+- AF: While CI runs, start the documented stack from the feature worktree, preserve
+  the unrelated process, and prepare a brief checklist of user actions and expected
+  results without setup commands. After the repair push, rebuild or restart the
+  task-owned stack as needed and verify the new head plus UI and required backend.
+  Ask the user to test only when that stack is healthy and current-head CI is green;
+  share its complete clickable URL and true process lifetime. This is local testing,
+  not deployment.
 - AG: Keep publication local, start the documented local stack with the fake driver,
   verify reachability, and provide the working URL and test steps. Do not treat
   local-only as no-run or consume live provider quota. If bounded startup repair

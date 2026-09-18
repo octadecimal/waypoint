@@ -83,14 +83,16 @@ falsely reported as already satisfied. If the PR is a draft and authorized work 
 ready, mark it ready unless the user requested it remain a draft. Reconfirm live
 state before merging after hands-on testing and explicit approval.
 
-## Runnable testing handoff
+## Runnable testing preparation
 
-After current-head CI is green, automatically start the repository's documented
-local test or development stack from the feature worktree when the change has a
-runnable UI or service and the user has not said not to run it. For local-only,
-no-push, or no-PR work, do the same after the applicable local verification; those
-limits block publication, not local hands-on testing. Starting a local test stack is
-not deployment and grants no production mutation authority.
+After opening or updating the PR, automatically start the repository's documented
+local test or development stack from the feature worktree while CI runs when the
+change has a runnable UI or service and the user has not said not to run it. Prepare
+the user-facing test checklist at the same time: usually two to four brief actions
+with expected results, without terminal or setup commands the agent can perform.
+For local-only, no-push, or no-PR work, do this after the applicable local
+verification; those limits block publication, not local hands-on testing. Starting
+a local test stack is not deployment and grants no production mutation authority.
 
 Use the repository's commands and discovered configuration, including dynamically
 selected ports. Do not invent a generic launcher or assume a project, command, or
@@ -98,13 +100,15 @@ port. Before reusing a running stack, prove it belongs to the intended worktree 
 revision and has the required UI and backend; preserve unknown processes. Start new
 processes with a lifetime that survives the handoff, verify they remain alive, and
 state their actual lifetime rather than promising persistence the tool cannot
-provide.
+provide. If a CI repair changes the revision, rebuild or restart the task-owned
+stack as needed and prove it now serves that revision.
 
-Verify the complete URL and every required local backend with appropriate HTTP,
-health, or browser checks before calling the branch ready. Give the clickable URL,
-exact manual steps, and observable success criteria. Use safe local/fake data and
-credentials; never exercise live billed providers or operator data merely as test
-evidence.
+For PR delivery, final handoff requires green current-head CI and, when applicable,
+a healthy stack serving that same revision. Local-only delivery uses its applicable
+local verification instead of CI. Verify the complete URL and every required local backend with
+appropriate HTTP, health, or browser checks before calling the branch ready. Give
+the clickable URL and prepared checklist. Use safe local/fake data and credentials;
+never exercise live billed providers or operator data merely as test evidence.
 
 If startup or reachability fails, diagnose and repair bounded task-owned failures,
 rerun affected verification and current-head CI when code changes, then retry. A

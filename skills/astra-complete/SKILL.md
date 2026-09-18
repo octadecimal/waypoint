@@ -72,11 +72,15 @@ for it. Verify the PR's URL, head, base, and open state after publication.
 
 Read [CI evidence and repair](../../references/ci-completion.md). Discover expected
 checks from workflows, repository rules, and project guidance. Observe checks for
-the current PR revision and diagnose failures. Dispatch or reuse one cheaper capable
-edit-only worker for each routine repair, including its focused RED/GREEN check;
-send follow-up fixes to that same worker. The coordinator reviews, integrates,
-validates, pushes, and observes again. Pending CI is ongoing work, not a handoff to
-the user.
+the current PR revision. While they run, follow the runnable testing preparation in
+[CI completion](../../references/ci-completion.md): start the applicable documented
+stack from the feature worktree and prepare a brief user checklist. Diagnose CI
+failures and dispatch or reuse one cheaper capable edit-only worker for each routine
+repair, including its focused RED/GREEN check; send follow-up fixes to that same
+worker. The coordinator reviews, integrates, validates, pushes, and observes again.
+After a repair changes the revision, rebuild or restart the task-owned stack as
+needed and verify it serves the new head. Pending CI is ongoing work, not a handoff
+to the user.
 
 Do not disable tests, loosen assertions, bypass protection, or edit workflows merely
 to obtain green status. Legitimate test/workflow fixes need evidence that the
@@ -87,15 +91,15 @@ and completed evidence; do not present an unverified PR as ready.
 ## 4. Handoff for hands-on testing
 
 Once expected checks pass for the current revision and no relevant checks remain
-pending or failed, follow the runnable testing handoff in
-[CI completion](../../references/ci-completion.md). When applicable, start and
-verify the documented local stack from the feature worktree before asking the user
-to test. A local-only boundary suppresses publication, not this local testing step;
-an explicit no-run instruction suppresses startup. Then report:
+pending or failed, verify the applicable prepared stack is healthy and serves that
+same revision before asking the user to test. A local-only boundary suppresses
+publication, not local testing; an explicit no-run instruction suppresses startup.
+Then report:
 
 - PR URL, head revision, and linked CI results.
 - What changed, local verification, and any unverified behavior.
-- Exact manual steps and observable success criteria for this change.
+- A brief checklist, usually two to four user actions with expected results and no
+  terminal or setup commands.
 - Preserved branch/worktree and the verified runtime URL, health, and true process
   lifetime when a stack applies.
 

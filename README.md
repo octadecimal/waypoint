@@ -49,13 +49,15 @@ coordinates and verifies. Model choices adapt to the live allowlist; see
 guarantee model access, or measure savings without usage evidence.
 
 After implementation is requested or approved, ordinary CI failures stay with the
-agent until fixed or genuinely blocked. The normal handoff is an open PR with
-current passing CI followed, when the project has a runnable surface, by a verified
-feature-worktree test stack, clickable local URL, and concrete manual test steps.
-Explicit local-only or no-push/no-PR instructions keep publication local but still
-allow local testing unless the user says not to run it. Merge requires hands-on
-testing and explicit approval of the current revision. This plugin does not change
-GitHub branch protection; repositories retain their own enforcement and merge rules.
+agent until fixed or genuinely blocked. Once the PR is open, the agent starts the
+applicable feature-worktree test stack and prepares a brief testing checklist while
+CI runs. The normal handoff waits for both current-head green CI and a healthy stack
+serving that revision, then gives the clickable local URL and user actions with
+expected results. Explicit local-only or no-push/no-PR instructions keep publication
+local but still allow local testing unless the user says not to run it. Merge
+requires hands-on testing and explicit approval of the current revision. This plugin
+does not change GitHub branch protection; repositories retain their own enforcement
+and merge rules.
 
 ## Preview UI designs
 
