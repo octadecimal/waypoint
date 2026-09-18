@@ -23,10 +23,15 @@ supported numeric string when selecting a model.
 ## Preserve mode and authority
 
 - Plan-only: do not execute.
-- Collaborative execution: one approved concrete plan authorizes its stated implementation and Git actions; do not ask between tasks.
+- Collaborative execution: one approved concrete implementation plan authorizes execution and the standing green-PR delivery target; do not ask between tasks or before publication.
 - Auto / proceed autonomously / green PR: execute through the stated target without duplicate approval prompts.
 
-Existing user decisions override generic gates. Execution authority does not grant merge authority. `astra-workflow:astra-complete` still requires current-head green CI before hands-on testing and explicit post-test approval before merge.
+Read [delivery authority and CI completion](../../references/ci-completion.md).
+Explicit plan-only, local-only, no-push, or no-PR decisions override the green-PR
+default. Design approval alone does not authorize implementation. Execution
+authority does not grant merge authority. `astra-workflow:astra-complete` still
+requires current-head green CI before hands-on testing and explicit post-test
+approval before merge.
 
 ## Process
 
@@ -271,7 +276,11 @@ Copy every ledger `Ruling:` line into the final handoff with its cost if wrong. 
 
 Do not automatically delete the SDD workspace. It contains the ledger, task briefs, reports, and review packages needed across CI repair and hands-on testing. Cleanup is allowed only after integration or explicit abandonment, after verifying the marker matches the exact plan and worktree and no live task depends on it. Never delete a sibling workspace or a directory with missing, invalid, or mismatched ownership metadata.
 
-For local-only work, report the verified result and preserved workspace. For an authorized PR target, invoke `astra-workflow:astra-complete` and continue through current-head green CI without another routine prompt. Stop for user testing at that point; merge requires explicit approval after the user tests that exact revision.
+For an explicit local-only/no-push/no-PR target, report the verified result and
+preserved workspace. Otherwise approved implementation flows into
+`astra-workflow:astra-complete`; continue through current-head green CI without
+another routine prompt. Stop for user testing at that point; merge requires
+explicit approval after the user tests that exact revision.
 
 ## Common rationalizations
 

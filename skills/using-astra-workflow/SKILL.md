@@ -17,10 +17,13 @@ and model selection; the user does not need to mention agents. A dispatched
 edit-only worker performs its assignment itself and does not delegate again.
 
 User intent and higher-priority instructions govern. Carry existing decisions
-forward, preserve plan-only/local-only limits, and do not ask again for authorized
-auto execution. Skills cannot grant merge, deployment, billing, or unrelated
-external-action authority. Read [Codex tool guidance](references/codex-tools.md)
-when delegating or resuming a workflow.
+forward and read [delivery authority and CI completion](../../references/ci-completion.md).
+Once implementation is requested or approved, the standing target is a green PR;
+preserve explicit plan-only, local-only, no-push, or no-PR limits. Design approval
+alone and skill discovery are not implementation authority. Merge, deployment,
+billing, and unrelated repositories remain outside that authority. Read
+[Codex tool guidance](references/codex-tools.md) when delegating or resuming a
+workflow.
 
 ## Choose the entry point
 

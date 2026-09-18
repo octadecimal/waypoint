@@ -22,7 +22,8 @@ Map the affected surfaces before tasks:
 - contract, persistence, runtime, UI, permissions, migration, or workspace effects;
 - platform and compatibility constraints;
 - exact verification and expected CI checks;
-- delivery target: local changes, local commits, or a green PR.
+- delivery target: plan only; an explicit local/no-push/no-PR override; or the
+  standing green-PR default for approved implementation.
 
 Do not add speculative abstractions, setup-only tasks, or broad cleanup. Fold scaffolding, configuration, and documentation into the task whose behavior needs them. Split tasks where one can be independently implemented, tested, and rejected without invalidating its neighbors.
 
@@ -63,7 +64,7 @@ Every implementation plan starts with:
 
 **Mode:** [plan-only | collaborative | auto]
 
-**Delivery target:** [plan only | local changes | local commits | open PR with green CI]
+**Delivery target:** [plan only | explicit local/no-push/no-PR override | green PR]
 
 **Authorization:** [User statement or approved-plan boundary; merge remains separate]
 
@@ -189,7 +190,12 @@ For a substantial or high-risk plan, dispatch a read-only Astra plan reviewer us
 ## Handoff
 
 - Plan-only: present the plan and stop.
-- Collaborative: present the concrete plan and ask once for implementation approval when it has not already been given.
+- Collaborative: present the concrete plan and ask once for implementation approval when it has not already been given. A normal "yes" or "go ahead" then authorizes the standing green-PR target.
 - Auto: state the saved plan and proceed. Use `astra-workflow:subagent-driven-development` for independent tasks or `astra-workflow:executing-plans` for tightly coupled work. Do not ask again.
 
-An approved delivery target that includes a green PR flows into `astra-workflow:astra-complete`. Current-head passing CI is required before hands-on testing. Merge requires a later, explicit approval after the user tests that revision.
+Read [delivery authority and CI completion](../../references/ci-completion.md).
+Approved implementation flows into `astra-workflow:astra-complete` unless an
+explicit plan-only, local-only, no-push, or no-PR instruction applies. Visual or
+design approval alone does not start implementation. Current-head passing CI is
+required before hands-on testing. Merge requires a later, explicit approval after
+the user tests that revision.

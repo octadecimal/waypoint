@@ -26,11 +26,16 @@ tree, remote, intended diff, and any matching PR. Confirm the requested branch a
 PR belong together. Preserve unrelated edits; if ownership is unclear, stop that
 mutation and resolve it. Never discard changes or force-push to simplify completion.
 
-An explicit request to use Astra Complete to prepare this branch for testing, or an
-approved plan that includes green-PR delivery, covers normal verification, intended
-commits, push, PR creation, and CI fixes. Automatic skill selection alone does not.
-Honor local-only or no-push instructions. If PR authority is missing, finish the
-local work first and ask only for the concrete remaining publication action.
+Read [delivery authority and CI completion](../../references/ci-completion.md).
+An explicit implementation request, approval of a concrete implementation plan,
+or explicit request to prepare a PR covers normal verification, intended commits,
+push, PR creation/update, and CI fixes. An explicit Astra Complete invocation also
+covers those actions when its PR scope is known. Do not add a separate publication
+approval gate. Automatic skill selection, design approval, and a hands-on-testing
+request by itself do not grant that authority. Honor earlier explicit local-only,
+no-push, or no-PR instructions. If implementation or PR authority is genuinely
+absent, finish only already-authorized local work and ask for the concrete missing
+decision.
 
 Merge requires both a user report of hands-on testing of this PR revision and
 explicit approval to merge it. Early implementation approval, green CI, agent

@@ -19,10 +19,13 @@ The user's latest direction controls execution:
 | Mode | Behavior |
 | --- | --- |
 | Plan-only | Do not execute. Return to `astra-workflow:astra-plan`. |
-| Collaborative execution | Execute after the concrete plan has been approved. Do not seek approval again for actions already included in that approval. |
+| Collaborative execution | Execute after the concrete plan has been approved, then continue through the standing green-PR target without another approval prompt. |
 | Auto / proceed autonomously / green PR | Continue through the authorized delivery target without routine re-prompts. |
 
-Existing decisions and authorization override generic workflow prompts. Do not turn a plan-only request into implementation, and do not treat implementation approval as merge approval.
+Read [delivery authority and CI completion](../../references/ci-completion.md).
+Existing explicit plan-only, local-only, no-push, or no-PR decisions override the
+green-PR default. Do not treat design approval as implementation approval or
+implementation approval as merge approval.
 
 ## 1. Load and review the plan
 
@@ -81,16 +84,20 @@ Use `astra-workflow:requesting-code-review` for substantial or risky changes. Th
 
 Run the plan's focused checks and the repository's appropriate integrated gate on the current contents. Record exact commands, results, and the revision they cover. Do not claim success from stale output.
 
-If the authorized target is local changes, stop after reporting the verified result and preserved workspace. If it includes a commit, the coordinator stages explicit intended paths, inspects the staged diff, commits, and verifies the recorded revision.
-
-If it includes a PR, invoke `astra-workflow:astra-complete`. Continue through publication and CI repair without another routine permission prompt when the approved plan or auto request already authorized those actions. The PR is ready for hands-on testing only when expected CI checks pass for its current head SHA. Merge still requires the user's post-test report and explicit approval for that same revision.
+If an explicit local-only, no-push, or no-PR instruction applies, stop at that
+boundary after reporting the verified result and preserved workspace. Otherwise,
+approved implementation includes coordinator commit, push, and PR delivery: invoke
+`astra-workflow:astra-complete` and continue through CI repair without another
+permission prompt. The PR is ready for hands-on testing only when expected CI
+checks pass for its current head SHA. Merge still requires the user's post-test
+report and explicit approval for that same revision.
 
 ## Common mistakes
 
 | Mistake | Correction |
 | --- | --- |
 | Execute a plan-only request | Stop with the plan. |
-| Re-ask after auto mode authorized a green PR | Continue within the stated scope. |
+| Ask for separate PR approval after implementation was approved | Continue to a green PR unless an explicit local/no-push/no-PR override applies. |
 | Follow a stale plan literally | Reconcile with the checkout; send material replanning to Astra. |
 | Ask the user about every reversible detail | Make a ruling, record it, and continue. |
 | Treat coupled or one-file work as inline | Give its complete RED/GREEN cycle to one worker. |

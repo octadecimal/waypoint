@@ -5,10 +5,34 @@ results, not a worker's prediction or an earlier commit's green badge. Commands
 below illustrate GitHub CLI use; inspect available fields/help when versions
 differ. Other hosts require their equivalent authoritative checks.
 
+## Delivery authority
+
+Once the user requests implementation—including natural requests such as "fix,"
+"add," "build," or "change"—or approves a concrete implementation plan, the
+standing delivery target is a green PR: the coordinator commits the intended
+changes, pushes, opens or updates the PR, and owns the repair-and-wait loop until
+expected checks pass for its current head. A normal "yes" or "go ahead" in response
+to that plan supplies this implementation approval; do not ask separately whether
+to implement locally, push, or open the PR.
+
+Plan-only, brainstorm-only, local-only, no-push, and no-PR instructions override
+that default. Preserve an earlier explicit override unless the user later changes
+it. Approval of a design direction, mockup, or preview alone chooses the design; it
+does not authorize production implementation. Automatic skill discovery is also
+not implementation authority, and authority for one task or repository does not
+extend to another.
+
+Merge and deployment remain separate. Merge requires hands-on testing and explicit
+approval of the exact revision. Missing remote access, credentials, or usable CI is
+a concrete blocker to green-PR delivery, not a successful local handoff.
+
 ## Observe the current revision
 
 1. Read the PR head SHA, base, state, draft state, mergeability, and check rollup:
    `gh pr view <number> --json url,state,isDraft,headRefOid,headRefName,baseRefName,mergeable,statusCheckRollup`.
+   After pushing, require the coordinator's intended local `git rev-parse HEAD` to
+   equal `headRefOid`. If they differ, reconcile branch ownership and push the
+   intended revision before treating any PR or CI result as delivery evidence.
 2. Determine expected checks from checked-in workflows and applicable repository
    rules. Check required checks when the host exposes them:
    `gh pr checks <number> --required`. Also inspect the full check list; required

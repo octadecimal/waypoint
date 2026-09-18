@@ -14,8 +14,8 @@ Use $astra-plan to brainstorm export filters. Do not implement yet.
 ```
 
 ```text
-Use $astra-plan in auto mode to implement export filters and deliver an open PR
-with passing CI. Use cheaper workers where the result is easy to verify.
+Use $astra-plan in auto mode to implement export filters. Use cheaper workers
+where the result is easy to verify.
 ```
 
 ```text
@@ -30,10 +30,14 @@ skill authoring to the appropriate standalone skill. The
 [full replacement map](references/superpowers-parity.md) lists every original
 workflow, its replacement, preserved helpers, and intentional behavior changes.
 
-Collaborative mode is the default: approve the concrete plan once. Auto mode
-proceeds within the requested scope without routine approval prompts. An explicit
-plan-only or local-only instruction always keeps that boundary. Automatic skill
-selection is enabled; selection itself never grants publishing authority.
+Collaborative mode is the default: approve the concrete implementation plan once.
+That approval includes commit, push, an open or updated PR, and current-head green
+CI unless the user explicitly says plan-only, local-only, no-push, or no-PR. A
+normal "yes" or "go ahead" to implementation is enough; do not add a separate PR
+approval gate. Auto mode proceeds within the requested scope without routine
+approval prompts. Design or mockup approval alone does not authorize production
+implementation, and automatic skill selection grants no authority by itself. See
+[delivery authority and CI completion](references/ci-completion.md).
 
 The skill uses Astra in the main conversation when available, otherwise creates
 an Astra planning child automatically. Astra also creates and revises UI designs
@@ -44,11 +48,13 @@ coordinates and verifies. Model choices adapt to the live allowlist; see
 [routing](references/model-routing.md). A skill cannot switch the main model,
 guarantee model access, or measure savings without usage evidence.
 
-For authorized PR delivery, ordinary CI failures stay with the agent until fixed
-or genuinely blocked. The normal handoff is an open PR with current passing CI,
-verification evidence, and concrete manual test steps. Merge requires hands-on
-testing and explicit approval of the current revision. This plugin does not change
-GitHub branch protection; repositories retain their own enforcement and merge rules.
+After implementation is requested or approved, ordinary CI failures stay with the
+agent until fixed or genuinely blocked. The normal handoff is an open PR with
+current passing CI, verification evidence, and concrete manual test steps. Explicit
+local-only or no-push/no-PR instructions keep the work local. Merge requires
+hands-on testing and explicit approval of the current revision. This plugin does
+not change GitHub branch protection; repositories retain their own enforcement and
+merge rules.
 
 ## Preview UI designs
 

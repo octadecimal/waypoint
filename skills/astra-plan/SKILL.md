@@ -34,14 +34,17 @@ Use the user's latest intent:
 | Intent | Behavior |
 | --- | --- |
 | Brainstorm, explore options, or explicitly plan only | Research and discuss; stop with a proposal. |
-| Collaborative execution (default) | Present a concrete plan and obtain one go-ahead before implementation. |
+| Collaborative execution (default) | Present a concrete plan. Ask once only if implementation has not already been requested or approved; then deliver through a green PR. |
 | Auto, proceed autonomously, or work through to a green PR | State the plan and proceed within the authorized scope; do not request the same approval again. |
 
-An explicit plan-only request overrides an earlier auto preference for this task.
-Skill discovery alone grants no publishing authority. Include the delivery target
-in the proposed plan: local changes or commit, push, and open PR. Explicit approval
-of that concrete plan authorizes its stated actions; an explicit green-PR request
-already supplies that authority. Neither mode grants merge or deployment approval.
+Read [delivery authority and CI completion](../../references/ci-completion.md). An
+explicit plan-only, local-only, no-push, or no-PR request overrides the green-PR
+default and remains in force unless the user changes it. A normal "yes" or "go
+ahead" to the concrete implementation plan authorizes implementation and green-PR
+delivery. Approval of a design or mockup alone does not. Skill discovery grants no
+authority by itself. Ask about a material unresolved design choice when needed,
+but do not turn planning into a second implementation or publication gate. Neither
+mode grants merge or deployment approval.
 
 ## 2. Understand and plan proportionally
 
@@ -141,9 +144,10 @@ test adequacy. Fix concrete findings; do not add ritual review rounds.
 
 ## 4. Finish or resume
 
-For an authorized PR delivery, invoke [Astra Complete](../astra-complete/SKILL.md)
-and continue through CI without another routine permission prompt. A plan-only or
-local-only request keeps its stated boundary.
+For approved implementation, invoke [Astra Complete](../astra-complete/SKILL.md)
+and continue through green-PR delivery without another routine permission prompt.
+An explicit plan-only, local-only, no-push, or no-PR request keeps its stated
+boundary.
 
 For work spanning multiple tasks or turns, keep a short checkpoint under
 `<git-common-dir>/astra-workflow/<task-id>.md` using a safe task identifier. Record

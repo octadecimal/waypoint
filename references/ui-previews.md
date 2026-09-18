@@ -70,8 +70,9 @@ recovery. HTTP success is reachability evidence, not browser rendering evidence.
   costly, explain the tradeoff instead of silently consuming a large budget.
 - Revise the same design when feedback calls for it, using clear revision labels.
   Record the selected revision and the user's actual feedback in the plan/checkpoint.
-  A radio selection or preview click alone is not approval to implement, publish,
-  or merge. Use explicit chat feedback or a supported confirmed feedback action.
+  A radio selection, preview click, or "yes" to the visual choice approves only the
+  design. Production implementation still needs an explicit implementation request
+  or approval of the concrete implementation plan.
 - In auto mode, state the selected direction and proceed under existing authority;
   pause only for consequential unresolved choices. No mandatory approval carousel.
 - Stop only the preview process this task owns when finished. Keep the selected
