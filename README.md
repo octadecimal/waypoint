@@ -1,7 +1,8 @@
 # Astra Workflow
 
-A private Codex plugin for Astra-led planning, economical subagents, and delivery
-through an open pull request with passing CI.
+A private Codex plugin that replaces the original brainstorming workflow with
+Astra-led design, UI mockup previews, economical subagents, and delivery through
+an open pull request with passing CI.
 
 ## Use
 
@@ -22,7 +23,7 @@ Use $astra-complete to finish this branch and prepare it for my hands-on testing
 
 | Skill | Responsibility |
 | --- | --- |
-| [astra-plan](skills/astra-plan/SKILL.md) | Adaptive brainstorming, Astra planning, model assignments, TDD, integration, completion handoff |
+| [astra-plan](skills/astra-plan/SKILL.md) | Default brainstorming, UI previews, Astra planning, model assignments, TDD, integration, completion handoff |
 | [astra-complete](skills/astra-complete/SKILL.md) | Verify existing work, open/update a PR, repair CI, prepare testing, merge only after post-test approval |
 
 Collaborative mode is the default: approve the concrete plan once. Auto mode
@@ -41,6 +42,52 @@ or genuinely blocked. The normal handoff is an open PR with current passing CI,
 verification evidence, and concrete manual test steps. Merge requires hands-on
 testing and explicit approval of the current revision. This plugin does not change
 GitHub branch protection; repositories retain their own enforcement and merge rules.
+
+## Preview UI designs
+
+```text
+Use $astra-plan to compare two settings-page layouts. Show previews before we
+decide; do not implement yet.
+```
+
+Use Codex's inline mockup surface when available. Otherwise use an inspectable,
+self-contained browser prototype. The bundled [example](assets/ui-preview.html)
+compares sidebar and top navigation with a native radio selector. It needs no
+JavaScript, server package, or Superpowers installation. The illustrated product
+screen is static; the layout selector is interactive.
+
+The [preview workflow](references/ui-previews.md) covers revision feedback,
+responsive checks, auto mode, and a loopback-only static-server fallback. Python
+is optional for that fallback; it is not required for inline or local-file previews.
+Preview selections record design preferences, not permission to implement or merge.
+
+## Replace the original brainstorming skill
+
+Astra Plan handles new projects, features, components, UI decisions, and behavior
+changes. Use it directly rather than running two brainstorming gates. Existing
+decisions and approvals carry forward; auto mode remains available.
+
+If the original skill is bundled in Superpowers, removing the whole plugin would
+also remove unrelated skills. Disable only `superpowers:brainstorming` using the
+host's skill controls after validating this replacement. In Codex versions with
+the name selector, the app-server operation is:
+
+```json
+{"method":"skills/config/write","params":{"name":"superpowers:brainstorming","enabled":false}}
+```
+
+Verify the actual available schema before using this operation. Name selection
+avoids a version-specific cache path. Older hosts may support only the full
+`SKILL.md` path in `[[skills.config]]`; recheck after plugin updates in that case.
+Do not delete files from a plugin-managed cache. This disables the bundled skill;
+it does not uninstall the rest of Superpowers or erase the bundled file.
+
+When the user requests full replacement, add a narrow personal instruction routing
+legacy references to `brainstorming` or `superpowers:brainstorming` to
+`astra-workflow:astra-plan`. Preserve unrelated personal instructions. Verify Astra
+skills remain enabled and other Superpowers skills retain their previous state.
+Restart Codex or start a fresh session as required by the host; an existing
+conversation may still contain the previous skill's instructions.
 
 ## Install locally
 

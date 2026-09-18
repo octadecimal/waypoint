@@ -57,14 +57,16 @@ class PackageTests(unittest.TestCase):
             self.assertGreaterEqual(len(parts[1].strip().split()), 10, skill_path)
 
     def test_relative_markdown_links_resolve_inside_plugin(self) -> None:
-        for markdown_path in (PLUGIN_ROOT / "skills").rglob("*.md"):
+        markdown_paths = [
+            *(PLUGIN_ROOT / "skills").rglob("*.md"),
+            *(PLUGIN_ROOT / "references").rglob("*.md"),
+        ]
+        for markdown_path in markdown_paths:
             for target in MARKDOWN_LINK.findall(markdown_path.read_text(encoding="utf-8")):
                 parsed = urlparse(target)
                 if parsed.scheme or target.startswith("//") or target.startswith("#"):
                     continue
                 path = (markdown_path.parent / unquote(parsed.path)).resolve()
-                if path.suffix.lower() != ".md":
-                    continue
                 self.assertTrue(path.is_relative_to(PLUGIN_ROOT.resolve()), target)
                 self.assertTrue(path.is_file(), target)
 

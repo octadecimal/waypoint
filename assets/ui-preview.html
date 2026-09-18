@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workspace navigation · UI preview</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: clamp(16px, 4vw, 48px); color: light-dark(#202529, #e5e9ee); background: light-dark(#eef1f4, #15191e); }
+    h1 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 8px; }
+    h2 { font-size: 22px; margin: 0; }
+    p { line-height: 1.5; }
+    .preview-heading, fieldset, .app-window, .feedback { max-width: 1100px; margin-inline: auto; }
+    .preview-heading p { margin-top: 0; }
+    fieldset { padding: 16px 0 24px; border: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+    legend { font-weight: 600; padding: 0; }
+    .layout-choice { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border: 1px solid light-dark(#b8c2cd, #657386); border-radius: 8px; cursor: pointer; }
+    input { accent-color: light-dark(#225ba5, #9bc3fa); }
+    .layout-choice:has(input:checked) { background: light-dark(#dceafa, #223853); border-color: light-dark(#225ba5, #9bc3fa); }
+    :focus-visible { outline: 3px solid light-dark(#225ba5, #9bc3fa); outline-offset: 4px; }
+    .app-window { display: grid; grid-template-columns: 210px minmax(0, 1fr); min-height: 460px; overflow: hidden; border: 1px solid light-dark(#c1cbd6, #4c5969); border-radius: 12px; background: light-dark(#ffffff, #20262e); }
+    .navigation { display: flex; flex-direction: column; gap: 24px; padding: 24px 20px; background: light-dark(#f7f9fc, #1c2229); border-right: 1px solid light-dark(#dce2ea, #4c5969); }
+    .brand { font-size: 19px; font-weight: 650; letter-spacing: -.5px; }
+    nav { display: flex; flex-direction: column; gap: 8px; }
+    .nav-item { padding: 10px 12px; border-radius: 6px; }
+    .nav-item[aria-current] { background: light-dark(#e1ecfa, #2b4160); font-weight: 600; }
+    .workspace { min-width: 0; padding: clamp(20px, 3vw, 36px); }
+    .workspace > p { margin: 8px 0 28px; color: light-dark(#4c5a6a, #afbed0); }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .section-heading h3 { margin: 0; font-size: 16px; }
+    .count { font-size: 14px; color: light-dark(#4c5a6a, #afbed0); }
+    .task { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid light-dark(#dce2ea, #4c5969); }
+    .task strong { display: block; font-size: 15px; font-weight: 600; }
+    .task small { display: block; margin-top: 6px; font-size: 13px; color: light-dark(#4c5a6a, #afbed0); }
+    .status { flex-shrink: 0; padding: 5px 9px; border-radius: 5px; font-size: 12px; background: light-dark(#edf0f4, #343e4b); }
+    .active { background: light-dark(#dceafa, #2b4160); }
+    .feedback { font-size: 14px; margin-top: 18px; }
+    body:has(#topbar:checked) .app-window { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+    body:has(#topbar:checked) .navigation { flex-direction: row; align-items: center; flex-wrap: wrap; padding: 16px 24px; border-right: 0; border-bottom: 1px solid light-dark(#dce2ea, #4c5969); }
+    body:has(#topbar:checked) nav { flex-direction: row; flex-wrap: wrap; margin-left: auto; }
+    @media (max-width: 640px) {
+      .app-window { grid-template-columns: minmax(0, 1fr); }
+      .navigation { padding: 18px; border-right: 0; border-bottom: 1px solid light-dark(#dce2ea, #4c5969); gap: 12px; }
+      nav { flex-direction: row; flex-wrap: wrap; }
+      body:has(#topbar:checked) nav { margin-left: 0; }
+      .task { align-items: flex-start; flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="preview-heading">
+    <h1>Which navigation feels clearer?</h1>
+    <p>Revision 1 · Workspace mockup · Sample content</p>
+  </header>
+  <fieldset>
+    <legend>Compare two layouts</legend>
+    <label class="layout-choice"><input id="sidebar" type="radio" name="layout" value="sidebar" checked> A · Sidebar</label>
+    <label class="layout-choice"><input id="topbar" type="radio" name="layout" value="topbar"> B · Top navigation</label>
+  </fieldset>
+  <div class="app-window" aria-label="Workspace mockup">
+    <aside class="navigation">
+      <div class="brand">Workbench</div>
+      <nav aria-label="Illustrated workspace navigation">
+        <span class="nav-item" aria-current="page">Overview</span>
+        <span class="nav-item">Projects</span>
+        <span class="nav-item">Activity</span>
+      </nav>
+    </aside>
+    <main class="workspace">
+      <h2>Your workspace</h2>
+      <p>A quiet place to see what's moving and what needs you.</p>
+      <section aria-labelledby="tasks-heading">
+        <div class="section-heading"><h3 id="tasks-heading">Current work</h3><span class="count">3 tasks</span></div>
+        <div class="task"><div><strong>Refine project navigation</strong><small>Website · Updated just now</small></div><span class="status active">In progress</span></div>
+        <div class="task"><div><strong>Review the export flow</strong><small>Workspace · Updated 20 minutes ago</small></div><span class="status">Ready for review</span></div>
+        <div class="task"><div><strong>Improve the empty state</strong><small>Website · Updated an hour ago</small></div><span class="status">Planned</span></div>
+      </section>
+    </main>
+  </div>
+  <p class="feedback">The layout selector works; the product screen is illustrative. Tell the agent which direction to refine. Selecting a layout does not authorize implementation.</p>
+</body>
+</html>

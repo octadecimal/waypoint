@@ -1,6 +1,6 @@
 ---
 name: astra-plan
-description: Plan repository work with Astra when a user wants adaptive brainstorming, economical subagents, or optional automatic execution through a PR with passing CI. For finishing an existing branch, use astra-complete.
+description: Brainstorm and plan new projects, features, UI designs, components, and behavior changes with Astra before implementation. Replaces the original brainstorming workflow, with UI mockup previews, economical workers, and optional execution through a green PR. For finishing an existing branch, use astra-complete.
 ---
 
 # Astra Plan
@@ -8,6 +8,10 @@ description: Plan repository work with Astra when a user wants adaptive brainsto
 Turn the user's goal into verified work. Astra owns planning; one coordinator
 owns integration. Follow the repository's instructions and permissions. This
 skill explicitly permits bounded subagent delegation and model selection.
+
+This is the brainstorming entry point, not a second design gate after another
+brainstorming skill. Carry existing decisions and approvals forward. A feasibility
+request can end with findings; do not turn a throwaway probe into product work.
 
 If you are already a dispatched worker, perform only your assigned task. Do not
 restart this workflow, create another planner, or broaden your authority.
@@ -44,10 +48,18 @@ at a time when brainstorming. For clear requests, propose a short plan. For real
 ambiguity, compare plausible approaches and recommend one. Avoid compulsory specs,
 ceremonial questions, or unrelated refactors.
 
+For visual decisions about layout, navigation, hierarchy, or interaction, use
+[UI mockup previews](../../references/ui-previews.md) at the point they help the
+user decide. A requested preview is part of brainstorming, not production
+implementation. Keep conceptual questions in chat. In auto mode, choose a justified
+visual direction and continue; do not invent a new approval gate for every mockup.
+
 Present:
 
 - Outcome, scope, exclusions, and observable acceptance criteria.
 - Chosen approach, significant assumptions, and unresolved decisions.
+- For UI work, the current preview revision and the user's selected direction,
+  distinguishing visual preferences from implementation authorization.
 - Tasks, dependencies, file ownership, selected model and effort, and a short
   routing rationale. Identify work that is cheaper to perform directly.
 - TDD checks, integration verification, expected CI checks, and delivery target.
