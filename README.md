@@ -82,6 +82,20 @@ See the [preview workflow](references/ui-previews.md) for choosing a surface,
 revision feedback, responsive checks, and honest validation limits. Preview clicks
 express design preferences, never permission to implement or merge.
 
+## Optional Chrome DevTools MCP
+
+Astra Workflow automatically uses an available
+[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) for
+evidence-based frontend debugging and applicable browser health checks. It is an
+external MCP configured separately in Codex, not a server bundled or registered by
+this plugin. After adding or changing the MCP configuration, start a new Codex
+thread if the tools are not present in the current thread's live schema.
+
+Browser checks use an isolated task-owned browser and local or fake application
+data. They do not attach to normal browser profiles or consume provider quota, and
+a headless check does not replace opening a visible preview when the workflow calls
+for one.
+
 ## Replace Superpowers completely
 
 Install and validate this plugin first, then uninstall the original through Codex:

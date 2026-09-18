@@ -40,6 +40,29 @@ and its callers completely enough to identify every relevant difference. Check
 assumptions about initialization, ownership, ordering, permissions, paths, and
 cleanup.
 
+### Browser-facing failures
+
+For a UI, browser, or frontend failure, automatically use the Chrome DevTools MCP
+when it is available in the live tool schema. Use only operations the schema
+actually exposes. Collect the narrow evidence relevant to the symptom: console
+errors, failed or unexpected network requests, DOM or accessibility state, and a
+screenshot when visual state matters. Record a performance trace only for a
+performance symptom. Establish this evidence before patching and repeat the same
+observation after the fix.
+
+Use a task-owned isolated browser with local or fake application data. Preserve
+the operator's normal browser profiles, tabs, sessions, history, credentials, and
+live data. Do not spend provider quota, weaken authentication, bypass a security
+boundary, or reuse privileged state to make a reproduction pass. Keep one owner
+of the browser investigation; do not dispatch parallel agents that can select
+pages or race the same browser. A successful headless check does not prove that a
+visible preview was opened for the user.
+
+If the MCP is absent from the live schema, or was configured after this thread
+started and requires a new thread, state that limitation and use another
+repository-supported browser check when available. Never report console, network,
+DOM, screenshot, or trace evidence that was not observed.
+
 ## 3. Test one hypothesis
 
 Write one falsifiable statement:

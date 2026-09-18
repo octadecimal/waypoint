@@ -110,6 +110,16 @@ appropriate HTTP, health, or browser checks before calling the branch ready. Giv
 the clickable URL and prepared checklist. Use safe local/fake data and credentials;
 never exercise live billed providers or operator data merely as test evidence.
 
+When the runnable surface includes a browser UI and the Chrome DevTools MCP is
+available, use it for the applicable browser health check. Inspect only the page,
+console, network, DOM or accessibility state, and screenshot evidence needed for
+the changed behavior; capture a performance trace only when performance is in
+scope. Use an isolated task-owned browser and fake or local application data, with
+one browser owner. Preserve normal profiles and live sessions, and never bypass
+authentication or another security boundary. If the MCP is unavailable, use an
+existing repository-supported check and disclose the missing browser evidence.
+Headless browser health does not mean a visible preview was opened for the user.
+
 If startup or reachability fails, diagnose and repair bounded task-owned failures,
 rerun affected verification and current-head CI when code changes, then retry. A
 concrete environmental or authorization blocker is a blocked handoff, not a ready

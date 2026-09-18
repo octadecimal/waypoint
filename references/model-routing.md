@@ -58,6 +58,12 @@ One coupled task uses one worker for its complete RED/GREEN cycle. Sequential wo
 changes scheduling, not worker ownership. The coordinator plans, coordinates,
 reviews, integrates, runs final checks, and owns Git and external mutations.
 
+Routine browser investigation with an available Chrome DevTools MCP may go to a
+cheaper capable worker. Astra still owns visual design, interaction decisions,
+mockup revision, and interpretation of user feedback. Assign one browser owner for
+the coupled investigation and repair; do not run parallel workers that can select
+pages or race the same browser session.
+
 The only exceptions are:
 
 - the user explicitly requires inline or no-agent execution;
