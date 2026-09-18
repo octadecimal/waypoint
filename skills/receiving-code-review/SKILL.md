@@ -46,6 +46,11 @@ Avoid praise, gratitude, or agreement that substitutes for verification. If an e
 
 ## Apply accepted feedback
 
+Before an accepted finding causes code or test edits, read
+[model routing](../../references/model-routing.md), record the route, and dispatch
+or reuse one edit-only worker for the related fix set. Keep its follow-up fixes with
+that same worker; it owns the complete RED/GREEN cycle and does not delegate.
+
 Order multi-item feedback by dependency:
 
 1. Security, data loss, or broken behavior.
@@ -56,7 +61,9 @@ Order multi-item feedback by dependency:
 
 For behavior fixes, reproduce the defect with a focused failing test before implementation, then make the smallest passing change. A review comment is not proof; the failing test or direct evidence is. Run the affected checks after each related group and an integration check before completion.
 
-Workers may edit only assigned paths and return their evidence. They do not stage, commit, push, update PRs, or spawn more workers unless explicitly assigned coordinator authority. The main coordinator owns Git mutation, publication, and CI.
+Workers edit only assigned paths and return their evidence. They do not stage,
+commit, push, update PRs, or spawn more workers. The main coordinator owns Git
+mutation, publication, and CI.
 
 When replying to inline GitHub review comments, reply in the original thread through the supported GitHub surface. Do not convert inline discussion into unrelated top-level comments. Sending external replies requires the user's existing authorization for that PR workflow.
 

@@ -11,6 +11,11 @@ before taking task actions, read them, and briefly announce their purpose. Reuse
 skills already read in this conversation. Do not load unrelated skills merely
 because a keyword appears.
 
+Before any edit, read [model routing](../../references/model-routing.md) and apply
+its required worker routing. This skill explicitly authorizes bounded delegation
+and model selection; the user does not need to mention agents. A dispatched
+edit-only worker performs its assignment itself and does not delegate again.
+
 User intent and higher-priority instructions govern. Carry existing decisions
 forward, preserve plan-only/local-only limits, and do not ask again for authorized
 auto execution. Skills cannot grant merge, deployment, billing, or unrelated
@@ -24,7 +29,7 @@ when delegating or resuming a workflow.
 | New behavior, project, feature, UI direction, or feasibility question | [astra-plan](../astra-plan/SKILL.md) |
 | Turn an accepted design into executable tasks | [writing-plans](../writing-plans/SKILL.md) |
 | Execute an existing plan in this session with workers | [subagent-driven-development](../subagent-driven-development/SKILL.md) |
-| Resume a plan in another session or execute it directly | [executing-plans](../executing-plans/SKILL.md) |
+| Resume or execute a plan with a lightweight sequential worker path | [executing-plans](../executing-plans/SKILL.md) |
 | Several independent investigations or work packages | [dispatching-parallel-agents](../dispatching-parallel-agents/SKILL.md) |
 | Unknown failure, regression, flaky test, or performance issue | [systematic-debugging](../systematic-debugging/SKILL.md) |
 | Implement a behavior change or bug fix | [test-driven-development](../test-driven-development/SKILL.md) |

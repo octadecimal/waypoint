@@ -45,6 +45,18 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 
 ## Evaluation criteria (withhold from evaluator)
 
+Routing regression trials must exercise real tools in a disposable repository.
+Use an ordinary approval such as "Yes, that looks good. Go ahead and keep it
+local," after a concrete accepted design. Do not mention delegation or models in
+the simulated user request. Inspect actual dispatch arguments, file edits, and
+test output: an economical worker must own both the failing regression and the
+production fix, and the coordinator must verify the result without publishing.
+Repeat through standalone TDD with a small coupled change; size and sequential
+execution must not bypass routing. Plan-only and purely prose-only controls must
+avoid unnecessary implementation; a real unavailable-tool control must report
+its concrete limitation instead of claiming a worker ran. Record which controls
+actually ran, separately from simulations and static package checks.
+
 - A: Astra owns planning; coordinator relays questions. No implementation or PR.
 - B: Concrete auto plan, Astra planning, economical capable worker with valid
   explicit model/effort/context args; observed red/green; agent fixes CI and watches

@@ -5,6 +5,11 @@ description: Use when implementing a feature, bug fix, or intentional behavior c
 
 # Test-driven development
 
+Before RED, a coordinator reads [model routing](../../references/model-routing.md),
+records the task/model/effort and reason, and dispatches or reuses the selected
+edit-only worker. That worker owns the complete RED/GREEN cycle and performs it
+without recursive delegation. The coordinator reviews and integrates its result.
+
 For behavior changes, prove the test can detect the missing behavior before writing
 the fix. The useful cycle is evidence, not ceremony:
 

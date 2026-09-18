@@ -21,7 +21,10 @@ Use parallel workers when all of these are true:
 - One task does not consume another task's unfinished output.
 - The tasks do not contend for the same database, process, port, browser state, test fixture, or external resource.
 
-Keep work sequential when failures may share a root cause, tasks touch the same files, a later task depends on an earlier interface, or broad investigation must first identify the boundaries. Do not create workers merely to avoid a small amount of direct work; dispatch and review have a cost.
+Keep work sequential when failures may share a root cause, tasks touch the same
+files, a later task depends on an earlier interface, or broad investigation must
+first identify the boundaries. Sequential tasks still use workers under the shared
+routing guide; wait for or reuse a worker rather than moving routine edits inline.
 
 ## Build the task graph
 
@@ -46,7 +49,9 @@ Each worker brief contains:
 5. The smallest verification that proves the result.
 6. A report contract: changed paths, commands/results, findings, and unresolved risks.
 
-Workers edit only their assigned files. They do not stage, commit, push, open or update PRs, run CI mutations, or spawn more workers unless the coordinator explicitly assigns that role. The main coordinator owns all Git mutation, integration, publication, and CI decisions.
+Workers edit only their assigned files. They do not stage, commit, push, open or
+update PRs, run CI mutations, or spawn more workers. The main coordinator owns all
+Git mutation, integration, publication, and CI decisions.
 
 Do not pass the entire conversation by default. With `collaboration.spawn_agent`, use `fork_turns: "none"` for a self-contained brief or a supported numeric string for limited recent context. A full-history fork (`"all"`) inherits the parent model and cannot take a model override. Never invent unsupported fork values.
 

@@ -19,7 +19,7 @@ explicitly selected Astra child when available. If neither an Astra conversation
 nor an Astra child is available, explain the limitation and ask for a planning
 fallback or a model switch; do not silently label another model Astra.
 
-## Balanced routing, cheaper first when checkable
+## Required implementation routing
 
 Minimize the cost of reaching a verified result, including context, retries, and
 review. Choose capability using ambiguity, consequence of error, and strength of
@@ -36,12 +36,33 @@ session's actual allowlist and capability/cost information, not a price table:
 Do not assume relative prices among middle-tier models without session evidence.
 When a preferred worker is unavailable, use an available model suited to the task
 and disclose the fallback. Honor user cost limits; if none of the available choices
-fits, surface the constraint. Do not force delegation for a task whose brief and
-review would cost more than doing it directly.
+fits, surface the constraint.
+
+For routine executable code or test edits, every coordinator must dispatch or
+reuse a cheaper capable edit-only worker. Before dispatch, record the task, model,
+effort, and short routing reason; then make the actual spawn or follow-up call.
+One coupled task uses one worker for its complete RED/GREEN cycle. Sequential work
+changes scheduling, not worker ownership. The coordinator plans, coordinates,
+reviews, integrates, runs final checks, and owns Git and external mutations.
+
+The only exceptions are:
+
+- the user explicitly requires inline or no-agent execution;
+- dispatch or suitable-model selection is actually unavailable in the live tool
+  or allowlist; temporarily full slots require reuse or waiting, not inline work;
+- the change is pure non-executable prose or a comment typo, with no behavior,
+  tests, configuration, dependency, schema, or contract effect.
+
+`Small`, one-file, obvious, coupled, a deadline, or estimated briefing cost are not
+exceptions. A fallback requires concrete live evidence such as an unavailable tool,
+an allowlist mismatch, or a dispatch error; a coordinator's assertion is not
+evidence. Escalate model strength or effort only when new context or observed
+evidence justifies it. Consequential non-routine work may use a stronger model, but
+do not assume every review requires Astra.
 
 ## Dispatch and escalation
 
-Set model and reasoning effort explicitly when supported. In the current
+Set model and reasoning effort explicitly. In the current
 `collaboration.spawn_agent` surface, use `fork_turns: "none"` for a focused brief,
 or a supported numeric string for a small partial history. A full-history fork
 inherits the parent and does not accept overrides. Never send the literal value
@@ -50,7 +71,8 @@ inherits the parent and does not accept overrides. Never send the literal value
 Keep workers' context limited to their task, shared contracts, relevant paths and
 evidence, acceptance checks, and constraints. Reuse an existing worker for fixes
 using the session's supported follow-up tool. Respect the session's slot limit;
-avoid nested fan-out and idle duplicate agents.
+avoid nested fan-out and idle duplicate agents. An edit-only worker performs its
+assignment itself and never recursively delegates.
 
 On failure, inspect the evidence first. Missing context calls for a corrected
 brief; difficult reasoning calls for a stronger supported model or effort. Do not

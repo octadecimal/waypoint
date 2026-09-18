@@ -12,7 +12,7 @@ read the routing guide and have Astra own the replan: use the current Astra mode
 or automatically dispatch/reuse a read-only Astra planner. Preserve the existing
 mode and authorization boundary; return material scope changes to the user.
 This skill authorizes bounded delegation with model selection; read
-[model routing](../../references/model-routing.md) if workers would help.
+[model routing](../../references/model-routing.md) before any repair edit.
 
 The coordinator is the only integration owner. Follow project instructions for
 worktrees, commits, verification, merge method, and runtime safety. Derive repository
@@ -67,8 +67,11 @@ for it. Verify the PR's URL, head, base, and open state after publication.
 
 Read [CI evidence and repair](../../references/ci-completion.md). Discover expected
 checks from workflows, repository rules, and project guidance. Observe checks for
-the current PR revision, diagnose failures, repair authorized problems, validate,
-push, and observe again. Pending CI is ongoing work, not a handoff to the user.
+the current PR revision and diagnose failures. Dispatch or reuse one cheaper capable
+edit-only worker for each routine repair, including its focused RED/GREEN check;
+send follow-up fixes to that same worker. The coordinator reviews, integrates,
+validates, pushes, and observes again. Pending CI is ongoing work, not a handoff to
+the user.
 
 Do not disable tests, loosen assertions, bypass protection, or edit workflows merely
 to obtain green status. Legitimate test/workflow fixes need evidence that the

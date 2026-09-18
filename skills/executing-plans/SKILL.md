@@ -1,13 +1,16 @@
 ---
 name: executing-plans
-description: Use when a written implementation plan should be executed in the current session without a worker-per-task workflow.
+description: Use when a written implementation plan should be executed through a lightweight sequential worker path without the heavier task-review packaging workflow.
 ---
 
 # Executing Plans
 
 Load the plan, check it against current repository reality, execute every authorized task, verify the integrated result, and hand delivery to `astra-workflow:astra-complete` when the plan includes a PR.
 
-Use `astra-workflow:subagent-driven-development` instead when independent tasks justify fresh workers and task-scoped review. Use this skill for tightly coupled tasks, limited collaboration capacity, or a plan that calls for direct coordinator execution.
+Use `astra-workflow:subagent-driven-development` instead when independent tasks
+justify its task-review packaging. Use this skill for tightly coupled or sequential
+tasks and limited collaboration capacity. It still dispatches or reuses one
+edit-only worker for each routine code/test task; sequential does not mean inline.
 
 ## Preserve the task mode
 
@@ -29,21 +32,36 @@ Existing decisions and authorization override generic workflow prompts. Do not t
 4. Create task tracking from the plan and mark already completed work only when Git state and verification evidence prove it.
 5. Record a short durable checkpoint when work spans tasks or turns. Use the repository's established checkpoint location; otherwise use `<git-common-dir>/astra-workflow/<safe-task-id>.md`. Include plan path, mode, authorization source, branch/worktree, current task, verification revision, and pending work. Do not store secrets or commit the checkpoint.
 
-Fix stale paths, harmless typos, and reversible implementation details directly. Material changes to architecture, scope, acceptance criteria, or task decomposition require Astra planning. Read [model routing](../../references/model-routing.md); if the current model is not Astra, dispatch or reuse one read-only Astra planner with the plan, spec, evidence, and authorization boundary. In auto mode, apply its justified replan without asking again unless the new scope exceeds the user's authorization. In collaborative mode, return a materially expanded scope to the user.
+Resolve stale paths, harmless typos, and reversible implementation decisions during
+plan review. Material changes to architecture, scope, acceptance criteria, or task
+decomposition require Astra planning. Read
+[model routing](../../references/model-routing.md); if the current model is not
+Astra, dispatch or reuse one read-only Astra planner with the plan, spec, evidence,
+and authorization boundary. In auto mode, apply its justified replan without asking
+again unless the new scope exceeds the user's authorization. In collaborative mode,
+return a materially expanded scope to the user.
 
 Stop only when every safe path depends on missing information, a destructive or irreversible action lacks authority, a security-sensitive decision is unresolved, or required external access is unavailable. A routine plan defect is a replan, not an automatic user interruption.
 
 ## 2. Execute each task
 
+Read [model routing](../../references/model-routing.md), record the task/model/effort
+and routing reason, then dispatch or reuse the selected worker. One worker owns a
+coupled task's complete RED/GREEN cycle. The coordinator retains plan decisions,
+review, integration, final checks, checkpoints, and Git operations.
+
 For each task:
 
 1. Mark it in progress and identify the task's acceptance check.
-2. For behavior changes, write or select the focused test, run it, and observe the expected failure before implementation. Existing failing regression tests may supply the red step. For behavior-preserving work, establish passing coverage before editing. Prose and metadata use relevant validation instead of manufactured behavioral tests.
-3. Implement the smallest change that satisfies the task. Reuse repository patterns and avoid unrelated refactors.
-4. Run the focused check and inspect the output. Keep red and green commands/results in the checkpoint or task report.
-5. Inspect the task diff against the plan. Resolve concrete defects before moving on.
-6. Let the main coordinator alone stage and create any authorized checkpoint commit. Use explicit paths, inspect the staged diff, and follow repository commit conventions.
-7. Mark the task complete and update the durable checkpoint in the same turn.
+2. Give the worker the task, owned paths, RED/GREEN check, constraints, and report
+   contract. The worker edits, tests, reports evidence, and does not delegate.
+3. Inspect the task diff and RED/GREEN evidence against the plan. Send concrete
+   fixes back to the same worker before moving on.
+4. Run the relevant integration check and inspect its output.
+5. Let the main coordinator alone stage and create any authorized checkpoint
+   commit. Use explicit paths, inspect the staged diff, and follow repository
+   commit conventions.
+6. Mark the task complete and update the durable checkpoint in the same turn.
 
 Do not batch past a failed verification. Diagnose the failure, repair it, and rerun the affected check. Escalate repeated failures with new evidence through the model-routing guide rather than repeating the same attempt.
 
@@ -75,6 +93,7 @@ If it includes a PR, invoke `astra-workflow:astra-complete`. Continue through pu
 | Re-ask after auto mode authorized a green PR | Continue within the stated scope. |
 | Follow a stale plan literally | Reconcile with the checkout; send material replanning to Astra. |
 | Ask the user about every reversible detail | Make a ruling, record it, and continue. |
+| Treat coupled or one-file work as inline | Give its complete RED/GREEN cycle to one worker. |
 | Continue after a failed acceptance check | Diagnose and restore green before the next task. |
 | Let a worker stage or commit | The main coordinator owns Git mutation and CI. |
 | Hand off while current-SHA CI is pending | Continue through `astra-complete` until green or concretely blocked. |

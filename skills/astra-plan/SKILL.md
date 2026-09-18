@@ -18,7 +18,7 @@ restart this workflow, create another planner, or broaden your authority.
 
 ## 1. Establish mode and planning ownership
 
-Read [model routing](../../references/model-routing.md) before dispatching.
+Read [model routing](../../references/model-routing.md) before any edit or dispatch.
 If the current model is Astra, plan here. Otherwise automatically dispatch an
 available Astra model as a read-only planner with a focused brief. Relay user
 answers and evidence to that same planner; use its plan for execution. Return
@@ -81,8 +81,8 @@ Present:
 - Chosen approach, significant assumptions, and unresolved decisions.
 - For UI work, the current preview revision and the user's selected direction,
   distinguishing visual preferences from implementation authorization.
-- Tasks, dependencies, file ownership, selected model and effort, and a short
-  routing rationale. Identify work that is cheaper to perform directly.
+- Tasks, dependencies, file ownership, selected worker model and effort, and a
+  short routing rationale.
 - TDD checks, integration verification, expected CI checks, and delivery target.
 
 In auto mode, choose reasonable defaults for reversible implementation details.
@@ -95,8 +95,12 @@ Use an isolated worktree according to repository policy. The coordinator owns
 staging, commits, pushes, PR updates, and CI decisions. Give each worker a bounded
 task, relevant evidence, file ownership, dependencies, acceptance checks, and
 instructions to return changed paths, commands/results, and unresolved risks.
-Workers may edit their assigned files, but do not commit, push, or spawn more
-workers unless explicitly assigned that authority.
+Workers edit only their assigned files and do not commit, push, or spawn more
+workers.
+
+Dispatch or reuse a cheaper capable edit-only worker for every routine code or
+test task under the routing guide. One worker owns the full RED/GREEN cycle for a
+coupled task; serialize dependencies without moving their edits to the coordinator.
 
 Use [worktree setup](../using-git-worktrees/SKILL.md) for isolation,
 [subagent-driven development](../subagent-driven-development/SKILL.md) for a

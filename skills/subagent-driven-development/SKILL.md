@@ -9,9 +9,16 @@ Execute a plan with a fresh edit-only implementer for each independent task, a t
 
 **Core principle:** focused worker + staged review package + coordinator-owned checkpoint + final Astra review.
 
-The coordinator retains the plan, cross-task context, Git state, publication authority, and CI loop. Workers never stage, commit, push, update a PR, mutate CI, or spawn subagents unless the user explicitly assigns them the coordinator role.
+The coordinator retains the plan, cross-task context, Git state, publication
+authority, and CI loop. Edit-only workers never stage, commit, push, update a PR,
+mutate CI, or spawn subagents.
 
-Read [model routing](../../references/model-routing.md) before dispatching. Use inexpensive workers for bounded mechanical tasks and scale up with risk. Material planning and replanning belong to Astra. The live collaboration schema is authoritative: a full-history fork (`fork_turns: "all"`) inherits the parent model and cannot take a model override; use `"none"` or a supported numeric string when selecting a model.
+Read [model routing](../../references/model-routing.md) before dispatching. Dispatch
+or reuse cheaper capable workers for routine code and test edits, and scale up only
+with evidence. Material planning and replanning belong to Astra. The live
+collaboration schema is authoritative: a full-history fork (`fork_turns: "all"`)
+inherits the parent model and cannot take a model override; use `"none"` or a
+supported numeric string when selecting a model.
 
 ## Preserve mode and authority
 
@@ -90,7 +97,9 @@ Use the shared routing guide rather than duplicating a price table:
 - Task review: match model strength to the diff and consequence of error.
 - Fix rounds 4-5: fresh worker at a stronger supported tier than the stuck implementer.
 
-Specify model and reasoning effort only when the live tool supports them. A focused `fork_turns: "none"` brief is the default. Do not force delegation when the brief and review cost more than direct execution.
+Specify model and reasoning effort explicitly with a focused `fork_turns: "none"`
+or supported numeric history. Routine implementation delegation is required under
+the shared routing guide; briefing cost, task size, and coupling are not exceptions.
 
 ## Task briefs and artifacts
 
@@ -122,7 +131,11 @@ checkpoint commit.
 
 Use [implementer prompt](implementer-prompt.md). Record the worker identity so rounds 1-3 can use `collaboration.followup_task` when available.
 
-Independent workers may run concurrently only when ownership does not overlap and tasks have no unfinished dependency. Follow `astra-workflow:dispatching-parallel-agents`. Serialize tasks that share files, interfaces, mutable resources, or test infrastructure. The shared filesystem makes fake independence dangerous.
+Independent workers may run concurrently only when ownership does not overlap and
+tasks have no unfinished dependency. Follow
+`astra-workflow:dispatching-parallel-agents`. Serialize tasks that share files,
+interfaces, mutable resources, or test infrastructure, while keeping each task with
+one worker. The shared filesystem makes fake independence dangerous.
 
 ## Handle the implementer report
 

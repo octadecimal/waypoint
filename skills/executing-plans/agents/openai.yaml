@@ -1,6 +1,6 @@
 interface:
   display_name: "Execute Plans"
-  short_description: "Execute a written plan with review checkpoints"
-  default_prompt: "Use $executing-plans to carry out this written implementation plan and verify the integrated result."
+  short_description: "Execute a plan with sequential edit-only workers"
+  default_prompt: "Use $executing-plans to carry out this written plan with the lightweight sequential worker path and verify the integrated result."
 policy:
   allow_implicit_invocation: true

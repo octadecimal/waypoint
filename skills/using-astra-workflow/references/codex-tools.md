@@ -4,9 +4,9 @@ The actual tool schema, available models, permissions, and repository instructio
 are authoritative. Do not edit global model/billing settings or enable paid API
 fallbacks to make this workflow run.
 
-- Read [model routing](../../../references/model-routing.md). Astra owns planning
-  and material replanning. Use cheaper capable workers for bounded, verifiable
-  assignments; escalate based on evidence, not habit.
+- Read [model routing](../../../references/model-routing.md) before edits. Astra
+  owns planning and material replanning. Coordinators dispatch or reuse cheaper
+  capable workers for routine code and test edits; escalate based on evidence.
 - With `collaboration.spawn_agent`, specify a supported model and effort when
   routing. Use `fork_turns: "none"` or a supported numeric history count for
   overrides; a full-history `"all"` fork inherits the parent and cannot override
@@ -19,9 +19,10 @@ fallbacks to make this workflow run.
 - Work locally while workers run. When idle, use the event-based wait tool with
   a duration compatible with the host's progress-update limits. Avoid busy polling.
   Do not call a nonexistent close operation; use only available lifecycle tools.
-- If delegation/model selection is unavailable, state the limitation and perform
-  bounded work locally when allowed. Do not claim Astra planning occurred without
-  an available Astra model; honor any hard model requirement before dependent work.
+- If delegation or model selection is unavailable, preserve the concrete tool,
+  allowlist, or dispatch evidence before using an allowed fallback. Full slots call
+  for reuse or waiting. Do not claim Astra planning occurred without an available
+  Astra model; honor any hard model requirement before dependent work.
 - Read-only `git rev-parse --git-dir`, `--git-common-dir`, `git worktree list`, and
   `git branch --show-current` identify linked worktrees and detached HEAD. Inspect
   ownership before creating branches or moving work. Do not assume detached HEAD

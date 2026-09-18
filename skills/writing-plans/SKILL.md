@@ -50,8 +50,8 @@ Every implementation plan starts with:
 
 > **Execution:** Use `astra-workflow:subagent-driven-development` for independent
 > tasks with worker review, or `astra-workflow:executing-plans` for tightly coupled
-> work. Workers do not stage, commit, push, or publish; the coordinator owns Git,
-> integration, PRs, and CI.
+> work. Both routes dispatch edit-only implementation workers; the coordinator owns
+> Git, integration, PRs, and CI.
 
 **Goal:** [One observable sentence]
 

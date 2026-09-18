@@ -36,8 +36,10 @@ plan-only or local-only instruction always keeps that boundary. Automatic skill
 selection is enabled; selection itself never grants publishing authority.
 
 The skill uses Astra in the main conversation when available, otherwise creates
-an Astra planning child automatically. Workers can use lower-cost models and
-explicit reasoning effort. Model choices adapt to the live allowlist; see
+an Astra planning child automatically. Routine test and implementation edits go
+automatically to an explicitly selected economical worker, including small or
+sequential tasks. The same worker owns the coupled red/green cycle; Astra
+coordinates and verifies. Model choices adapt to the live allowlist; see
 [routing](references/model-routing.md). A skill cannot switch the main model,
 guarantee model access, or measure savings without usage evidence.
 
