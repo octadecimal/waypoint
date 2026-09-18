@@ -1,8 +1,9 @@
 # Astra Workflow
 
-A private Codex plugin that replaces the original brainstorming workflow with
-Astra-led design, UI mockup previews, economical subagents, and delivery through
-an open pull request with passing CI.
+A private Codex plugin that replaces all 14 Superpowers workflows with Codex-native
+planning, execution, debugging, testing, reviews, worktrees, skill authoring, and
+completion. Astra owns planning; economical subagents do bounded work; authorized
+PR delivery continues until the current revision passes CI.
 
 ## Use
 
@@ -21,10 +22,13 @@ with passing CI. Use cheaper workers where the result is easy to verify.
 Use $astra-complete to finish this branch and prepare it for my hands-on testing.
 ```
 
-| Skill | Responsibility |
-| --- | --- |
-| [astra-plan](skills/astra-plan/SKILL.md) | Default brainstorming, UI previews, Astra planning, model assignments, TDD, integration, completion handoff |
-| [astra-complete](skills/astra-complete/SKILL.md) | Verify existing work, open/update a PR, repair CI, prepare testing, merge only after post-test approval |
+The two main entry points are [astra-plan](skills/astra-plan/SKILL.md) for new
+work and [astra-complete](skills/astra-complete/SKILL.md) for finishing a branch.
+[using-astra-workflow](skills/using-astra-workflow/SKILL.md) routes debugging,
+TDD, planning, execution, parallel work, reviews, verification, worktrees, and
+skill authoring to the appropriate standalone skill. The
+[full replacement map](references/superpowers-parity.md) lists every original
+workflow, its replacement, preserved helpers, and intentional behavior changes.
 
 Collaborative mode is the default: approve the concrete plan once. Auto mode
 proceeds within the requested scope without routine approval prompts. An explicit
@@ -50,50 +54,56 @@ Use $astra-plan to compare two settings-page layouts. Show previews before we
 decide; do not implement yet.
 ```
 
-Use Codex's inline mockup surface when available. Otherwise use an inspectable,
-self-contained browser prototype. The bundled [example](assets/ui-preview.html)
-compares sidebar and top navigation with a native radio selector. It needs no
-JavaScript, server package, or Superpowers installation. The illustrated product
-screen is static; the layout selector is interactive.
+Use Codex's inline mockup surface when available. The bundled live companion
+preserves browser mockups, fragment themes, click feedback, automatic refresh,
+authenticated sessions, and reconnect behavior. Its Node launcher runs on Windows
+and Unix without Bash. It serves only a task-owned preview directory on loopback
+by default, retains artifacts, and has no promotional telemetry.
 
-The [preview workflow](references/ui-previews.md) covers revision feedback,
-responsive checks, auto mode, and a loopback-only static-server fallback. Python
-is optional for that fallback; it is not required for inline or local-file previews.
-Preview selections record design preferences, not permission to implement or merge.
+For a simple comparison, the standalone [example](assets/ui-preview.html) uses
+native radio inputs to compare sidebar and top navigation without JavaScript.
+See the [preview workflow](references/ui-previews.md) for choosing a surface,
+revision feedback, responsive checks, and honest validation limits. Preview clicks
+express design preferences, never permission to implement or merge.
 
-## Replace the original brainstorming skill
+## Replace Superpowers completely
 
-Astra Plan handles new projects, features, components, UI decisions, and behavior
-changes. Use it directly rather than running two brainstorming gates. Existing
-decisions and approvals carry forward; auto mode remains available.
+Install and validate this plugin first, then uninstall the original through Codex:
 
-If the original skill is bundled in Superpowers, removing the whole plugin would
-also remove unrelated skills. Disable only `superpowers:brainstorming` using the
-host's skill controls after validating this replacement. In Codex versions with
-the name selector, the app-server operation is:
-
-```json
-{"method":"skills/config/write","params":{"name":"superpowers:brainstorming","enabled":false}}
+```text
+codex plugin remove superpowers@claude-plugins-official
 ```
 
-Verify the actual available schema before using this operation. Name selection
-avoids a version-specific cache path. Older hosts may support only the full
-`SKILL.md` path in `[[skills.config]]`; recheck after plugin updates in that case.
-Do not delete files from a plugin-managed cache. This disables the bundled skill;
-it does not uninstall the rest of Superpowers or erase the bundled file.
+Use the actual installed marketplace identifier if different. Do not manually
+remove plugin-cache files. Preserve unrelated plugins and personal instructions.
+Route legacy names through the [replacement map](references/superpowers-parity.md):
+`brainstorming` becomes `astra-plan`, `finishing-a-development-branch` becomes
+`astra-complete`, and `using-superpowers` becomes `using-astra-workflow`; all other
+skill names retain their names under the `astra-workflow` namespace.
 
-When the user requests full replacement, add a narrow personal instruction routing
-legacy references to `brainstorming` or `superpowers:brainstorming` to
-`astra-workflow:astra-plan`. Preserve unrelated personal instructions. Verify Astra
-skills remain enabled and other Superpowers skills retain their previous state.
-Restart Codex or start a fresh session as required by the host; an existing
-conversation may still contain the previous skill's instructions.
+Add this to personal Codex instructions (`~/.codex/AGENTS.md`), preserving any
+existing content:
+
+```text
+For development work, use astra-workflow:using-astra-workflow to select relevant
+skills. Astra Workflow fully replaces Superpowers; route legacy skill references
+through its replacement map. Preserve prior decisions and plan-only, local-only,
+and auto execution boundaries. Do not reinstall Superpowers or duplicate its gates.
+```
+
+Start a new thread and verify all 14 Astra skills are available and the original
+plugin's skills are absent. Existing threads retain already-loaded instructions.
+The original MIT notice is retained in [licenses/superpowers-MIT.txt](licenses/superpowers-MIT.txt);
+see the replacement map for source version and derivation scope.
 
 ## Install locally
 
 This repository is private. Authenticate Git access as an account with access to
 `octadecimal/astra-workflow`. The plugin uses Codex's existing tools and account;
-it contains no MCP server, hooks, paid API integration, or runtime dependency.
+it contains no MCP server, session hooks, or paid API integration. Node.js 22+ is
+needed only for the live preview companion and JavaScript helper tools. Python
+3.12+ supports validation and the portable execution/debugging helpers. Graphviz
+is optional and needed only to render skill-authoring diagrams.
 Subagent model selection requires a Codex session that exposes it. PR delivery
 requires authenticated Git/GitHub access; examples use `gh`.
 
@@ -141,15 +151,17 @@ new thread. Editing the source does not prove an existing thread loaded it.
 
 ## Validate
 
-Python 3.12+ and PyYAML are development-only dependencies:
+Validation uses Python 3.12+, development-only PyYAML, and Node.js 22+:
 
 ```text
 python -m pip install -r requirements-test.txt
 python -m unittest discover -s tests -v
+node --test tests/preview-companion.test.cjs
 ```
 
 GitHub Actions runs those checks on Ubuntu and Windows for pushes and pull requests.
-They validate package metadata, skill discovery, UI metadata, and local references.
+They validate the complete skill catalogue, metadata, local references, and runnable
+preview/execution helpers.
 They do not run paid model calls or prove agent behavior. The repeatable manual
 [behavior scenarios](tests/scenarios.md) cover planning ownership, routing,
 authorization, CI freshness, and the human testing boundary.

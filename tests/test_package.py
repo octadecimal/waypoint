@@ -11,9 +11,33 @@ import yaml
 
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
-EXPECTED_SKILLS = {"astra-plan", "astra-complete"}
+EXPECTED_SKILLS = {
+    "astra-plan", "astra-complete", "using-astra-workflow",
+    "dispatching-parallel-agents", "executing-plans", "receiving-code-review",
+    "requesting-code-review", "subagent-driven-development", "systematic-debugging",
+    "test-driven-development", "using-git-worktrees", "verification-before-completion",
+    "writing-plans", "writing-skills",
+}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$")
 MARKDOWN_LINK = re.compile(r"!?\[[^]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)")
+
+
+def prose_markdown(text: str) -> str:
+    """Exclude fenced example documents from live-link validation."""
+    lines = []
+    fence = None
+    for line in text.splitlines():
+        match = re.match(r"^\s*(`{3,}|~{3,})", line)
+        if match:
+            marker = match[1]
+            if fence is None:
+                fence = marker
+            elif marker[0] == fence[0] and len(marker) >= len(fence):
+                fence = None
+            continue
+        if fence is None:
+            lines.append(line)
+    return "\n".join(lines)
 
 
 class PackageTests(unittest.TestCase):
@@ -62,7 +86,7 @@ class PackageTests(unittest.TestCase):
             *(PLUGIN_ROOT / "references").rglob("*.md"),
         ]
         for markdown_path in markdown_paths:
-            for target in MARKDOWN_LINK.findall(markdown_path.read_text(encoding="utf-8")):
+            for target in MARKDOWN_LINK.findall(prose_markdown(markdown_path.read_text(encoding="utf-8"))):
                 parsed = urlparse(target)
                 if parsed.scheme or target.startswith("//") or target.startswith("#"):
                     continue
@@ -103,6 +127,20 @@ class PackageTests(unittest.TestCase):
                 if "allow_implicit_invocation" in policy:
                     self.assertIsInstance(policy["allow_implicit_invocation"], bool)
                     self.assertTrue(policy["allow_implicit_invocation"])
+
+    def test_full_replacement_has_no_legacy_skill_dependency(self) -> None:
+        for skill_path in (PLUGIN_ROOT / "skills").rglob("SKILL.md"):
+            body = skill_path.read_text(encoding="utf-8")
+            self.assertNotIn("superpowers:", body, str(skill_path))
+        license_text = (PLUGIN_ROOT / "licenses" / "superpowers-MIT.txt").read_text(encoding="utf-8")
+        self.assertIn("Copyright (c) 2025 Jesse Vincent", license_text)
+        parity = (PLUGIN_ROOT / "references" / "superpowers-parity.md").read_text(encoding="utf-8")
+        for skill in EXPECTED_SKILLS:
+            self.assertIn(skill, parity)
+
+    def test_link_validation_excludes_examples_but_keeps_real_links(self) -> None:
+        document = "[real](real.md)\n````md\n[example](missing.md)\n```\n````\n[after](after.md)"
+        self.assertEqual(MARKDOWN_LINK.findall(prose_markdown(document)), ["real.md", "after.md"])
 
 
 if __name__ == "__main__":

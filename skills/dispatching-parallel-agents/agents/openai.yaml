@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dispatch Parallel Agents"
+  short_description: "Run independent bounded work concurrently"
+  default_prompt: "Use $dispatching-parallel-agents to split independent work across focused, economical workers."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,32 @@
+digraph skill_diagram_conventions {
+  rankdir=TB;
+
+  subgraph cluster_shapes {
+    label="Node meanings";
+    "Decision?" [shape=diamond];
+    "Take an action" [shape=box];
+    "run exact-command" [shape=plaintext];
+    "Current state" [shape=ellipse];
+    "STOP: unsafe action" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+    "Process complete" [shape=doublecircle];
+  }
+
+  "Trigger state" [shape=ellipse];
+  "Is a decision needed?" [shape=diamond];
+  "Perform named action" [shape=box];
+  "run validator" [shape=plaintext];
+  "Did validation pass?" [shape=diamond];
+  "Fix the reported issue" [shape=box];
+  "STOP: do not publish" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+  "Verified result" [shape=doublecircle];
+
+  "Trigger state" -> "Is a decision needed?";
+  "Is a decision needed?" -> "Perform named action" [label="yes"];
+  "Is a decision needed?" -> "run validator" [label="no"];
+  "Perform named action" -> "run validator";
+  "run validator" -> "Did validation pass?";
+  "Did validation pass?" -> "Verified result" [label="yes"];
+  "Did validation pass?" -> "Fix the reported issue" [label="repairable"];
+  "Fix the reported issue" -> "run validator";
+  "Did validation pass?" -> "STOP: do not publish" [label="blocked"];
+}

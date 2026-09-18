@@ -1,7 +1,7 @@
 {
   "name": "astra-workflow",
-  "version": "0.1.0+codex.20260918163832",
-  "description": "Astra-led brainstorming with UI previews, economical subagents, and delivery through a PR with passing CI.",
+  "version": "0.1.0+codex.20260918170422",
+  "description": "Complete Codex workflow: Astra planning, economical workers, UI previews, TDD, debugging, reviews, worktrees, and green PR completion.",
   "author": {
     "name": "octadecimal",
     "url": "https://github.com/octadecimal"
@@ -11,7 +11,7 @@
   "interface": {
     "displayName": "Astra Workflow",
     "shortDescription": "Plan with Astra. Delegate carefully. Deliver green PRs.",
-    "longDescription": "A complete brainstorming replacement with UI mockup previews, Astra planning, optional automatic execution, economical workers, TDD, CI repair, and hands-on testing before merge.",
+    "longDescription": "Full Superpowers replacement for Codex: Astra planning, optional auto execution, economical workers, live UI mockups, TDD, debugging, reviews, worktrees, skill authoring, and passing CI before hands-on testing and merge approval.",
     "developerName": "octadecimal",
     "category": "Productivity",
     "capabilities": [],

@@ -13,19 +13,16 @@ do not manufacture alternatives for an already settled design.
    render interactive mockups in the conversation. This is optional integration,
    not a dependency on that plugin. Use its host controls for design variations
    when supported; do not assume a browser click sends feedback to the agent.
-2. Otherwise create a self-contained HTML prototype in a task-owned preview
-   directory. Start from [the browser preview](../assets/ui-preview.html) when it
-   helps, then adapt the content and styles to the actual question. The bundled
-   sample changes between sidebar and top navigation using native controls.
-   For a host that takes HTML fragments, author a fragment using that host's
-   contract instead of sending this full standalone document unchanged.
-3. Open the standalone prototype through an available browser/preview tool, or
-   give the user a local file link. If file navigation is unsupported, use the
-   repository's existing preview service or Python's standard static server:
-   `python -u -m http.server 0 --bind 127.0.0.1 --directory <preview-directory>`.
-   Capture the actual assigned port and keep the process in the harness's
-   supported background session. Verify the exact preview URL responds before
-   presenting it. No custom server or package installation is needed.
+2. For a simple one-screen comparison, create a self-contained HTML prototype in
+   a task-owned preview directory. Start from [the browser preview](../assets/ui-preview.html)
+   when useful. Open it through an available browser/preview tool or give the user
+   a local file link. If file navigation is unsupported, serve only that directory
+   with Python's standard loopback server. No custom package is needed.
+3. When browser selections, automatic reloads, or several revisions materially
+   improve the feedback loop, use the [live visual companion](../skills/astra-plan/visual-companion.md).
+   Its cross-platform Node launcher has no package dependency, serves only the
+   explicit task directory, authenticates HTTP and WebSocket access, records
+   choices, and safely restarts the same session.
 
 If a preview tool is missing, use the next available surface. If no renderer is
 available, provide the inspectable HTML and explain what remains unpreviewed.
@@ -48,9 +45,9 @@ Do not claim the user can see a preview that the host cannot display.
   supported. Exercise the interactions used to make the decision. For an inline
   surface, follow its own verification rules. Report limitations honestly.
 - Share the preview and ask for the specific visual decision in collaborative
-  mode. A prior request for previews is sufficient; do not ask permission again
-  merely to render the next revision. If preview preparation is unusually costly,
-  explain the tradeoff instead of silently consuming a large budget.
+  mode. Preview rendering and revision are reversible actions covered by the
+  current task; do not add a new consent gate. If preview preparation is unusually
+  costly, explain the tradeoff instead of silently consuming a large budget.
 - Revise the same design when feedback calls for it, using clear revision labels.
   Record the selected revision and the user's actual feedback in the plan/checkpoint.
   A radio selection or preview click alone is not approval to implement, publish,
@@ -60,6 +57,5 @@ Do not claim the user can see a preview that the host cannot display.
 - Stop only the preview process this task owns when finished. Keep the selected
   mockup available for the agreed handoff, and never claim a stopped URL is live.
 
-This workflow does not use Superpowers scripts, browser event files, or its preview
-server. A preview is a design artifact; production code still follows the plan,
-TDD, integration review, and CI completion workflow.
+A preview is a design artifact; production code still follows the plan, TDD,
+integration review, and CI completion workflow.

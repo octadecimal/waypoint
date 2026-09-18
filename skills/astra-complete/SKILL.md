@@ -36,6 +36,18 @@ Merge requires both a user report of hands-on testing of this PR revision and
 explicit approval to merge it. Early implementation approval, green CI, agent
 browser tests, and silence are insufficient. Preserve the worktree while waiting.
 
+Respect explicit alternative endpoints. For **local-only**, verify and leave the
+intended changes or authorized commits locally; do not create a PR. For **keep as
+is**, report branch/worktree, remaining verification, and how to resume, then
+preserve everything. For **abandon/discard**, first inspect the exact branch,
+worktree, untracked files, and unmerged commits. Describe precisely what would be
+lost and obtain explicit authorization covering those items before deletion;
+never delete unrelated or ambiguously owned work. A request to stop working alone
+does not authorize discarding it. An explicitly requested local integration still
+requires hands-on testing and explicit approval of the revision, relevant local
+checks, and repository merge rules; never claim absent CI passed. Do not offer a
+mandatory menu when the user's chosen endpoint is already clear.
+
 ## 2. Verify and prepare the PR
 
 Review the complete intended diff and intended untracked files. Confirm acceptance

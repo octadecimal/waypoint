@@ -1,0 +1,5 @@
+interface:
+  display_name: "Using Astra Workflow"
+  short_description: "Select the right Codex development workflow"
+policy:
+  allow_implicit_invocation: true

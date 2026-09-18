@@ -1,0 +1,6 @@
+interface:
+  display_name: "Test-Driven Development"
+  short_description: "Prove behavior with a focused red-green cycle"
+  default_prompt: "Use $test-driven-development to implement this behavior with meaningful red-green evidence."
+policy:
+  allow_implicit_invocation: true
