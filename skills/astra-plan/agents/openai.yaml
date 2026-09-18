@@ -1,0 +1,6 @@
+interface:
+  display_name: "Astra Plan"
+  short_description: "Plan with Astra and delegate through a green PR"
+  default_prompt: "Use $astra-plan to brainstorm this change and propose a plan with worker assignments."
+policy:
+  allow_implicit_invocation: true
