@@ -41,6 +41,12 @@ visual verification unless the rendered page was inspected. In a genuinely
 headless or remote environment, or after a launch failure, provide the verified
 URL and state the limitation.
 
+If the server is already running, `start --session-dir <same-directory> --open`
+requests browser opening without restarting it or changing its port/key. Omit
+`--open` when only checking/reusing the session; revisions reload the existing tab.
+`server-existing` alone confirms reuse, not browser opening. Check the reported
+browser launch result; OS acceptance is not proof that the page rendered.
+
 The default bind is loopback. A remote/container environment may use `--host` and
 `--url-host`, but expose it only through an operator-approved route. The session
 key remains required. Set `--idle-timeout-minutes N` when four hours is unsuitable.

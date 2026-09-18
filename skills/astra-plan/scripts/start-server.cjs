@@ -1,8 +1,9 @@
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const { execFile, spawn } = require('node:child_process');
 const { randomUUID } = require('node:crypto');
+const { browserLauncherForPlatform } = require('./server.cjs');
 
 function usage() {
   return `Usage:
@@ -126,11 +127,31 @@ async function runningServer(sessionDir) {
   }
 }
 
-async function start(options) {
+function launchBrowser(url, options = {}) {
+  const host = options.host || new URL(url).hostname;
+  if (!['127.0.0.1', 'localhost', '::1', '[::1]'].includes(host)) {
+    return Promise.resolve({ status: 'launch-blocked', reason: 'non-loopback-host' });
+  }
+  const launcher = browserLauncherForPlatform(url, options);
+  if (!launcher) return Promise.resolve({ status: 'headless' });
+  return new Promise(resolve => {
+    try {
+      (options.execFile || execFile)(launcher.bin, launcher.args, error => resolve(error
+        ? { status: 'launch-failed', error: error.message }
+        : { status: 'launch-accepted', command: launcher.bin }));
+    } catch (error) {
+      resolve({ status: 'launch-failed', error: error.message });
+    }
+  });
+}
+
+async function start(options, launchOptions = {}) {
   const existing = await runningServer(options.sessionDir);
   if (existing) {
-    process.stdout.write(JSON.stringify({ ...existing, type: 'server-existing' }) + '\n');
-    return;
+    const result = { ...existing, type: 'server-existing' };
+    if (options.open) result.browser = await launchBrowser(existing.url, { ...launchOptions, host: existing.host });
+    process.stdout.write(JSON.stringify(result) + '\n');
+    return result;
   }
   fs.mkdirSync(options.sessionDir, { recursive: true, mode: 0o700 });
   const releaseStartLock = acquireStartLock(options.sessionDir);
@@ -200,4 +221,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { parseArguments, readServerInfo, requestServer, runningServer, acquireStartLock };
+module.exports = { parseArguments, readServerInfo, requestServer, runningServer, acquireStartLock, launchBrowser, start };

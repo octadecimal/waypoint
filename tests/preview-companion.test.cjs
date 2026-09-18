@@ -250,6 +250,54 @@ test('browser launch uses argument arrays and stays headless without a display',
   assert.equal(serverModule.browserLauncherForPlatform(url, { platform: 'linux', osRelease: '', env: {} }), null);
 });
 
+test('existing preview honors --open without starting another server', { timeout: 10000 }, async t => {
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-existing-'));
+  const running = await startPreview(sessionDir);
+  t.after(async () => {
+    if (running.child.exitCode === null) {
+      stopPreview(sessionDir);
+      await waitForExit(running.child);
+    }
+  });
+
+  const originalInfo = fs.readFileSync(path.join(sessionDir, 'state', 'server-info'), 'utf8');
+  let noOpenCalls = 0;
+  const noOpen = await launcherModule.start({ sessionDir, open: false }, {
+    execFile() { noOpenCalls += 1; }
+  });
+  assert.equal(noOpenCalls, 0);
+  assert.equal(noOpen.browser, undefined);
+
+  const calls = [];
+  const reopened = await launcherModule.start({ sessionDir, open: true }, {
+    platform: 'win32', osRelease: '', env: {},
+    execFile(bin, args, callback) { calls.push({ bin, args }); callback(null); }
+  });
+  assert.deepEqual(calls, [{
+    bin: 'rundll32.exe', args: ['url.dll,FileProtocolHandler', running.info.url]
+  }]);
+  assert.equal(reopened.type, 'server-existing');
+  assert.equal(reopened.browser.status, 'launch-accepted');
+  assert.equal(fs.readFileSync(path.join(sessionDir, 'state', 'server-info'), 'utf8'), originalInfo);
+  assert.equal(running.child.exitCode, null);
+});
+
+test('existing preview browser launch reports headless, failure, and unsafe hosts', async () => {
+  const url = 'http://localhost:5000/?key=safe';
+  assert.equal((await launcherModule.launchBrowser(url, {
+    platform: 'linux', osRelease: '', env: {}
+  })).status, 'headless');
+  const failed = await launcherModule.launchBrowser(url, {
+    platform: 'win32', osRelease: '', env: {},
+    execFile(_bin, _args, callback) { callback(new Error('opener unavailable')); }
+  });
+  assert.deepEqual(failed, { status: 'launch-failed', error: 'opener unavailable' });
+  assert.deepEqual(await launcherModule.launchBrowser(url, {
+    host: '0.0.0.0', platform: 'win32',
+    execFile() { throw new Error('non-loopback launch must stay blocked'); }
+  }), { status: 'launch-blocked', reason: 'non-loopback-host' });
+});
+
 test('launcher requires an explicit session and locks concurrent starts', () => {
   assert.throws(() => launcherModule.parseArguments(['start']), /session-dir is required/);
   const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-lock-'));
