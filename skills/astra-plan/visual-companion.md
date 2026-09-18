@@ -1,8 +1,8 @@
 # Live Visual Companion
 
 Use the live companion when browser clicks, automatic reloads, or several visual
-revisions will make a design decision easier. Prefer the host's inline mockup
-surface when it is available. For a simple one-screen preview, a standalone HTML
+revisions will make a design decision easier. Use it when inline rendering is
+unavailable or device support is unknown. For a simple one-screen preview, a standalone HTML
 file is cheaper and sufficient.
 
 Preview work is reversible. Existing task authority is enough to render or revise

@@ -54,7 +54,9 @@ Use $astra-plan to compare two settings-page layouts. Show previews before we
 decide; do not implement yet.
 ```
 
-Use Codex's inline mockup surface when available. The bundled live companion
+Use inline mockups when the current client is known to support them; otherwise
+use a browser preview. Failed embeds automatically fall back to an accessible
+browser/file link before asking for visual feedback. The bundled live companion
 preserves browser mockups, fragment themes, click feedback, automatic refresh,
 authenticated sessions, and reconnect behavior. Its Node launcher runs on Windows
 and Unix without Bash. It serves only a task-owned preview directory on loopback

@@ -8,25 +8,32 @@ do not manufacture alternatives for an already settled design.
 
 ## Choose a preview surface
 
-1. If the session offers an inline visualization/mockup capability, use it and
-   follow its current instructions. In Codex, an available `visualize` skill can
-   render interactive mockups in the conversation. This is optional integration,
-   not a dependency on that plugin. Use its host controls for design variations
-   when supported; do not assume a browser click sends feedback to the agent.
-2. For a simple one-screen comparison, create a self-contained HTML prototype in
+1. Use inline visualization only when the current client is known to render it,
+   or the user explicitly requests that surface. A listed `visualize` skill or
+   successful artifact creation does not prove device support. When support is
+   unknown, use a browser preview instead. Follow the inline tool's instructions
+   when using it; this plugin does not depend on it.
+2. For interactive alternatives, recorded selections, or iterative UI design, use
+   the [live visual companion](../skills/astra-plan/visual-companion.md). Its Node
+   launcher serves the task-owned preview directory, authenticates HTTP and
+   WebSocket access, records choices, and refreshes revisions. Verify its HTTP
+   response and give the user the complete keyed browser URL before requesting
+   visual feedback. Browser automation is optional; its absence does not prevent
+   serving a preview for the user to open.
+3. For a simple one-screen comparison, create a self-contained HTML prototype in
    a task-owned preview directory. Start from [the browser preview](../assets/ui-preview.html)
    when useful. Open it through an available browser/preview tool or give the user
    a local file link. If file navigation is unsupported, serve only that directory
    with Python's standard loopback server. No custom package is needed.
-3. When browser selections, automatic reloads, or several revisions materially
-   improve the feedback loop, use the [live visual companion](../skills/astra-plan/visual-companion.md).
-   Its cross-platform Node launcher has no package dependency, serves only the
-   explicit task directory, authenticates HTTP and WebSocket access, records
-   choices, and safely restarts the same session.
-
-If a preview tool is missing, use the next available surface. If no renderer is
-available, provide the inspectable HTML and explain what remains unpreviewed.
-Do not claim the user can see a preview that the host cannot display.
+If inline rendering fails or the user sees "Visualization unavailable on this
+device", reuse the existing HTML in the browser workflow and provide the verified
+URL in the same task. Do not repeat the failed embed, ask for a layout decision
+against invisible content, or require a separate request to repair the preview.
+If serving is unavailable too, provide a real clickable HTML file link and explain
+the limitation. A filename alone is not a delivered preview. In remote environments,
+use an already-authorized route the user's browser can reach; do not present a
+remote loopback URL as locally accessible. Preserve the plan-only boundary during
+recovery. HTTP success is reachability evidence, not browser rendering evidence.
 
 ## Prototype and feedback loop
 

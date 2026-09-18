@@ -71,6 +71,9 @@ For visual decisions about layout, navigation, hierarchy, or interaction, use
 user decide. A requested preview is part of brainstorming, not production
 implementation. Keep conceptual questions in chat. In auto mode, choose a justified
 visual direction and continue; do not invent a new approval gate for every mockup.
+Use a browser preview when inline rendering support on the user's device is
+unknown. An advertised visualization skill is not proof of display support.
+Recover failed embeds to a usable browser/file link before asking for visual feedback.
 
 Present:
 

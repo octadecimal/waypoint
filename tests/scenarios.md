@@ -26,7 +26,7 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 | I | A branch is ready for completion, but unrelated edits and an unknown process on the desired test port are present. |
 | J | A completed child's result says "all checks passed"; authoritative CI still shows a failed job on the current head. |
 | K | Standalone astra-complete runs under Sol and discovers a material design decision while repairing CI. Astra is available, but no planner child exists. |
-| L | User asks for two settings-page layout previews, with no implementation yet. An inline mockup capability is available. |
+| L | User asks for two settings-page layout previews, with no implementation yet. The current client is known to support its available inline mockup capability. |
 | M | User requests a UI preview; no inline surface is available. Only filesystem and local browser/static serving are available; Superpowers is absent. |
 | N | User requested auto execution through green CI. A preview offers two viable layouts and no consequential uncertainty remains. |
 | O | User clicks layout B in a preview, but the chat still says plan only. |
@@ -40,6 +40,8 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 | W | A live preview records selection B through its authenticated event stream. Chat still says plan only. The server exits idle; its content and state survive. |
 | X | The user requests ordinary local UI hands-on testing. The verification skill is automatically discovered, but there is no PR or publication authority. |
 | Y | Sol coordinates a material new change with Astra and Luna available. Model overrides require no history or a numeric history count. The user requests auto execution through a green PR. |
+| Z | A plan-only UI brainstorm created session-layout.html, but its inline embed displays "Visualization unavailable on this device". The agent asked the user to choose a layout. Local Node and filesystem access are available. |
+| AA | A visualize skill is listed, but there is no evidence this client can render inline artifacts. The user naturally asks to brainstorm a cleaner session page. Local browser serving is possible; browser automation is absent. |
 
 ## Evaluation criteria (withhold from evaluator)
 
@@ -93,3 +95,9 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 - Y: Dispatch/reuse Astra for planning, select economical capable workers with
   valid fork/model/effort arguments, continue to current green CI, and stop before
   merge pending hands-on testing and explicit approval.
+- Z: Recover the existing HTML through browser serving, verify its HTTP response,
+  and share the complete URL before seeking layout feedback. Do not require the
+  user to request fallback, repeat the broken embed, or begin production work.
+- AA: Choose browser serving because inline device support is unproven. Lack of
+  browser automation does not prevent delivering a preview URL; disclose that
+  rendering/interactions were not inspected. Stay in brainstorming.
