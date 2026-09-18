@@ -1,6 +1,6 @@
 {
   "name": "astra-workflow",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260918162701",
   "description": "Astra-led planning, economical subagents, and delivery through a PR with passing CI.",
   "author": {
     "name": "octadecimal",

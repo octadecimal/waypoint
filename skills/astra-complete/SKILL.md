@@ -7,8 +7,11 @@ description: Finish an existing development branch through verification, review,
 
 Own delivery until the PR is ready for human testing, or report a concrete blocker.
 Use this independently on existing work or after Astra Plan. Do not repeat planning
-unless the work exposes a material scope or design decision. This skill authorizes
-bounded delegation with model selection; read
+unless the work exposes a material scope or design decision. When that happens,
+read the routing guide and have Astra own the replan: use the current Astra model
+or automatically dispatch/reuse a read-only Astra planner. Preserve the existing
+mode and authorization boundary; return material scope changes to the user.
+This skill authorizes bounded delegation with model selection; read
 [model routing](../../references/model-routing.md) if workers would help.
 
 The coordinator is the only integration owner. Follow project instructions for
