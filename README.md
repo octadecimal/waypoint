@@ -2,8 +2,8 @@
 
 A private Codex plugin that replaces all 14 Superpowers workflows with Codex-native
 planning, execution, debugging, testing, reviews, worktrees, skill authoring, and
-completion. Astra owns planning; economical subagents do bounded work; authorized
-PR delivery continues until the current revision passes CI.
+completion. Astra owns planning and design; economical subagents do bounded
+implementation; authorized PR delivery continues until the current revision passes CI.
 
 ## Use
 
@@ -36,8 +36,9 @@ plan-only or local-only instruction always keeps that boundary. Automatic skill
 selection is enabled; selection itself never grants publishing authority.
 
 The skill uses Astra in the main conversation when available, otherwise creates
-an Astra planning child automatically. Routine test and implementation edits go
-automatically to an explicitly selected economical worker, including small or
+an Astra planning child automatically. Astra also creates and revises UI designs
+and mockups, including their HTML/CSS/interaction code. Routine production tests
+and implementation edits go automatically to an explicitly selected economical worker, including small or
 sequential tasks. The same worker owns the coupled red/green cycle; Astra
 coordinates and verifies. Model choices adapt to the live allowlist; see
 [routing](references/model-routing.md). A skill cannot switch the main model,
@@ -57,7 +58,9 @@ decide; do not implement yet.
 ```
 
 Use inline mockups when the current client is known to support them; otherwise
-use a browser preview. Failed embeds automatically fall back to an accessible
+use a browser preview and open it automatically on a supported desktop. Missing
+browser automation does not prevent the companion from opening the default browser.
+Failed embeds automatically fall back to an accessible
 browser/file link before asking for visual feedback. The bundled live companion
 preserves browser mockups, fragment themes, click feedback, automatic refresh,
 authenticated sessions, and reconnect behavior. Its Node launcher runs on Windows

@@ -1,9 +1,9 @@
 # Live Visual Companion
 
-Use the live companion when browser clicks, automatic reloads, or several visual
-revisions will make a design decision easier. Use it when inline rendering is
-unavailable or device support is unknown. For a simple one-screen preview, a standalone HTML
-file is cheaper and sufficient.
+Use the live companion by default when browser clicks, automatic reloads, or
+several visual revisions will make a design decision easier. Use it when inline
+rendering is unavailable or device support is unknown. For a simple one-screen
+preview, a standalone HTML file is sufficient.
 
 Preview work is reversible. Existing task authority is enough to render or revise
 a preview; do not add a separate consent gate. A click records a design preference.
@@ -31,7 +31,15 @@ with the harness's supported long-running/background command mechanism. It print
 Use the complete keyed URL. The key authenticates HTTP and WebSocket requests and
 is stored with the port in the session directory. Restarting the same directory
 reuses both when possible. `--open` uses an argument-array platform launcher; it
-does not invoke a shell command string. Omit `--open` in a headless environment.
+does not invoke a shell command string. Use it for the first desktop preview unless
+the user explicitly requests no opening or host tool restrictions forbid it. Honor
+a requested browser through the permitted browser/preview tool when possible.
+Missing browser automation alone does not make the environment headless; the
+launcher may still open the OS browser. After launch, verify the complete keyed
+URL. Do not claim the browser opened unless the launch result proves it, or claim
+visual verification unless the rendered page was inspected. In a genuinely
+headless or remote environment, or after a launch failure, provide the verified
+URL and state the limitation.
 
 The default bind is loopback. A remote/container environment may use `--host` and
 `--url-host`, but expose it only through an operator-approved route. The session
@@ -42,7 +50,8 @@ key remains required. Set `--idle-timeout-minutes N` when four hours is unsuitab
 Write each screen as a new `.html` file in `screen_dir`. Use semantic, monotonic
 names such as `01-layouts.html`, `02-layouts-revised.html`, and `03-waiting.html`.
 The newest file by modification time is displayed. A new screen clears the prior
-browser event file and all connected browsers reload automatically.
+browser event file and all connected browsers reload automatically. Keep and reuse
+the original tab throughout the iteration instead of opening revision tabs.
 
 Use an HTML fragment by default. The server wraps it in the bundled responsive
 frame and injects the connection/event helper:
@@ -132,6 +141,8 @@ The launcher reads that directory's private server record and calls its keyed st
 endpoint. It does not scan ports or kill by process name. Preview files and events
 remain for review; remove them only under the repository's ownership policy.
 
-If browser automation is unavailable, share the verified URL and state that visual
-inspection and interaction could not be exercised by the agent. Never claim a
-preview was visually verified when only its HTTP response or source was checked.
+If browser automation is unavailable, still attempt permitted OS browser opening
+as described above; the missing automation limits visual inspection and interaction,
+not opening. If opening is unavailable or fails, share the verified URL and state
+the limitation. Never claim a preview was visually verified when only its HTTP
+response or source was checked.

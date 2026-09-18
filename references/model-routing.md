@@ -8,11 +8,20 @@ or global model settings to make a route work.
 ## Planning ownership
 
 When available, `gpt-6-astra` with `high` effort is the planning default; use more
-effort when the problem warrants it. Astra is the high-capability planner, not the
-cheap exploration worker. A non-Astra coordinator automatically creates one Astra
-planner and reuses it for user decisions, material replanning, and final review.
-Pass the user's actual request, constraints, authorization boundary, and relevant
-evidence. Ask it to return decisions, open questions, tasks, and acceptance checks.
+effort when the problem warrants it. Astra is the high-capability planner and visual
+designer, not the cheap exploration worker. Visual design, layout, interaction,
+mockup authoring, and mockup revision are Astra work even when the artifact is
+HTML, CSS, or JavaScript. Apply that classification before generic routine-code
+delegation.
+
+A non-Astra coordinator automatically creates one Astra planner and reuses it for
+user decisions, material replanning, visual design and feedback interpretation,
+and final review. The planner is read-only except that a scoped design assignment
+may grant it write access to task-owned preview files. An Astra coordinator may
+author those previews directly. Pass the user's actual request, constraints,
+authorization boundary, and relevant evidence. Ask it to return decisions, open
+questions, tasks, and acceptance checks. A dispatched Astra designer performs the
+work itself and does not delegate.
 
 If the current model's identity is unknown, do not claim it is Astra. Prefer an
 explicitly selected Astra child when available. If neither an Astra conversation
@@ -32,14 +41,18 @@ session's actual allowlist and capability/cost information, not a price table:
 | Routine implementation or investigation needing broader coding context | `gpt-5.6-terra` or `gpt-5.6-sol` | medium |
 | Difficult diagnosis or consequential review | `gpt-5.6-sol` or `gpt-6-astra` | high |
 | Architecture, task decomposition, material replanning, integrated plan review | `gpt-6-astra` | high |
+| Visual design, layout, interaction, or mockup authoring and revision | `gpt-6-astra` | high |
 
 Do not assume relative prices among middle-tier models without session evidence.
 When a preferred worker is unavailable, use an available model suited to the task
 and disclose the fallback. Honor user cost limits; if none of the available choices
 fits, surface the constraint.
 
-For routine executable code or test edits, every coordinator must dispatch or
-reuse a cheaper capable edit-only worker. Before dispatch, record the task, model,
+For routine production code or test edits, every coordinator must dispatch or
+reuse a cheaper capable edit-only worker. Once a visual design is accepted, its
+production implementation follows this route and TDD. Cheaper workers may perform
+bounded lookup or mechanical checks for the design, but must not originate the
+design or interpret visual feedback. Before dispatch, record the task, model,
 effort, and short routing reason; then make the actual spawn or follow-up call.
 One coupled task uses one worker for its complete RED/GREEN cycle. Sequential work
 changes scheduling, not worker ownership. The coordinator plans, coordinates,

@@ -14,21 +14,34 @@ do not manufacture alternatives for an already settled design.
    unknown, use a browser preview instead. Follow the inline tool's instructions
    when using it; this plugin does not depend on it.
 2. For interactive alternatives, recorded selections, or iterative UI design, use
-   the [live visual companion](../skills/astra-plan/visual-companion.md). Its Node
+   the [live visual companion](../skills/astra-plan/visual-companion.md) by default.
+   Its Node
    launcher serves the task-owned preview directory, authenticates HTTP and
-   WebSocket access, records choices, and refreshes revisions. Verify its HTTP
-   response and give the user the complete keyed browser URL before requesting
-   visual feedback. Browser automation is optional; its absence does not prevent
-   serving a preview for the user to open.
+   WebSocket access, records choices, and refreshes revisions. Start the companion
+   and open its complete keyed URL automatically in the user's requested browser
+   or a permitted desktop preview/browser surface. Verify its HTTP response and
+   share that URL before requesting visual feedback. The launcher's `--open` may
+   open the tab before this verification. Reuse that tab for revisions; do not create
+   a new tab for each screen.
 3. For a simple one-screen comparison, create a self-contained HTML prototype in
    a task-owned preview directory. Start from [the browser preview](../assets/ui-preview.html)
-   when useful. Open it through an available browser/preview tool or give the user
-   a local file link. If file navigation is unsupported, serve only that directory
-   with Python's standard loopback server. No custom package is needed.
+   when useful. Open it automatically through an available browser/preview tool.
+   If file navigation is unsupported, serve only that directory with Python's
+   standard loopback server and open its URL. No custom package is needed.
+
+For the first browser preview, target a representative desktop viewport. Respect
+an explicitly requested browser and an explicit instruction not to open one. A
+missing browser-automation API does not establish that the environment is headless:
+use the companion's `--open` launcher or another permitted OS browser mechanism.
+Fall back to a verified clickable link only when the environment is actually
+headless or remote, opening is disallowed, or launch fails, and state the
+limitation. Do not claim the browser opened without evidence, or claim visual
+verification unless the rendered page was inspected.
 If inline rendering fails or the user sees "Visualization unavailable on this
 device", reuse the existing HTML in the browser workflow and provide the verified
-URL in the same task. Do not repeat the failed embed, ask for a layout decision
-against invisible content, or require a separate request to repair the preview.
+URL in the same task, opening it automatically when permitted. Do not repeat the
+failed embed, ask for a layout decision against invisible content, or require a
+separate request to repair the preview.
 If serving is unavailable too, provide a real clickable HTML file link and explain
 the limitation. A filename alone is not a delivered preview. In remote environments,
 use an already-authorized route the user's browser can reach; do not present a
@@ -65,4 +78,5 @@ recovery. HTTP success is reachability evidence, not browser rendering evidence.
   mockup available for the agreed handoff, and never claim a stopped URL is live.
 
 A preview is a design artifact; production code still follows the plan, TDD,
-integration review, and CI completion workflow.
+integration review, and CI completion workflow. Opening or revising a preview does
+not authorize publication, deployment, or merge.

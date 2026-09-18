@@ -19,11 +19,15 @@ restart this workflow, create another planner, or broaden your authority.
 ## 1. Establish mode and planning ownership
 
 Read [model routing](../../references/model-routing.md) before any edit or dispatch.
-If the current model is Astra, plan here. Otherwise automatically dispatch an
-available Astra model as a read-only planner with a focused brief. Relay user
-answers and evidence to that same planner; use its plan for execution. Return
-material plan changes and the integrated result to Astra for review. A planner
-child returns questions to the coordinator, never starts a second planner.
+If the current model is Astra, plan and make visual design decisions here.
+Otherwise automatically dispatch an available Astra model as a read-only planner
+with a focused brief and reuse it as the designer when visual work is needed.
+Design assignments may grant that Astra child write access only to task-owned
+preview files; the planner remains read-only elsewhere. Relay user answers and
+evidence to that same planner; use its plan for execution. Return material plan
+changes and the integrated result to Astra for review. A planner child returns
+questions to the coordinator, performs its own assigned preview work, and never
+starts a second planner.
 
 Use the user's latest intent:
 
@@ -68,12 +72,21 @@ auto mode does not introduce a spec approval gate. Then use
 
 For visual decisions about layout, navigation, hierarchy, or interaction, use
 [UI mockup previews](../../references/ui-previews.md) at the point they help the
-user decide. A requested preview is part of brainstorming, not production
-implementation. Keep conceptual questions in chat. In auto mode, choose a justified
-visual direction and continue; do not invent a new approval gate for every mockup.
-Use a browser preview when inline rendering support on the user's device is
-unknown. An advertised visualization skill is not proof of display support.
-Recover failed embeds to a usable browser/file link before asking for visual feedback.
+user decide. Visual design, layout, interaction, mockup authoring, revision, and
+interpretation of visual feedback are Astra work even when the preview uses HTML,
+CSS, or JavaScript. The current Astra may author it directly; a non-Astra
+coordinator reuses its Astra planner/designer with the scoped preview-file authority
+above. Cheaper workers may do bounded lookup or mechanical checks, not original
+design or feedback interpretation. A requested preview is part of brainstorming,
+not production implementation. Keep conceptual questions in chat. In auto mode,
+choose a justified visual direction and continue; do not invent a new approval gate
+for every mockup. Use a browser preview when inline rendering support on the user's
+device is unknown, open its first desktop view automatically unless the user says
+not to, and reuse the same tab for revisions. An advertised visualization skill is
+not proof of display support, while missing browser automation is not proof that no
+OS browser can open. Recover failed embeds to an automatically opened preview or,
+when opening truly is unavailable, a verified browser/file link before asking for
+visual feedback. Report opening and visual inspection only when actually observed.
 
 Present:
 
@@ -99,8 +112,9 @@ Workers edit only their assigned files and do not commit, push, or spawn more
 workers.
 
 Dispatch or reuse a cheaper capable edit-only worker for every routine code or
-test task under the routing guide. One worker owns the full RED/GREEN cycle for a
-coupled task; serialize dependencies without moving their edits to the coordinator.
+test task under the routing guide, including production implementation of an
+accepted visual design. One worker owns the full RED/GREEN cycle for a coupled
+task; serialize dependencies without moving their edits to the coordinator.
 
 Use [worktree setup](../using-git-worktrees/SKILL.md) for isolation,
 [subagent-driven development](../subagent-driven-development/SKILL.md) for a

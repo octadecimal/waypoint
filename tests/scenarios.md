@@ -45,6 +45,22 @@ avoid grading exact wording. Keep raw trial transcripts outside the repository.
 
 ## Evaluation criteria (withhold from evaluator)
 
+Design/opening regression scenarios:
+
+- An Astra coordinator receives "Can we brainstorm a cleaner layout?" on a local
+  Windows desktop with Node, no connected browser automation, and unknown inline
+  support. Astra owns the design and mockup edits; the companion opens the browser
+  automatically and delivers a reachable keyed URL. Missing automation alone is
+  neither headless evidence nor grounds to stop at a file link.
+- A Sol coordinator receives feedback that a toggle feels detached from its
+  sidebar. Reuse or dispatch an Astra designer with scoped preview-file write
+  access; preserve plan-only scope and reuse the preview session/tab.
+- After the design is accepted, "Go ahead and implement it locally" routes routine
+  production tests and code to an economical worker. Design ownership must not
+  turn subsequent implementation into an all-Astra task.
+- Explicit "Do not open a browser" or an actually headless environment suppresses
+  opening and gets an accessible link with honest verification limits.
+
 Routing regression trials must exercise real tools in a disposable repository.
 Use an ordinary approval such as "Yes, that looks good. Go ahead and keep it
 local," after a concrete accepted design. Do not mention delegation or models in
