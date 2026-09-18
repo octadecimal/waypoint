@@ -82,3 +82,33 @@ that become available only during merge remain explicit merge gates; they are no
 falsely reported as already satisfied. If the PR is a draft and authorized work is
 ready, mark it ready unless the user requested it remain a draft. Reconfirm live
 state before merging after hands-on testing and explicit approval.
+
+## Runnable testing handoff
+
+After current-head CI is green, automatically start the repository's documented
+local test or development stack from the feature worktree when the change has a
+runnable UI or service and the user has not said not to run it. For local-only,
+no-push, or no-PR work, do the same after the applicable local verification; those
+limits block publication, not local hands-on testing. Starting a local test stack is
+not deployment and grants no production mutation authority.
+
+Use the repository's commands and discovered configuration, including dynamically
+selected ports. Do not invent a generic launcher or assume a project, command, or
+port. Before reusing a running stack, prove it belongs to the intended worktree and
+revision and has the required UI and backend; preserve unknown processes. Start new
+processes with a lifetime that survives the handoff, verify they remain alive, and
+state their actual lifetime rather than promising persistence the tool cannot
+provide.
+
+Verify the complete URL and every required local backend with appropriate HTTP,
+health, or browser checks before calling the branch ready. Give the clickable URL,
+exact manual steps, and observable success criteria. Use safe local/fake data and
+credentials; never exercise live billed providers or operator data merely as test
+evidence.
+
+If startup or reachability fails, diagnose and repair bounded task-owned failures,
+rerun affected verification and current-head CI when code changes, then retry. A
+concrete environmental or authorization blocker is a blocked handoff, not a ready
+handoff with commands for the user to run. Honor explicit no-run instructions. For
+docs, metadata, libraries, and other changes with no applicable runnable surface,
+give a focused walkthrough and do not invent a URL.

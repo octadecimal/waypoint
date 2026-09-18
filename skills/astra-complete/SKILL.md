@@ -87,18 +87,22 @@ and completed evidence; do not present an unverified PR as ready.
 ## 4. Handoff for hands-on testing
 
 Once expected checks pass for the current revision and no relevant checks remain
-pending or failed, verify the PR is ready for review and report:
+pending or failed, follow the runnable testing handoff in
+[CI completion](../../references/ci-completion.md). When applicable, start and
+verify the documented local stack from the feature worktree before asking the user
+to test. A local-only boundary suppresses publication, not this local testing step;
+an explicit no-run instruction suppresses startup. Then report:
 
 - PR URL, head revision, and linked CI results.
 - What changed, local verification, and any unverified behavior.
 - Exact manual steps and observable success criteria for this change.
-- Preserved branch/worktree and, if actually started, runtime URL and health.
+- Preserved branch/worktree and the verified runtime URL, health, and true process
+  lifetime when a stack applies.
 
-When project policy or the user requests a test stack, use the repository's
-documented startup procedure from the feature worktree. Inspect process ownership
-before stopping anything; never kill by name or port pattern. Do not spend live
-subscription quota or affect operator data merely to manufacture test evidence.
-For docs or metadata changes, provide a file/behavior walkthrough instead.
+Inspect process ownership before stopping anything; never kill by name or port
+pattern. A startup failure requires bounded diagnosis and repair or a concrete
+blocked handoff, not an unverified ready claim. For docs or metadata changes,
+provide a file/behavior walkthrough instead of a URL.
 
 Stop at this human testing boundary. Keep progress updates separate from requests
 for intervention: ordinary CI failures belong to the agent until fixed or blocked.

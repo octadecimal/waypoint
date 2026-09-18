@@ -50,11 +50,12 @@ guarantee model access, or measure savings without usage evidence.
 
 After implementation is requested or approved, ordinary CI failures stay with the
 agent until fixed or genuinely blocked. The normal handoff is an open PR with
-current passing CI, verification evidence, and concrete manual test steps. Explicit
-local-only or no-push/no-PR instructions keep the work local. Merge requires
-hands-on testing and explicit approval of the current revision. This plugin does
-not change GitHub branch protection; repositories retain their own enforcement and
-merge rules.
+current passing CI followed, when the project has a runnable surface, by a verified
+feature-worktree test stack, clickable local URL, and concrete manual test steps.
+Explicit local-only or no-push/no-PR instructions keep publication local but still
+allow local testing unless the user says not to run it. Merge requires hands-on
+testing and explicit approval of the current revision. This plugin does not change
+GitHub branch protection; repositories retain their own enforcement and merge rules.
 
 ## Preview UI designs
 

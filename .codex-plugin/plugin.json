@@ -1,6 +1,6 @@
 {
   "name": "astra-workflow",
-  "version": "0.1.0+codex.20260918210431",
+  "version": "0.1.0+codex.20260918213131",
   "description": "Complete Codex workflow: Astra planning, economical workers, UI previews, TDD, debugging, reviews, worktrees, and green PR completion.",
   "author": {
     "name": "octadecimal",
