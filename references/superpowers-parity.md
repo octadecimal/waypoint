@@ -7,8 +7,8 @@ This is a Codex-focused derivative, not an upstream Superpowers release.
 
 | Original skill | Replacement | Preserved capability and intentional adaptation |
 | --- | --- | --- |
-| brainstorming | [astra-plan](../skills/astra-plan/SKILL.md) | Context, feasibility/bounded/architectural design, alternatives, scope, spec review, UI companion; Astra planning and one approval or authorized auto execution |
-| using-superpowers | [using-astra-workflow](../skills/using-astra-workflow/SKILL.md) | Skill selection, precedence, continuity, tool adaptation; relevant skills instead of indiscriminate loading |
+| brainstorming | [waypoint-plan](../skills/waypoint-plan/SKILL.md) | Context, feasibility/bounded/architectural design, alternatives, scope, spec review, UI companion; Astra planning and one approval or authorized auto execution |
+| using-superpowers | [using-waypoint](../skills/using-waypoint/SKILL.md) | Skill selection, precedence, continuity, tool adaptation; relevant skills instead of indiscriminate loading |
 | writing-plans | [writing-plans](../skills/writing-plans/SKILL.md) | Executable tasks, exact files, verification, self-review and execution handoff |
 | executing-plans | [executing-plans](../skills/executing-plans/SKILL.md) | Existing-plan execution, progress, blockers, checkpoints and completion |
 | subagent-driven-development | [subagent-driven-development](../skills/subagent-driven-development/SKILL.md) | Fresh task briefs, review packets, ledger, fix loops and integration; economical models and coordinator-owned Git mutations |
@@ -19,7 +19,7 @@ This is a Codex-focused derivative, not an upstream Superpowers release.
 | receiving-code-review | [receiving-code-review](../skills/receiving-code-review/SKILL.md) | Technical assessment, clarification, pushback, prioritized fixes and verification |
 | using-git-worktrees | [using-git-worktrees](../skills/using-git-worktrees/SKILL.md) | Isolation, directory/ignore checks, baseline setup, native workspace awareness and ownership |
 | verification-before-completion | [verification-before-completion](../skills/verification-before-completion/SKILL.md) | Fresh command/result evidence tied to the actual claim and revision |
-| finishing-a-development-branch | [astra-complete](../skills/astra-complete/SKILL.md) | Verify, integrate, retain or explicitly abandon work; authorized PRs must reach current green CI, then hands-on test and explicit merge approval |
+| finishing-a-development-branch | [waypoint-complete](../skills/waypoint-complete/SKILL.md) | Verify, integrate, retain or explicitly abandon work; authorized PRs must reach current green CI, then hands-on test and explicit merge approval |
 | writing-skills | [writing-skills](../skills/writing-skills/SKILL.md) | Discovery descriptions, progressive disclosure, pressure testing, test-driven skill revision and supporting authoring tools |
 
 The visual companion preserves fragments/full documents, choices, recorded click

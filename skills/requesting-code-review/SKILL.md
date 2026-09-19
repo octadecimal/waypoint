@@ -15,9 +15,9 @@ Read [model routing](../../references/model-routing.md) before dispatch. Use a l
 
 Review is expected:
 
-- after a task in `astra-workflow:subagent-driven-development`;
+- after a task in `waypoint:subagent-driven-development`;
 - after a major feature or cross-component change;
-- before a branch is handed to `astra-workflow:astra-complete`;
+- before a branch is handed to `waypoint:waypoint-complete`;
 - before merge when new code has appeared since the last relevant review.
 
 A tiny, low-risk change with strong automated proof may be reviewed directly by the coordinator. Avoid ritual reviewers that add no independent judgment.
@@ -49,7 +49,7 @@ The reviewer is read-only. It does not edit files, move HEAD, stage, commit, pus
 
 ## Handle findings
 
-Use `astra-workflow:receiving-code-review`:
+Use `waypoint:receiving-code-review`:
 
 - Fix Critical findings before proceeding.
 - Fix Important findings before integration unless an evidence-backed ruling rejects them.
@@ -61,7 +61,7 @@ For a fix round, give a scoped re-reviewer the original findings and only the fi
 
 ## Current-revision rule
 
-Review approval applies only to the reviewed content. A later edit, rebase, merge, generated artifact, or dependency change may invalidate it. Before PR handoff, confirm the final review's head still matches the branch. `astra-workflow:astra-complete` separately verifies expected CI on the PR's current head SHA before manual testing.
+Review approval applies only to the reviewed content. A later edit, rebase, merge, generated artifact, or dependency change may invalidate it. Before PR handoff, confirm the final review's head still matches the branch. `waypoint:waypoint-complete` separately verifies expected CI on the PR's current head SHA before manual testing.
 
 Review does not authorize a push, PR, merge, or deployment. Carry the user's existing delivery authorization forward, and never treat reviewer approval as post-test merge approval.
 

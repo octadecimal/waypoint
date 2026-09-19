@@ -12,7 +12,7 @@ import yaml
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = PLUGIN_ROOT / ".codex-plugin" / "plugin.json"
 EXPECTED_SKILLS = {
-    "astra-plan", "astra-complete", "using-astra-workflow",
+    "waypoint-plan", "waypoint-complete", "using-waypoint",
     "dispatching-parallel-agents", "executing-plans", "receiving-code-review",
     "requesting-code-review", "subagent-driven-development", "systematic-debugging",
     "test-driven-development", "using-git-worktrees", "verification-before-completion",
@@ -49,7 +49,7 @@ class PackageTests(unittest.TestCase):
         for field in ("name", "version", "description"):
             self.assertIsInstance(self.manifest.get(field), str)
             self.assertTrue(self.manifest[field].strip(), field)
-        self.assertEqual(self.manifest["name"], "astra-workflow")
+        self.assertEqual(self.manifest["name"], "waypoint")
         self.assertRegex(self.manifest["version"], SEMVER)
         author = self.manifest.get("author")
         self.assertIsInstance(author, dict)

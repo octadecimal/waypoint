@@ -9,7 +9,7 @@ A skill is reusable decision guidance, not a story about one successful task.
 Write only information that changes a capable Codex agent's choices, then verify
 the result at the level the skill affects.
 
-For a standalone or material skill project, use `$astra-plan` to establish scope,
+For a standalone or material skill project, use `$waypoint-plan` to establish scope,
 acceptance criteria, file ownership, validation, and delivery target. Do not add a
 second planning gate when an approved Astra plan already covers the work.
 
@@ -41,7 +41,7 @@ before writing the instructions. When subagent delegation is authorized, read
 [testing skills with subagents](references/testing-skills-with-subagents.md) to
 capture an unskilled baseline, skilled result, and any rationalizations.
 
-For Astra Workflow regressions, use the
+For Waypoint regressions, use the
 [repeatable trial kit](../../tests/behavioral-regressions.md) to select a changed
 decision and a nearby control. Capture actual dispatch and RED/GREEN tool evidence
 for routing trials; label simulated delivery decisions separately from live checks.
@@ -116,7 +116,7 @@ scenario. Do not claim a skill is pressure-tested when only its prose or regex w
 checked.
 
 Before handoff, use `$verification-before-completion`. If the authorized delivery
-target is a PR, continue through `$astra-complete` until expected CI is green for
+target is a PR, continue through `$waypoint-complete` until expected CI is green for
 the current head SHA.
 
 ## Common mistakes

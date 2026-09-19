@@ -52,7 +52,7 @@ def workspace_for(plan_arg: str) -> Path:
         raise ValueError(f"cannot derive workspace name from: {plan}")
     digest = hashlib.sha256(str(plan).encode("utf-8")).hexdigest()[:12]
 
-    base = root / ".astra-workflow" / "sdd"
+    base = root / ".waypoint" / "sdd"
     resolved_base = base.resolve(strict=False)
     if not _is_within(resolved_base, root):
         raise ValueError(

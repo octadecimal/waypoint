@@ -1,9 +1,9 @@
 ---
-name: using-astra-workflow
-description: Use at the start of Codex development work to select the relevant Astra Workflow skills, establish the user's execution mode, and preserve authorization through planning, delegated work, verification, and completion.
+name: using-waypoint
+description: Use at the start of Codex development work to select the relevant Waypoint skills, establish the user's execution mode, and preserve authorization through planning, delegated work, verification, and completion.
 ---
 
-# Using Astra Workflow
+# Using Waypoint
 
 If dispatched as a worker, execute your bounded assignment; do not restart the
 coordinator workflow. For the coordinator, identify requested or relevant skills
@@ -29,7 +29,7 @@ workflow.
 
 | Task | Skill |
 | --- | --- |
-| New behavior, project, feature, UI direction, or feasibility question | [astra-plan](../astra-plan/SKILL.md) |
+| New behavior, project, feature, UI direction, or feasibility question | [waypoint-plan](../waypoint-plan/SKILL.md) |
 | Turn an accepted design into executable tasks | [writing-plans](../writing-plans/SKILL.md) |
 | Execute an existing plan in this session with workers | [subagent-driven-development](../subagent-driven-development/SKILL.md) |
 | Resume or execute a plan with a lightweight sequential worker path | [executing-plans](../executing-plans/SKILL.md) |
@@ -40,7 +40,7 @@ workflow.
 | Obtain independent implementation review | [requesting-code-review](../requesting-code-review/SKILL.md) |
 | Evaluate review findings before changing code | [receiving-code-review](../receiving-code-review/SKILL.md) |
 | Make a completion, test, build, or fix claim | [verification-before-completion](../verification-before-completion/SKILL.md) |
-| Finish a branch, deliver a green PR, repair CI, or approved post-test merge | [astra-complete](../astra-complete/SKILL.md) |
+| Finish a branch, deliver a green PR, repair CI, or approved post-test merge | [waypoint-complete](../waypoint-complete/SKILL.md) |
 | Create, edit, or validate agent skills | [writing-skills](../writing-skills/SKILL.md) |
 
 Process skills set the approach; domain skills then supply implementation detail.

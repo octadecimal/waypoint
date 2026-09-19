@@ -76,7 +76,7 @@ hypothesis adds evidence; it is not permission to stack speculative fixes.
 After three unsuccessful fix attempts, stop editing. Recheck the reproduction,
 assumptions, and component boundary. If each attempt exposes new coupling or
 requires broader redesign, return the architectural decision to Astra through
-`$astra-plan` rather than attempting a fourth patch.
+`$waypoint-plan` rather than attempting a fourth patch.
 
 ## 4. Fix the responsible layer
 

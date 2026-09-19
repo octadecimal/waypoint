@@ -17,7 +17,7 @@ can be reused after a restart. Do not serve a repository root, `.git`, credentia
 or another task's directory.
 
 ```text
-node <plugin-root>/skills/astra-plan/scripts/start-server.cjs start \
+node <plugin-root>/skills/waypoint-plan/scripts/start-server.cjs start \
   --session-dir <absolute-task-preview-directory> --open
 ```
 
@@ -106,7 +106,7 @@ feedback; events add structured context and may show exploration before a final
 choice. A full document can send a custom choice with:
 
 ```js
-window.astraPreview.choice('compact', { revision: 2 });
+window.waypointPreview.choice('compact', { revision: 2 });
 ```
 
 That records the same stable `choice` field as a click:
@@ -132,7 +132,7 @@ to stop before the next authorized task.
 Before sharing an existing URL, check it:
 
 ```text
-node <plugin-root>/skills/astra-plan/scripts/start-server.cjs status \
+node <plugin-root>/skills/waypoint-plan/scripts/start-server.cjs status \
   --session-dir <absolute-task-preview-directory>
 ```
 
@@ -145,7 +145,7 @@ demonstrably gone. A live or ambiguous owner remains untouched.
 Stop only this task's authenticated server:
 
 ```text
-node <plugin-root>/skills/astra-plan/scripts/start-server.cjs stop \
+node <plugin-root>/skills/waypoint-plan/scripts/start-server.cjs stop \
   --session-dir <absolute-task-preview-directory>
 ```
 

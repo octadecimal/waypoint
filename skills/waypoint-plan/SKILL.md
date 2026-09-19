@@ -1,9 +1,9 @@
 ---
-name: astra-plan
-description: Brainstorm and plan new projects, features, UI designs, components, and behavior changes with Astra before implementation. Replaces the original brainstorming workflow, with UI mockup previews, economical workers, and optional execution through a green PR. For finishing an existing branch, use astra-complete.
+name: waypoint-plan
+description: Brainstorm and plan new projects, features, UI designs, components, and behavior changes with Astra before implementation. Replaces the original brainstorming workflow, with UI mockup previews, economical workers, and optional execution through a green PR. For finishing an existing branch, use waypoint-complete.
 ---
 
-# Astra Plan
+# Waypoint Plan
 
 Turn the user's goal into verified work. Astra owns planning; one coordinator
 owns integration. Follow the repository's instructions and permissions. This
@@ -156,7 +156,7 @@ turn. An approved review, finished plan, or worker result leads to the next
 authorized task; ask only consequential questions and preserve pending decisions
 in the checkpoint so short replies still resolve them after compaction.
 
-For approved implementation, invoke [Astra Complete](../astra-complete/SKILL.md)
+For approved implementation, invoke [Waypoint Complete](../waypoint-complete/SKILL.md)
 and continue through green-PR delivery without another routine permission prompt.
 An explicit plan-only, local-only, no-push, or no-PR request keeps its stated
 boundary.

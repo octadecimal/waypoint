@@ -14,7 +14,7 @@ do not manufacture alternatives for an already settled design.
    unknown, use a browser preview instead. Follow the inline tool's instructions
    when using it; this plugin does not depend on it.
 2. For interactive alternatives, recorded selections, or iterative UI design, use
-   the [live visual companion](../skills/astra-plan/visual-companion.md) by default.
+   the [live visual companion](../skills/waypoint-plan/visual-companion.md) by default.
    Its Node
    launcher serves the task-owned preview directory, authenticates HTTP and
    WebSocket access, records choices, and refreshes revisions. Start the companion

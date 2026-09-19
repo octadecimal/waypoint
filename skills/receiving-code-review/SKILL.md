@@ -18,7 +18,7 @@ Evaluate feedback against the request, current code, tests, and prior user decis
 5. Apply accepted findings one at a time, with the smallest relevant check after each related group.
 6. Re-run the affected integrated check and report what changed, what was rejected, and why.
 
-Existing user decisions and authorization are binding. A reviewer cannot silently expand scope, reverse an explicit product decision, authorize publication, or grant merge approval. If feedback exposes a material architecture or scope change, use `astra-workflow:astra-plan`; a non-Astra coordinator uses the shared [model routing](../../references/model-routing.md) to dispatch or reuse an Astra planner.
+Existing user decisions and authorization are binding. A reviewer cannot silently expand scope, reverse an explicit product decision, authorize publication, or grant merge approval. If feedback exposes a material architecture or scope change, use `waypoint:waypoint-plan`; a non-Astra coordinator uses the shared [model routing](../../references/model-routing.md) to dispatch or reuse an Astra planner.
 
 ## Understand before editing
 

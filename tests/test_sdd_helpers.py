@@ -69,7 +69,7 @@ Do second work.
         workspace = Path(result.stdout.strip())
 
         self.assertTrue(workspace.is_dir())
-        self.assertEqual(workspace.parent, self.repo / ".astra-workflow" / "sdd")
+        self.assertEqual(workspace.parent, self.repo / ".waypoint" / "sdd")
         marker = json.loads((workspace / ".workspace.json").read_text(encoding="utf-8"))
         self.assertEqual(Path(marker["plan"]), self.plan)
         self.assertEqual(Path(marker["repo_root"]), self.repo)
@@ -122,7 +122,7 @@ Implement the real behavior.
         with tempfile.TemporaryDirectory() as outside_name:
             outside = Path(outside_name).resolve()
             self.assertFalse(outside.is_relative_to(self.repo))
-            link = self.repo / ".astra-workflow"
+            link = self.repo / ".waypoint"
             try:
                 os.symlink(outside, link, target_is_directory=True)
             except OSError as error:

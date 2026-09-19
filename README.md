@@ -1,4 +1,4 @@
-# Astra Workflow
+# Waypoint
 
 A private Codex plugin for taking development work from an idea to a tested pull
 request. Astra owns planning and visual design; explicitly selected economical
@@ -43,7 +43,7 @@ meaningful changes; required host heartbeats stay brief.
 
 No special phrase or skill name is required. The skills allow automatic selection
 for matching development tasks. Add the [personal instructions below](#replace-superpowers-completely)
-to make Astra Workflow your default across repositories, then start a new thread.
+to make Waypoint your default across repositories, then start a new thread.
 
 For example:
 
@@ -57,10 +57,10 @@ skill when you want a particular entry point:
 
 | Need | Entry point |
 | --- | --- |
-| Brainstorm, plan, or design a UI | [Astra Plan](skills/astra-plan/SKILL.md), `$astra-plan` |
+| Brainstorm, plan, or design a UI | [Waypoint Plan](skills/waypoint-plan/SKILL.md), `$waypoint-plan` |
 | Diagnose a failure before editing | [Systematic Debugging](skills/systematic-debugging/SKILL.md), `$systematic-debugging` |
-| Finish a branch, repair CI, or perform an approved merge | [Astra Complete](skills/astra-complete/SKILL.md), `$astra-complete` |
-| Select the relevant development workflow | [Using Astra Workflow](skills/using-astra-workflow/SKILL.md), `$using-astra-workflow` |
+| Finish a branch, repair CI, or perform an approved merge | [Waypoint Complete](skills/waypoint-complete/SKILL.md), `$waypoint-complete` |
+| Select the relevant development workflow | [Using Waypoint](skills/using-waypoint/SKILL.md), `$using-waypoint` |
 
 ## Control how far it goes
 
@@ -117,7 +117,7 @@ See [model routing](references/model-routing.md) for the detailed policy.
 ## Preview UI designs
 
 ```text
-Use $astra-plan to compare two settings-page layouts. Show previews before we
+Use $waypoint-plan to compare two settings-page layouts. Show previews before we
 decide; do not implement yet.
 ```
 
@@ -139,7 +139,7 @@ express design preferences, never permission to implement or merge.
 
 ## Optional Chrome DevTools MCP
 
-Astra Workflow automatically uses an available
+Waypoint automatically uses an available
 [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) for
 evidence-based frontend debugging and applicable browser health checks. It is an
 external MCP configured separately in Codex, not a server bundled or registered by
@@ -162,21 +162,21 @@ codex plugin remove superpowers@claude-plugins-official
 Use the actual installed marketplace identifier if different. Do not manually
 remove plugin-cache files. Preserve unrelated plugins and personal instructions.
 Route legacy names through the [replacement map](references/superpowers-parity.md):
-`brainstorming` becomes `astra-plan`, `finishing-a-development-branch` becomes
-`astra-complete`, and `using-superpowers` becomes `using-astra-workflow`; all other
-skill names retain their names under the `astra-workflow` namespace.
+`brainstorming` becomes `waypoint-plan`, `finishing-a-development-branch` becomes
+`waypoint-complete`, and `using-superpowers` becomes `using-waypoint`; all other
+skill names retain their names under the `waypoint` namespace.
 
 Add this to personal Codex instructions (`~/.codex/AGENTS.md`), preserving any
 existing content:
 
 ```text
-For development work, use astra-workflow:using-astra-workflow to select relevant
-skills. Astra Workflow fully replaces Superpowers; route legacy skill references
+For development work, use waypoint:using-waypoint to select relevant
+skills. Waypoint fully replaces Superpowers; route legacy skill references
 through its replacement map. Preserve prior decisions and plan-only, local-only,
 and auto execution boundaries. Do not reinstall Superpowers or duplicate its gates.
 ```
 
-Start a new thread and verify all 14 Astra skills are available and the original
+Start a new thread and verify all 14 Waypoint skills are available and the original
 plugin's skills are absent. Existing threads retain already-loaded instructions.
 The original MIT notice is retained in [licenses/superpowers-MIT.txt](licenses/superpowers-MIT.txt);
 see the replacement map for source version and derivation scope.
@@ -184,7 +184,7 @@ see the replacement map for source version and derivation scope.
 ## Install locally
 
 This repository is private. Authenticate Git access as an account with access to
-`octadecimal/astra-workflow`. The plugin uses Codex's existing tools and account;
+`octadecimal/waypoint`. The plugin uses Codex's existing tools and account;
 it contains no MCP server, session hooks, or paid API integration. Node.js 22+ is
 needed only for the live preview companion and JavaScript helper tools. Python
 3.12+ supports validation and the portable execution/debugging helpers. Graphviz
@@ -195,14 +195,14 @@ requires authenticated Git/GitHub access; examples use `gh`.
 The standard personal-marketplace layout is:
 
 ```text
-~/plugins/astra-workflow/                 # this repository or its worktree
+~/plugins/waypoint/                 # this repository or its worktree
 ~/.agents/plugins/marketplace.json        # personal catalog, outside this repo
 ```
 
 Clone the repository into that plugin directory if it is not already present:
 
 ```text
-git clone https://github.com/octadecimal/astra-workflow.git ~/plugins/astra-workflow
+git clone https://github.com/octadecimal/waypoint.git ~/plugins/waypoint
 ```
 
 A fresh clone uses the default `main` branch. Do not clone over an existing
@@ -213,8 +213,8 @@ preserving existing entries and metadata:
 
 ```json
 {
-  "name": "astra-workflow",
-  "source": { "source": "local", "path": "./plugins/astra-workflow" },
+  "name": "waypoint",
+  "source": { "source": "local", "path": "./plugins/waypoint" },
   "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
   "category": "Productivity"
 }
@@ -224,7 +224,7 @@ For a new personal marketplace, use top-level `name: "personal"`,
 `interface: {"displayName": "Personal"}`, and the `plugins` array. Install with:
 
 ```text
-codex plugin add astra-workflow@personal
+codex plugin add waypoint@personal
 ```
 
 Use the existing marketplace name if yours differs. Codex discovers the standard
@@ -233,6 +233,22 @@ standalone marketplace, so do not pass its GitHub URL to `plugin marketplace add
 
 After source updates, follow Codex's plugin cache/reinstall procedure and start a
 new thread. Editing the source does not prove an existing thread loaded it.
+
+### Existing installations and artifacts
+
+When changing plugin names, install and validate the replacement before retiring
+the previous installation. Verify all 14 skills through fresh Codex skill discovery,
+then start a new thread; existing threads retain their loaded instructions.
+
+Use `git worktree move` for a linked marketplace source. If moving the primary
+checkout, run `git worktree repair` from its new location and verify every linked
+worktree. Update the Git remote to the repository URL above.
+
+New checkpoints use `<git-common-dir>/waypoint/`, and new execution artifacts use
+`.waypoint/sdd/`. Preserve existing checkpoints, preview sessions, and artifact
+directories at their recorded locations when resuming earlier work. Do not rewrite
+historical logs, Git history, or old plugin caches. Keep caches needed by running
+previews intact when retiring the previous plugin.
 
 ## Validate
 
