@@ -1,0 +1,6 @@
+interface:
+  display_name: "Writing Skills"
+  short_description: "Create and evaluate reliable Codex skills"
+  default_prompt: "Use $writing-skills to create or improve this Codex skill and validate its behavior."
+policy:
+  allow_implicit_invocation: true
