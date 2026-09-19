@@ -66,6 +66,11 @@ For each task:
    commit conventions.
 6. Mark the task complete and update the durable checkpoint in the same turn.
 
+Apply [continuation](../../references/continuation.md) after every worker handoff:
+review the evidence and advance the next authorized task without a user
+acknowledgement. A worker finishing is an internal transition, not completion of
+the coordinator's task.
+
 Do not batch past a failed verification. Diagnose the failure, repair it, and rerun the affected check. Escalate repeated failures with new evidence through the model-routing guide rather than repeating the same attempt.
 
 ## 3. Review checkpoints

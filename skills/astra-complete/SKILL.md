@@ -6,6 +6,9 @@ description: Finish an existing development branch through verification, review,
 # Astra Complete
 
 Own delivery until the PR is ready for human testing, or report a concrete blocker.
+Apply the [continuation check](../../references/continuation.md) before ending a
+coordinator turn. Continue authorized review, repair, runtime preparation, and CI
+work; stop at the actual human testing/approval boundary, not a phase transition.
 Use this independently on existing work or after Astra Plan. Do not repeat planning
 unless the work exposes a material scope or design decision. When that happens,
 read the routing guide and have Astra own the replan: use the current Astra model
@@ -62,6 +65,10 @@ Use fresh local verification tied to the current contents. Reuse existing eviden
 when the relevant contents and environment have not changed; rerun affected checks
 after subsequent edits. Do not claim retrospective TDD for inherited code.
 
+Reconcile the result against the original user request and later explicit scope
+decisions. A completed plan can still omit requested behavior; finish that
+authorized work before handoff and record the coverage in the checkpoint.
+
 Stage explicit intended paths, inspect the staged diff, and commit using repository
 conventions. Push normally. Create or update the matching PR against the verified
 base. Its title and body describe the final problem, behavior, validation, and
@@ -81,6 +88,10 @@ worker. The coordinator reviews, integrates, validates, pushes, and observes aga
 After a repair changes the revision, rebuild or restart the task-owned stack as
 needed and verify it serves the new head. Pending CI is ongoing work, not a handoff
 to the user.
+
+On both initial delivery and resume, sample CI status, then prepare or repair the
+authorized stack before entering a blocking CI watch. Do not put "wait until CI
+finishes" ahead of stack preparation in the action sequence.
 
 Do not disable tests, loosen assertions, bypass protection, or edit workflows merely
 to obtain green status. Legitimate test/workflow fixes need evidence that the
@@ -126,7 +137,7 @@ worktree. Restart from the primary checkout only when required and authorized by
 the repository's completion procedure or the user. Report exact leftovers and
 failures; a Windows directory lock is not permission for forced deletion.
 
-For interrupted work, update the short checkpoint established by Astra Plan, or
-create one under `<git-common-dir>/astra-workflow/<task-id>.md`. Record current PR
-revision, verification evidence, blockers, and next action. On resume, reconcile
-with live Git/GitHub state and current authorization before acting.
+Maintain the [delivery checkpoint](../../references/delivery-checkpoint.md)
+established by Astra Plan, or create it for standalone completion. Record runtime
+ownership, data source, verified URL, served revision, CI evidence, and next action.
+Reconcile live Git/GitHub and runtime evidence before reuse on resume.

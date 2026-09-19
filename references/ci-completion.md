@@ -15,6 +15,11 @@ expected checks pass for its current head. A normal "yes" or "go ahead" in respo
 to that plan supplies this implementation approval; do not ask separately whether
 to implement locally, push, or open the PR.
 
+A design-review checkpoint within that authorized implementation does not reset
+authority. Once the user approves it, continue the next task immediately; an
+acknowledgement describing future implementation is not execution. State changes
+in commentary and use tools to advance the work before ending the turn.
+
 Plan-only, brainstorm-only, local-only, no-push, and no-PR instructions override
 that default. Preserve an earlier explicit override unless the user later changes
 it. Approval of a design direction, mockup, or preview alone chooses the design; it
@@ -41,9 +46,9 @@ a concrete blocker to green-PR delivery, not a successful local handoff.
    `gh run view <run-id> --log-failed`. Confirm the run belongs to the current PR
    revision. Account for PR merge refs and merge-queue checks; do not compare a
    merge-ref SHA naively to the source head SHA.
-4. Wait on supported check notifications or bounded watches, while giving progress
-   updates. Re-read the PR head after completion. A new push, base update, or changed
-   merge candidate invalidates prior applicable evidence.
+4. Wait on supported check notifications or bounded watches, using the progress
+   guidance below. Re-read the PR head after completion. A new push, base update,
+   or changed merge candidate invalidates prior applicable evidence.
 
 Queued, in-progress, cancelled, timed-out, missing, and failed checks are not passes.
 A skipped or neutral required check requires investigation. An optional conditional
@@ -52,6 +57,20 @@ does not prove green CI. If the repository has no CI, state that explicitly and
 resolve the requested CI requirement rather than inventing success. If permissions
 hide rules or checks, disclose the evidence limit and resolve it before claiming
 all required checks passed.
+
+## Progress without repetition
+
+Give an initial update when the PR opens and CI starts, including the useful work
+continuing in parallel. Then report meaningful changes: a new failure and diagnosis,
+a repair pushed, the stack becoming healthy, a changed revision, a blocker, or the
+completed testing handoff. Do not narrate every poll, repeat the check list, or ask
+the user to intervene merely because checks are still pending.
+
+Use supported notifications or bounded watches rather than tight polling. Follow
+the host's required update cadence and maximum wait duration; these rules do not
+authorize silence beyond that cadence. When a heartbeat is required without a
+state change, keep it brief and factual. Do not invent progress to fill the gap.
+Quiet reporting never means abandoning the CI loop or hiding failures.
 
 ## Repair with evidence
 
@@ -66,6 +85,13 @@ all required checks passed.
 - Behind/conflicting base: follow repository policy, integrate safely, then rerun
   applicable verification and obtain new CI results. Never force-push or overwrite
   another contributor's work without explicit authority.
+
+The same scope discipline applies to review findings. Repair defects introduced
+by the change and small, authorized delivery blockers. Defer unrelated cleanup;
+do not turn a review suggestion into a new subsystem or broader refactor. Material
+scope changes need an Astra replan and the user's approval of the expanded scope,
+while independent work within existing authority continues. Record deferred
+findings; never waive a failing delivery gate merely to avoid a scope discussion.
 
 The coordinator may delegate a bounded diagnosis/fix using the routing guide, but
 retains publication and CI ownership. A repeated failed approach with no new
@@ -102,6 +128,10 @@ processes with a lifetime that survives the handoff, verify they remain alive, a
 state their actual lifetime rather than promising persistence the tool cannot
 provide. If a CI repair changes the revision, rebuild or restart the task-owned
 stack as needed and prove it now serves that revision.
+
+Record the URL, process and data ownership, served revision, health, and lifetime
+in the [delivery checkpoint](delivery-checkpoint.md). On resume, reconcile those
+fields with live evidence before reusing or stopping a process.
 
 For PR delivery, final handoff requires green current-head CI and, when applicable,
 a healthy stack serving that same revision. Local-only delivery uses its applicable

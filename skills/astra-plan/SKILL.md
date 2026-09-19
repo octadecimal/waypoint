@@ -46,6 +46,13 @@ authority by itself. Ask about a material unresolved design choice when needed,
 but do not turn planning into a second implementation or publication gate. Neither
 mode grants merge or deployment approval.
 
+Distinguish a needed design review from an execution handoff. Label a human review
+clearly and state what approval will unlock. When the user approves that checkpoint
+inside an already-authorized implementation task, acknowledge in commentary and
+perform the next action in the same turn. Do not finish with a recap or "next is
+implementing" when that work is authorized and unblocked. Preserve explicit
+brainstorm-only, design-only, and plan-only limits.
+
 ## 2. Understand and plan proportionally
 
 Inspect relevant code, callers, tests, project guidance, and CI definitions before
@@ -144,14 +151,17 @@ test adequacy. Fix concrete findings; do not add ritual review rounds.
 
 ## 4. Finish or resume
 
+Apply the [continuation check](../../references/continuation.md) before ending the
+turn. An approved review, finished plan, or worker result leads to the next
+authorized task; ask only consequential questions and preserve pending decisions
+in the checkpoint so short replies still resolve them after compaction.
+
 For approved implementation, invoke [Astra Complete](../astra-complete/SKILL.md)
 and continue through green-PR delivery without another routine permission prompt.
 An explicit plan-only, local-only, no-push, or no-PR request keeps its stated
 boundary.
 
-For work spanning multiple tasks or turns, keep a short checkpoint under
-`<git-common-dir>/astra-workflow/<task-id>.md` using a safe task identifier. Record
-scope, mode, authorization source, branch/worktree, task owners, pending work,
-verification revision, and PR/check links. Keep it out of commits and omit secrets.
-On resume, verify live state and current instructions; a checkpoint is a continuity
-aid, never a substitute for fresh merge approval. Update it before handing off.
+For work spanning multiple tasks or turns, maintain the
+[delivery checkpoint](../../references/delivery-checkpoint.md), including runtime
+ownership, data source, URL, and served revision when applicable. Keep it out of
+commits and reconcile live evidence on resume. Update it before handing off.

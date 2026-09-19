@@ -144,6 +144,10 @@ one worker. The shared filesystem makes fake independence dangerous.
 
 ## Handle the implementer report
 
+Follow [continuation](../../references/continuation.md): consume the report,
+inspect evidence, and advance the review/integration loop in the same turn.
+Do not stop to ask the user to acknowledge a completed worker assignment.
+
 The worker returns:
 
 - `DONE`: implementation and required checks completed.

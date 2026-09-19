@@ -50,10 +50,21 @@ execution. Scale checklists to the work and preserve the required evidence.
 
 ## Continuity
 
-Keep task state, authorization source, worker ownership, test evidence, and next
-action in the task checkpoint. On resume, reconcile Git, PR, CI, and worker state
-before acting. Never mistake a checkpoint, old green check, or mockup click for
-current merge approval. Continue useful independent work while workers or CI run.
+Read and apply [continuation](../../references/continuation.md) before ending a
+coordinator turn: if authorized, unblocked work remains, act instead of handing
+back a description of the next step. Resolve short replies against the recorded
+pending decision, keep worker handoffs internal, and ask only consequential
+questions. Required human reviews and explicit task boundaries still apply.
+
+Use the [delivery checkpoint](../../references/delivery-checkpoint.md) for task
+state, authority, workers, verification, and runtime ownership. On resume, reconcile
+the recorded guidance version/source with what this thread actually read; a newer
+installed version does not prove the thread reloaded. Record unavailable loaded
+version evidence as unknown. Also reconcile
+live Git, PR, CI, worker, and runtime evidence before acting. Never mistake a
+checkpoint, old green check, or mockup click for current merge approval. Continue
+useful independent work while workers or CI run, following the
+[progress guidance](../../references/ci-completion.md#progress-without-repetition).
 
 Read [the migration map](../../references/superpowers-parity.md) when interpreting
 legacy workflow names. This plugin contains its own implementation and helpers;

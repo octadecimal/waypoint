@@ -121,6 +121,12 @@ text question, push a small waiting screen so the browser does not show a stale
 choice. In auto mode, state the selected direction and continue within existing
 authority when no consequential uncertainty remains.
 
+For a human review checkpoint, follow the
+[preview handoff and continuation rules](../../references/ui-previews.md#prototype-and-feedback-loop):
+make the requested review explicit, then act on its approval in the same turn when
+implementation is already authorized. Recording a selected revision is not a reason
+to stop before the next authorized task.
+
 ## Health, restart, and stop
 
 Before sharing an existing URL, check it:

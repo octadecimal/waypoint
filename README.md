@@ -34,6 +34,11 @@ Docs and other work without a runnable surface get a focused review walkthrough
 instead of an invented URL. A genuine access, infrastructure, or scope blocker is
 reported explicitly; pending CI or a broken stack is not a successful handoff.
 
+Long-running work keeps a local [delivery checkpoint](references/delivery-checkpoint.md)
+with authorization, CI evidence, stack URL, process and data ownership, and served
+revision. Resuming checks those facts against live state. Progress updates focus on
+meaningful changes; required host heartbeats stay brief.
+
 ## Use natural prompts
 
 No special phrase or skill name is required. The skills allow automatic selection
@@ -68,6 +73,25 @@ authorized scope.
 “no push,” and “no PR” prevent publication. Local-only work can still run a local
 test stack; “do not run it” prevents startup. Choosing a mockup alone does not
 authorize implementation. Merge and deployment remain separate decisions.
+
+When a design needs your review, the agent says so explicitly. Your "ok" resolves
+that checkpoint: if implementation is already authorized, work continues in the
+same turn rather than stopping at an acknowledgement of what comes next.
+
+The [continuation rule](references/continuation.md) checks for authorized remaining
+work before every coordinator handoff. Pending decisions survive in the checkpoint,
+worker reports lead directly into review and integration, and reversible details
+use reasonable defaults. Human reviews, meaningful unresolved decisions, explicit
+limits, and post-test merge approval remain real stopping points.
+
+Handoffs check the original request as well as the plan. Pauses name the human
+decision, and CI/review repairs stay within authorized scope. Unnecessary
+"continue" prompts observed during real tasks are recorded locally; further
+workflow changes follow those observations rather than speculative rules.
+
+The checkpoint also records the guidance version and source actually used. A
+newly installed version is tracked separately: an old thread may still carry old
+instructions. Unknown loaded-version evidence stays explicit.
 
 See [delivery authority and CI completion](references/ci-completion.md) for the
 full authorization and evidence rules. Repository instructions, available tools,
@@ -225,7 +249,9 @@ They validate the complete skill catalogue, metadata, local references, and runn
 preview/execution helpers.
 They do not run paid model calls or prove agent behavior. The repeatable manual
 [behavior scenarios](tests/scenarios.md) cover planning ownership, routing,
-authorization, CI freshness, and the human testing boundary.
+authorization, CI freshness, and the human testing boundary. Use the
+[regression trial kit](tests/behavioral-regressions.md) for repeatable agent trials
+with recorded tool evidence and explicit simulation limits.
 
 When modifying the skills, also use the Codex plugin-creator and skill-creator
 validators if available. Run behavior trials for changed decisions, inspect their

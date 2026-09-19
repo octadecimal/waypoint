@@ -63,21 +63,59 @@ function waitForExit(child, timeoutMs = 5000) {
   ]);
 }
 
-async function startPreview(sessionDir) {
-  const child = spawn(process.execPath, [launcher, 'start', '--session-dir', sessionDir], {
+async function waitForClose(running, timeoutMs = 2000) {
+  let timer;
+  try {
+    await Promise.race([
+      running.closed,
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('process pipes did not close')), timeoutMs); })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function stopOwnedPreview(sessionDir, running) {
+  if (fs.existsSync(path.join(sessionDir, 'state', 'server-info'))) {
+    const stopped = stopPreview(sessionDir);
+    if (stopped.status === 0) {
+      try { await waitForClose(running); return; } catch (_) {}
+    }
+  }
+  if (running.child.exitCode === null && running.child.signalCode === null) {
+    if (process.platform === 'win32') {
+      spawnSync('taskkill', ['/PID', String(running.child.pid), '/T', '/F'], {
+        encoding: 'utf8', timeout: 5000, windowsHide: true
+      });
+    } else {
+      running.child.kill('SIGTERM');
+    }
+  }
+  await waitForClose(running);
+}
+
+async function startPreview(sessionDir, { args = [launcher, 'start', '--session-dir', sessionDir], timeoutMs = 5000, onSpawn } = {}) {
+  const child = spawn(process.execPath, args, {
     cwd: pluginRoot, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true
   });
+  const running = { child, closed: new Promise(resolve => child.once('close', resolve)) };
+  if (onSpawn) onSpawn(child);
   let stdout = '';
   let stderr = '';
   child.stdout.on('data', chunk => { stdout += chunk; });
   child.stderr.on('data', chunk => { stderr += chunk; });
   const infoFile = path.join(sessionDir, 'state', 'server-info');
-  const info = await waitFor(() => {
-    if (child.exitCode !== null) throw new Error(`launcher exited ${child.exitCode}: ${stderr}`);
-    if (!fs.existsSync(infoFile)) return null;
-    return JSON.parse(fs.readFileSync(infoFile, 'utf8'));
-  });
-  return { child, info, output: () => ({ stdout, stderr }) };
+  try {
+    const info = await waitFor(() => {
+      if (child.exitCode !== null) throw new Error(`launcher exited ${child.exitCode}: ${stderr}`);
+      if (!fs.existsSync(infoFile)) return null;
+      return JSON.parse(fs.readFileSync(infoFile, 'utf8'));
+    }, timeoutMs);
+    return { ...running, info, output: () => ({ stdout, stderr }) };
+  } catch (error) {
+    try { await stopOwnedPreview(sessionDir, running); } catch (cleanupError) { error.cause = cleanupError; }
+    throw error;
+  }
 }
 
 function stopPreview(sessionDir) {
@@ -250,15 +288,29 @@ test('browser launch uses argument arrays and stays headless without a display',
   assert.equal(serverModule.browserLauncherForPlatform(url, { platform: 'linux', osRelease: '', env: {} }), null);
 });
 
+test('failed preview startup closes its owned child', { timeout: 10000 }, async () => {
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-start-failure-'));
+  let child;
+  try {
+    await assert.rejects(startPreview(sessionDir, {
+      args: ['-e', 'setInterval(() => {}, 1000)'], timeoutMs: 100,
+      onSpawn: spawned => { child = spawned; }
+    }), /timed out waiting for condition/);
+    assert.ok(child.exitCode !== null || child.signalCode !== null, 'startup failure left child running');
+    assert.equal(child.stdout.destroyed, true, 'startup failure left stdout open');
+    assert.equal(child.stderr.destroyed, true, 'startup failure left stderr open');
+  } finally {
+    if (child && child.exitCode === null && child.signalCode === null) {
+      child.kill('SIGTERM');
+      await waitForExit(child);
+    }
+  }
+});
+
 test('existing preview honors --open without starting another server', { timeout: 10000 }, async t => {
   const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-existing-'));
   const running = await startPreview(sessionDir);
-  t.after(async () => {
-    if (running.child.exitCode === null) {
-      stopPreview(sessionDir);
-      await waitForExit(running.child);
-    }
-  });
+  t.after(() => stopOwnedPreview(sessionDir, running));
 
   const originalInfo = fs.readFileSync(path.join(sessionDir, 'state', 'server-info'), 'utf8');
   let noOpenCalls = 0;
@@ -327,9 +379,8 @@ test('live companion authenticates, serves safely, records events, reloads, and 
   let second;
   t.after(async () => {
     for (const running of [first, second]) {
-      if (running && running.child.exitCode === null) {
-        stopPreview(sessionDir);
-        try { await waitForExit(running.child, 2000); } catch (_) { running.child.kill('SIGTERM'); }
+      if (running && running.child.exitCode === null && running.child.signalCode === null) {
+        await stopOwnedPreview(sessionDir, running);
       }
     }
   });
