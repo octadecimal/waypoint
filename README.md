@@ -89,6 +89,10 @@ decision, and CI/review repairs stay within authorized scope. Unnecessary
 "continue" prompts observed during real tasks are recorded locally; further
 workflow changes follow those observations rather than speculative rules.
 
+The checkpoint also records the guidance version and source actually used. A
+newly installed version is tracked separately: an old thread may still carry old
+instructions. Unknown loaded-version evidence stays explicit.
+
 See [delivery authority and CI completion](references/ci-completion.md) for the
 full authorization and evidence rules. Repository instructions, available tools,
 credentials, and explicit task limits still apply.

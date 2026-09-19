@@ -58,6 +58,9 @@ questions. Required human reviews and explicit task boundaries still apply.
 
 Use the [delivery checkpoint](../../references/delivery-checkpoint.md) for task
 state, authority, workers, verification, and runtime ownership. On resume, reconcile
+the recorded guidance version/source with what this thread actually read; a newer
+installed version does not prove the thread reloaded. Record unavailable loaded
+version evidence as unknown. Also reconcile
 live Git, PR, CI, worker, and runtime evidence before acting. Never mistake a
 checkpoint, old green check, or mockup click for current merge approval. Continue
 useful independent work while workers or CI run, following the

@@ -14,6 +14,8 @@ or explicit no-run work rather than inventing a stack.
 
 ```markdown
 # <task>
+Workflow provenance: <guidance version, skill path/source, evidence captured when read;
+                      loaded version unknown if unavailable; installed version separately>
 Scope / acceptance: <outcome and remaining conditions>
 Request coverage: <original requested outcomes, later explicit exclusions,
                    verification evidence and any remaining omissions>
@@ -46,6 +48,23 @@ write `unknown` with the next verification step. A checkout's HEAD alone does no
 prove an already-running process or built asset serves it. Use repository-supported
 build/version evidence, or a witnessed build/start from that worktree and content
 revision plus an application health check. Record which evidence was available.
+
+## Identify the guidance in use
+
+When first reading workflow guidance, record the version and source tied to that
+actual skill path or host-provided loaded-skill metadata. For a versioned plugin
+cache path, use its package manifest as corroboration. For a development checkout,
+record the source path and revision/dirty state; its manifest alone does not prove
+the installed plugin was loaded. If loaded-version evidence is unavailable, record
+`unknown` rather than copying the newest installed version.
+
+An install result or fresh discovery request proves what is available for a new
+thread, not what an existing thread already loaded. Preserve the original entry
+across reinstalls and resume. If guidance is explicitly reread from a new version,
+record that source and which guidance changed without claiming the whole thread
+reloaded. Note mismatches when investigating a regression; use a new thread to
+validate a new installation. Missing provenance alone does not block authorized
+work or require a new approval.
 
 ## Resume from evidence
 
