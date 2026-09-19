@@ -15,6 +15,8 @@ or explicit no-run work rather than inventing a stack.
 ```markdown
 # <task>
 Scope / acceptance: <outcome and remaining conditions>
+Request coverage: <original requested outcomes, later explicit exclusions,
+                   verification evidence and any remaining omissions>
 Mode / authority: <user instruction, delivery target, local-only/no-run limits>
 Pending decision: <none, or exact question, artifact/revision, options,
                    existing authority, and action each answer unlocks>
@@ -34,6 +36,8 @@ Runtime: <applicable | not applicable with reason | blocked>
   Lifetime / cleanup: <how it survives handoff; what this task owns and may stop>
 User testing: <2-4 actions and expected results; tested/approved revision if any>
 Next action / blocker: <concrete next step and unresolved evidence>
+Unnecessary stops observed: <not assessed, none observed, or stalled action, prior authority,
+                            user nudge/evidence, cause if known, resumed outcome>
 ```
 
 Record only the command information needed to establish ownership; redact secret

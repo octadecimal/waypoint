@@ -86,6 +86,13 @@ Quiet reporting never means abandoning the CI loop or hiding failures.
   applicable verification and obtain new CI results. Never force-push or overwrite
   another contributor's work without explicit authority.
 
+The same scope discipline applies to review findings. Repair defects introduced
+by the change and small, authorized delivery blockers. Defer unrelated cleanup;
+do not turn a review suggestion into a new subsystem or broader refactor. Material
+scope changes need an Astra replan and the user's approval of the expanded scope,
+while independent work within existing authority continues. Record deferred
+findings; never waive a failing delivery gate merely to avoid a scope discussion.
+
 The coordinator may delegate a bounded diagnosis/fix using the routing guide, but
 retains publication and CI ownership. A repeated failed approach with no new
 evidence triggers replanning or model escalation. When no authorized action can

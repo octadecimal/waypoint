@@ -84,6 +84,11 @@ worker reports lead directly into review and integration, and reversible details
 use reasonable defaults. Human reviews, meaningful unresolved decisions, explicit
 limits, and post-test merge approval remain real stopping points.
 
+Handoffs check the original request as well as the plan. Pauses name the human
+decision, and CI/review repairs stay within authorized scope. Unnecessary
+"continue" prompts observed during real tasks are recorded locally; further
+workflow changes follow those observations rather than speculative rules.
+
 See [delivery authority and CI completion](references/ci-completion.md) for the
 full authorization and evidence rules. Repository instructions, available tools,
 credentials, and explicit task limits still apply.

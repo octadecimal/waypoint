@@ -65,6 +65,10 @@ Use fresh local verification tied to the current contents. Reuse existing eviden
 when the relevant contents and environment have not changed; rerun affected checks
 after subsequent edits. Do not claim retrospective TDD for inherited code.
 
+Reconcile the result against the original user request and later explicit scope
+decisions. A completed plan can still omit requested behavior; finish that
+authorized work before handoff and record the coverage in the checkpoint.
+
 Stage explicit intended paths, inspect the staged diff, and commit using repository
 conventions. Push normally. Create or update the matching PR against the verified
 base. Its title and body describe the final problem, behavior, validation, and

@@ -14,6 +14,15 @@ rule grants no new authority and does not permit unlimited retries or busy polli
 If a tool/context limit forces a handoff, preserve the checkpoint and say exactly
 what remains rather than claiming completion.
 
+For an intentional pause, identify its purpose plainly: design review, missing
+information, hands-on testing, or merge approval. Say what the user needs to do
+and which action their answer unlocks. A status update is not an approval request.
+
+Before calling the outcome complete, compare it with the original user request
+and later explicit scope decisions, not just the execution plan or worker tasks.
+Verify each requested outcome, honor explicit exclusions, and continue any omitted
+authorized work. A requirement disappearing from a plan is not a scope reduction.
+
 ## Resolve approvals in context
 
 Before requesting a decision, record the pending question, artifact/revision,
@@ -60,3 +69,17 @@ dependent work. Use asynchronous input when supported and continue independent
 authorized work while it is pending. Silence or elapsed time is not approval;
 never proceed with the dependent action until a required answer arrives. Existing
 authorization persists across phase changes and does not need routine renewal.
+
+## Learn from real tasks
+
+During the next few user-assigned tasks, record observed unnecessary stops in the
+local checkpoint: the stalled action, prior authority, user nudge, cause if known,
+and outcome after resuming. Count only nudges that were needed despite existing
+authority and no blocker; required reviews, new instructions, and status questions
+are not failures. Use actual message/tool evidence and mark uncertain causes.
+
+Review those observations before adding more workflow rules. Turn a demonstrated
+miss into a focused regression case and rerun the relevant control. Keep these
+notes local, omit secrets, and use existing checkpoints rather than adding
+telemetry or launching unrelated tasks to collect measurements. No observed
+failure means no new rule is needed.
