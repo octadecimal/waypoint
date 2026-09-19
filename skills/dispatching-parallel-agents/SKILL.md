@@ -94,7 +94,7 @@ When workers return:
 2. Check ownership violations and overlapping edits before staging anything.
 3. Resolve conflicts in the coordinator; do not let workers race on shared files.
 4. Run focused checks, then the integration check that covers the combined result.
-5. Use `astra-workflow:requesting-code-review` when the combined change warrants independent review.
+5. Use `waypoint:requesting-code-review` when the combined change warrants independent review.
 6. Let the coordinator alone stage, commit, push, update the PR, and observe CI.
 
 Parallel completion is not integrated completion. A green focused test from each worker does not prove the combined branch.

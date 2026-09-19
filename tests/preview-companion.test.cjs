@@ -10,7 +10,7 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const pluginRoot = path.resolve(__dirname, '..');
-const scriptsDir = path.join(pluginRoot, 'skills', 'astra-plan', 'scripts');
+const scriptsDir = path.join(pluginRoot, 'skills', 'waypoint-plan', 'scripts');
 const launcher = path.join(scriptsDir, 'start-server.cjs');
 const serverModule = require(path.join(scriptsDir, 'server.cjs'));
 const helper = require(path.join(scriptsDir, 'helper.js'));
@@ -232,7 +232,7 @@ test('documented custom choice API sends the persisted choice field', () => {
   const source = fs.readFileSync(path.join(scriptsDir, 'helper.js'), 'utf8');
   vm.runInNewContext(source, { window, document, WebSocket: FakeWebSocket, setTimeout, clearTimeout, Date, JSON });
   FakeWebSocket.instance.onopen();
-  window.astraPreview.choice('compact', { revision: 2 });
+  window.waypointPreview.choice('compact', { revision: 2 });
   assert.equal(sent.at(-1).type, 'choice');
   assert.equal(sent.at(-1).choice, 'compact');
   assert.equal(sent.at(-1).revision, 2);
@@ -289,7 +289,7 @@ test('browser launch uses argument arrays and stays headless without a display',
 });
 
 test('failed preview startup closes its owned child', { timeout: 10000 }, async () => {
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-start-failure-'));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waypoint-preview-start-failure-'));
   let child;
   try {
     await assert.rejects(startPreview(sessionDir, {
@@ -308,7 +308,7 @@ test('failed preview startup closes its owned child', { timeout: 10000 }, async 
 });
 
 test('existing preview honors --open without starting another server', { timeout: 10000 }, async t => {
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-existing-'));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waypoint-preview-existing-'));
   const running = await startPreview(sessionDir);
   t.after(() => stopOwnedPreview(sessionDir, running));
 
@@ -352,7 +352,7 @@ test('existing preview browser launch reports headless, failure, and unsafe host
 
 test('launcher requires an explicit session and locks concurrent starts', () => {
   assert.throws(() => launcherModule.parseArguments(['start']), /session-dir is required/);
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-lock-'));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waypoint-preview-lock-'));
   const release = launcherModule.acquireStartLock(sessionDir);
   assert.throws(() => launcherModule.acquireStartLock(sessionDir), /already in progress/);
   release();
@@ -361,7 +361,7 @@ test('launcher requires an explicit session and locks concurrent starts', () => 
 });
 
 test('launcher reclaims a lock owned by an exited process', () => {
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-stale-lock-'));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waypoint-preview-stale-lock-'));
   const child = spawnSync(process.execPath, [
     '-e',
     `require(${JSON.stringify(launcher)}).acquireStartLock(${JSON.stringify(sessionDir)})`
@@ -374,7 +374,7 @@ test('launcher reclaims a lock owned by an exited process', () => {
 });
 
 test('live companion authenticates, serves safely, records events, reloads, and restarts stably', { timeout: 30000 }, async t => {
-  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'astra-preview-'));
+  const sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), 'waypoint-preview-'));
   let first;
   let second;
   t.after(async () => {
@@ -395,7 +395,7 @@ test('live companion authenticates, serves safely, records events, reloads, and 
 
   const bootstrap = await request(first.info, `/?key=${token}`);
   assert.equal(bootstrap.status, 200);
-  assert.match(bootstrap.body, /astra-preview-session-key/);
+  assert.match(bootstrap.body, /waypoint-preview-session-key/);
   assert.match(bootstrap.headers['set-cookie'][0], /HttpOnly/);
   assert.match(bootstrap.headers['set-cookie'][0], /SameSite=Strict/);
   const cookie = bootstrap.headers['set-cookie'][0].split(';')[0];
@@ -405,8 +405,8 @@ test('live companion authenticates, serves safely, records events, reloads, and 
   await waitFor(() => first.output().stdout.includes('screen-added'));
   const fragment = await request(first.info, '/', { cookie });
   assert.equal(fragment.status, 200);
-  assert.match(fragment.body, /Astra workflow preview/);
-  assert.match(fragment.body, /window\.astraPreview/);
+  assert.match(fragment.body, /Waypoint preview/);
+  assert.match(fragment.body, /window\.waypointPreview/);
 
   fs.writeFileSync(path.join(contentDir, 'asset.txt'), 'local asset');
   assert.equal((await request(first.info, `/files/asset.txt?key=${token}`)).body, 'local asset');
@@ -434,8 +434,8 @@ test('live companion authenticates, serves safely, records events, reloads, and 
   await waitFor(() => !fs.existsSync(eventsFile));
   const full = await request(first.info, '/', { cookie });
   assert.match(full.body, /<title>Full<\/title>/);
-  assert.doesNotMatch(full.body, /Astra workflow preview/);
-  assert.match(full.body, /window\.astraPreview/);
+  assert.doesNotMatch(full.body, /Waypoint preview/);
+  assert.match(full.body, /window\.waypointPreview/);
   ws.socket.destroy();
 
   const infoFile = path.join(first.info.state_dir, 'server-info');

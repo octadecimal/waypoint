@@ -1,15 +1,15 @@
 ---
-name: astra-complete
+name: waypoint-complete
 description: Finish an existing development branch through verification, review, an open PR, and passing CI before handing it to the user for testing. Also use to resume CI repair or complete an approved post-test merge.
 ---
 
-# Astra Complete
+# Waypoint Complete
 
 Own delivery until the PR is ready for human testing, or report a concrete blocker.
 Apply the [continuation check](../../references/continuation.md) before ending a
 coordinator turn. Continue authorized review, repair, runtime preparation, and CI
 work; stop at the actual human testing/approval boundary, not a phase transition.
-Use this independently on existing work or after Astra Plan. Do not repeat planning
+Use this independently on existing work or after Waypoint Plan. Do not repeat planning
 unless the work exposes a material scope or design decision. When that happens,
 read the routing guide and have Astra own the replan: use the current Astra model
 or automatically dispatch/reuse a read-only Astra planner. Preserve the existing
@@ -32,7 +32,7 @@ mutation and resolve it. Never discard changes or force-push to simplify complet
 Read [delivery authority and CI completion](../../references/ci-completion.md).
 An explicit implementation request, approval of a concrete implementation plan,
 or explicit request to prepare a PR covers normal verification, intended commits,
-push, PR creation/update, and CI fixes. An explicit Astra Complete invocation also
+push, PR creation/update, and CI fixes. An explicit Waypoint Complete invocation also
 covers those actions when its PR scope is known. Do not add a separate publication
 approval gate. Automatic skill selection, design approval, and a hands-on-testing
 request by itself do not grant that authority. Honor earlier explicit local-only,
@@ -138,6 +138,6 @@ the repository's completion procedure or the user. Report exact leftovers and
 failures; a Windows directory lock is not permission for forced deletion.
 
 Maintain the [delivery checkpoint](../../references/delivery-checkpoint.md)
-established by Astra Plan, or create it for standalone completion. Record runtime
+established by Waypoint Plan, or create it for standalone completion. Record runtime
 ownership, data source, verified URL, served revision, CI evidence, and next action.
 Reconcile live Git/GitHub and runtime evidence before reuse on resume.

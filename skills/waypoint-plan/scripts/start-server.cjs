@@ -157,13 +157,13 @@ async function start(options, launchOptions = {}) {
   const releaseStartLock = acquireStartLock(options.sessionDir);
   const env = {
     ...process.env,
-    ASTRA_PREVIEW_SESSION_DIR: options.sessionDir,
-    ASTRA_PREVIEW_OWNER_PID: String(process.pid),
-    ASTRA_PREVIEW_OPEN: options.open ? '1' : '0'
+    WAYPOINT_PREVIEW_SESSION_DIR: options.sessionDir,
+    WAYPOINT_PREVIEW_OWNER_PID: String(process.pid),
+    WAYPOINT_PREVIEW_OPEN: options.open ? '1' : '0'
   };
-  if (options.host) env.ASTRA_PREVIEW_HOST = options.host;
-  if (options.urlHost) env.ASTRA_PREVIEW_URL_HOST = options.urlHost;
-  if (options.idleTimeoutMinutes) env.ASTRA_PREVIEW_IDLE_TIMEOUT_MS = String(Number(options.idleTimeoutMinutes) * 60 * 1000);
+  if (options.host) env.WAYPOINT_PREVIEW_HOST = options.host;
+  if (options.urlHost) env.WAYPOINT_PREVIEW_URL_HOST = options.urlHost;
+  if (options.idleTimeoutMinutes) env.WAYPOINT_PREVIEW_IDLE_TIMEOUT_MS = String(Number(options.idleTimeoutMinutes) * 60 * 1000);
 
   const child = spawn(process.execPath, [path.join(__dirname, 'server.cjs')], { env, stdio: 'inherit', windowsHide: true });
   const stopOwnedChild = () => { if (!child.killed) child.kill('SIGTERM'); };

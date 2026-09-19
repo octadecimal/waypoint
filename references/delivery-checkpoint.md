@@ -1,7 +1,7 @@
 # Delivery checkpoint
 
 Keep one short Markdown checkpoint at
-`<git-common-dir>/astra-workflow/<task-id>.md` for work spanning turns or tasks.
+`<git-common-dir>/waypoint/<task-id>.md` for work spanning turns or tasks.
 Reuse the existing checkpoint; link an execution ledger rather than copying it.
 This is local continuity evidence, not a committed deliverable or new approval.
 Omit secrets, credentials, and authentication query strings.

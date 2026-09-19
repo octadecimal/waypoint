@@ -9,7 +9,7 @@ Turn an approved goal or design into a buildable plan with exact paths, interfac
 
 **Planning owner:** Astra owns standalone implementation planning and material replanning. Read [model routing](../../references/model-routing.md). If the current model is Astra, plan directly. Otherwise dispatch or reuse one read-only Astra planner with the user's request, existing decisions, repository evidence, and authorization boundary. A planner does not edit code, stage, commit, push, or publish.
 
-This skill is the detailed-planning phase of `astra-workflow:astra-plan`, not a second brainstorming gate. Carry accepted design decisions forward. Ask only when missing information materially changes the outcome and cannot be resolved from the repository. Plan-only stays plan-only. In auto mode, create the plan and continue with the appropriate executor without asking for the same approval again.
+This skill is the detailed-planning phase of `waypoint:waypoint-plan`, not a second brainstorming gate. Carry accepted design decisions forward. Ask only when missing information materially changes the outcome and cannot be resolved from the repository. Plan-only stays plan-only. In auto mode, create the plan and continue with the appropriate executor without asking for the same approval again.
 
 ## Inspect before planning
 
@@ -34,7 +34,7 @@ when the plan itself is an explicit deliverable or repository policy requires it
 Otherwise keep execution state out of the working tree at:
 
 ```text
-<git-common-dir>/astra-workflow/<safe-task-id>/plan.md
+<git-common-dir>/waypoint/<safe-task-id>/plan.md
 ```
 
 Resolve the Git common directory from the active worktree and use a stable,
@@ -49,8 +49,8 @@ Every implementation plan starts with:
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **Execution:** Use `astra-workflow:subagent-driven-development` for independent
-> tasks with worker review, or `astra-workflow:executing-plans` for tightly coupled
+> **Execution:** Use `waypoint:subagent-driven-development` for independent
+> tasks with worker review, or `waypoint:executing-plans` for tightly coupled
 > work. Both routes dispatch edit-only implementation workers; the coordinator owns
 > Git, integration, PRs, and CI.
 
@@ -191,10 +191,10 @@ For a substantial or high-risk plan, dispatch a read-only Astra plan reviewer us
 
 - Plan-only: present the plan and stop.
 - Collaborative: present the concrete plan and ask once for implementation approval when it has not already been given. A normal "yes" or "go ahead" then authorizes the standing green-PR target.
-- Auto: state the saved plan and proceed. Use `astra-workflow:subagent-driven-development` for independent tasks or `astra-workflow:executing-plans` for tightly coupled work. Do not ask again.
+- Auto: state the saved plan and proceed. Use `waypoint:subagent-driven-development` for independent tasks or `waypoint:executing-plans` for tightly coupled work. Do not ask again.
 
 Read [delivery authority and CI completion](../../references/ci-completion.md).
-Approved implementation flows into `astra-workflow:astra-complete` unless an
+Approved implementation flows into `waypoint:waypoint-complete` unless an
 explicit plan-only, local-only, no-push, or no-PR instruction applies. Visual or
 design approval alone does not start implementation. Current-head passing CI is
 required before hands-on testing. Merge requires a later, explicit approval after

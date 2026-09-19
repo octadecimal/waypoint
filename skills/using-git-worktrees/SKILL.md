@@ -9,7 +9,7 @@ Create or verify an isolated workspace without disturbing the operator's primary
 
 **Core principle:** detect existing isolation, follow repository policy, verify ownership, then create the minimum workspace needed.
 
-Plan-only work does not create a worktree. An approved implementation plan, auto-execution request, repository instruction, or earlier user preference for isolation authorizes normal worktree setup; do not ask again. If no implementation authority or preference exists and creating a worktree would change repository state, finish read-only planning first and obtain execution authority through `astra-workflow:astra-plan`.
+Plan-only work does not create a worktree. An approved implementation plan, auto-execution request, repository instruction, or earlier user preference for isolation authorizes normal worktree setup; do not ask again. If no implementation authority or preference exists and creating a worktree would change repository state, finish read-only planning first and obtain execution authority through `waypoint:waypoint-plan`.
 
 ## 1. Inspect repository and existing isolation
 
@@ -104,7 +104,7 @@ Ready for: <task>
 
 The main coordinator owns staging, commits, pushes, PRs, and CI. Workers may edit assigned files in the worktree but do not perform Git mutations unless explicitly assigned coordinator authority.
 
-Cleanup belongs to `astra-workflow:astra-complete` after integration. Before removal, verify the exact absolute path, ownership, clean state, merged or abandoned status, and absence of a running test stack that depends on it. Remove only the task-owned worktree. A lock or stale metadata is a diagnosis target, not permission to force deletion.
+Cleanup belongs to `waypoint:waypoint-complete` after integration. Before removal, verify the exact absolute path, ownership, clean state, merged or abandoned status, and absence of a running test stack that depends on it. Remove only the task-owned worktree. A lock or stale metadata is a diagnosis target, not permission to force deletion.
 
 ## Quick reference
 

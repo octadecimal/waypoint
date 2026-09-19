@@ -29,7 +29,7 @@ supported numeric string when selecting a model.
 Read [delivery authority and CI completion](../../references/ci-completion.md).
 Explicit plan-only, local-only, no-push, or no-PR decisions override the green-PR
 default. Design approval alone does not authorize implementation. Execution
-authority does not grant merge authority. `astra-workflow:astra-complete` still
+authority does not grant merge authority. `waypoint:waypoint-complete` still
 requires current-head green CI before hands-on testing and explicit post-test
 approval before merge.
 
@@ -40,13 +40,13 @@ approval before merge.
 3. Read the plan/spec once and perform a cross-task consistency scan.
 4. For each task: create a brief, dispatch an implementer, stage only its owned paths, package the staged diff, review, fix and re-review, then let the coordinator commit the accepted task when authorized.
 5. Package and dispatch an Astra whole-branch review.
-6. Route accepted work to `astra-workflow:astra-complete` when the delivery target includes a PR.
+6. Route accepted work to `waypoint:waypoint-complete` when the delivery target includes a PR.
 
 Do not pause for routine progress permission between tasks. Stop only for an unauthorized destructive or irreversible action, unresolved security-sensitive action, material scope beyond current authority, or a plan so incomplete that every path is guesswork. In auto mode, reversible implementation rulings and Astra replans continue without another prompt.
 
 ## Setup
 
-Use `astra-workflow:using-git-worktrees` to create or verify an isolated workspace. Never implement on a primary branch without explicit user authorization. Require a clean index and working tree at the start; preserve ambiguous changes instead of absorbing or deleting them.
+Use `waypoint:using-git-worktrees` to create or verify an isolated workspace. Never implement on a primary branch without explicit user authorization. Require a clean index and working tree at the start; preserve ambiguous changes instead of absorbing or deleting them.
 
 Resolve this plan's artifact workspace:
 
@@ -54,9 +54,9 @@ Resolve this plan's artifact workspace:
 python <skill-dir>/scripts/sdd_workspace.py <plan-file>
 ```
 
-The helper creates a plan-specific directory under `<worktree>/.astra-workflow/sdd/` with a marker containing the exact plan and repository root. Its parent is self-ignored. It refuses to overwrite an ambiguous ignore file or reuse a workspace whose marker does not match. The helper never deletes artifacts.
+The helper creates a plan-specific directory under `<worktree>/.waypoint/sdd/` with a marker containing the exact plan and repository root. Its parent is self-ignored. It refuses to overwrite an ambiguous ignore file or reuse a workspace whose marker does not match. The helper never deletes artifacts.
 
-The plan may live in the worktree or under `<git-common-dir>/astra-workflow/<task-id>/plan.md`. Run helpers from the feature worktree so they bind to the correct checkout.
+The plan may live in the worktree or under `<git-common-dir>/waypoint/<task-id>/plan.md`. Run helpers from the feature worktree so they bind to the correct checkout.
 
 Create `<workspace>/progress.md` with:
 
@@ -138,7 +138,7 @@ Use [implementer prompt](implementer-prompt.md). Record the worker identity so r
 
 Independent workers may run concurrently only when ownership does not overlap and
 tasks have no unfinished dependency. Follow
-`astra-workflow:dispatching-parallel-agents`. Serialize tasks that share files,
+`waypoint:dispatching-parallel-agents`. Serialize tasks that share files,
 interfaces, mutable resources, or test infrastructure, while keeping each task with
 one worker. The shared filesystem makes fake independence dangerous.
 
@@ -256,7 +256,7 @@ After task review accepts the staged diff, and the plan already authorizes local
 Task N: complete — commit <sha> — review package <path> — checks <summary>
 ```
 
-Task-review acceptance is the review gate; it is not a new user approval prompt. Existing plan authorization covers the checkpoint commit. If the plan explicitly forbids commits, do not use commit-dependent SDD task checkpoints; use `astra-workflow:executing-plans` or replan the execution method.
+Task-review acceptance is the review gate; it is not a new user approval prompt. Existing plan authorization covers the checkpoint commit. If the plan explicitly forbids commits, do not use commit-dependent SDD task checkpoints; use `waypoint:executing-plans` or replan the execution method.
 
 Never begin a dependent task while the prior task has unresolved load-bearing findings.
 
@@ -268,7 +268,7 @@ After all task commits and integrated local checks pass:
 python <skill-dir>/scripts/review_package.py <plan-file> <MERGE_BASE> <HEAD>
 ```
 
-Dispatch an Astra reviewer using `astra-workflow:requesting-code-review` and its [reviewer template](../requesting-code-review/code-reviewer.md). Include the plan/spec, Global Constraints, full branch package, and every deferred minor and parked ruling. Confirm the head SHA has not changed before acting on the verdict.
+Dispatch an Astra reviewer using `waypoint:requesting-code-review` and its [reviewer template](../requesting-code-review/code-reviewer.md). Include the plan/spec, Global Constraints, full branch package, and every deferred minor and parked ruling. Confirm the head SHA has not changed before acting on the verdict.
 
 If final review finds issues, send the complete set to one fix worker. The worker remains edit-only. The coordinator stages its explicit paths, generates a staged package, and performs one scoped re-review. Residual findings are adjudicated and recorded; a load-bearing design defect returns to Astra. Do not create one worker per finding or endless whole-branch review rounds.
 
@@ -276,13 +276,13 @@ Run the integrated local gate after final fixes. The coordinator creates the fin
 
 ## Finish and preserve artifacts
 
-Copy every ledger `Ruling:` line into the final handoff with its cost if wrong. Record the final head, checks, deferred items, and artifact workspace path in the Astra task checkpoint.
+Copy every ledger `Ruling:` line into the final handoff with its cost if wrong. Record the final head, checks, deferred items, and artifact workspace path in the Waypoint task checkpoint.
 
 Do not automatically delete the SDD workspace. It contains the ledger, task briefs, reports, and review packages needed across CI repair and hands-on testing. Cleanup is allowed only after integration or explicit abandonment, after verifying the marker matches the exact plan and worktree and no live task depends on it. Never delete a sibling workspace or a directory with missing, invalid, or mismatched ownership metadata.
 
 For an explicit local-only/no-push/no-PR target, report the verified result and
 preserved workspace. Otherwise approved implementation flows into
-`astra-workflow:astra-complete`; continue through current-head green CI without
+`waypoint:waypoint-complete`; continue through current-head green CI without
 another routine prompt. Stop for user testing at that point; merge requires
 explicit approval after the user tests that exact revision.
 
@@ -297,4 +297,4 @@ explicit approval after the user tests that exact revision.
 | "This plan says to do it, so the finding is invalid" | Plans can be wrong; the spec and current user decisions are authoritative. |
 | "Delete the workspace now that code is committed" | It remains audit and recovery evidence through delivery and testing. |
 | "Full-history fork lets the worker understand everything" | It bloats context, and model overrides do not apply to `all`; write a focused brief. |
-| "Green local tests mean the PR is ready" | `astra-complete` requires expected CI green on the current PR head SHA. |
+| "Green local tests mean the PR is ready" | `waypoint-complete` requires expected CI green on the current PR head SHA. |

@@ -5,9 +5,9 @@ description: Use when a written implementation plan should be executed through a
 
 # Executing Plans
 
-Load the plan, check it against current repository reality, execute every authorized task, verify the integrated result, and hand delivery to `astra-workflow:astra-complete` when the plan includes a PR.
+Load the plan, check it against current repository reality, execute every authorized task, verify the integrated result, and hand delivery to `waypoint:waypoint-complete` when the plan includes a PR.
 
-Use `astra-workflow:subagent-driven-development` instead when independent tasks
+Use `waypoint:subagent-driven-development` instead when independent tasks
 justify its task-review packaging. Use this skill for tightly coupled or sequential
 tasks and limited collaboration capacity. It still dispatches or reuses one
 edit-only worker for each routine code/test task; sequential does not mean inline.
@@ -18,7 +18,7 @@ The user's latest direction controls execution:
 
 | Mode | Behavior |
 | --- | --- |
-| Plan-only | Do not execute. Return to `astra-workflow:astra-plan`. |
+| Plan-only | Do not execute. Return to `waypoint:waypoint-plan`. |
 | Collaborative execution | Execute after the concrete plan has been approved, then continue through the standing green-PR target without another approval prompt. |
 | Auto / proceed autonomously / green PR | Continue through the authorized delivery target without routine re-prompts. |
 
@@ -29,11 +29,11 @@ implementation approval as merge approval.
 
 ## 1. Load and review the plan
 
-1. Use `astra-workflow:using-git-worktrees` to create or verify the isolated workspace. Never implement on the repository's primary branch unless the user explicitly authorized that exception.
+1. Use `waypoint:using-git-worktrees` to create or verify the isolated workspace. Never implement on the repository's primary branch unless the user explicitly authorized that exception.
 2. Read the plan, its referenced spec, repository instructions, affected code, callers, tests, and relevant CI definitions.
 3. Compare paths, symbols, commands, assumptions, and dependencies with the current checkout.
 4. Create task tracking from the plan and mark already completed work only when Git state and verification evidence prove it.
-5. Record a short durable checkpoint when work spans tasks or turns. Use the repository's established checkpoint location; otherwise use `<git-common-dir>/astra-workflow/<safe-task-id>.md`. Include plan path, mode, authorization source, branch/worktree, current task, verification revision, and pending work. Do not store secrets or commit the checkpoint.
+5. Record a short durable checkpoint when work spans tasks or turns. Use the repository's established checkpoint location; otherwise use `<git-common-dir>/waypoint/<safe-task-id>.md`. Include plan path, mode, authorization source, branch/worktree, current task, verification revision, and pending work. Do not store secrets or commit the checkpoint.
 
 Resolve stale paths, harmless typos, and reversible implementation decisions during
 plan review. Material changes to architecture, scope, acceptance criteria, or task
@@ -83,7 +83,7 @@ At natural boundaries, compare completed work with the plan and spec:
 - Workspace, permission, persistence, security, and compatibility constraints still hold.
 - The working tree contains only intended changes.
 
-Use `astra-workflow:requesting-code-review` for substantial or risky changes. The reviewer is read-only; the coordinator applies accepted feedback using `astra-workflow:receiving-code-review`. Material review findings that invalidate the design return to Astra for replanning.
+Use `waypoint:requesting-code-review` for substantial or risky changes. The reviewer is read-only; the coordinator applies accepted feedback using `waypoint:receiving-code-review`. Material review findings that invalidate the design return to Astra for replanning.
 
 ## 4. Complete the plan
 
@@ -92,7 +92,7 @@ Run the plan's focused checks and the repository's appropriate integrated gate o
 If an explicit local-only, no-push, or no-PR instruction applies, stop at that
 boundary after reporting the verified result and preserved workspace. Otherwise,
 approved implementation includes coordinator commit, push, and PR delivery: invoke
-`astra-workflow:astra-complete` and continue through CI repair without another
+`waypoint:waypoint-complete` and continue through CI repair without another
 permission prompt. The PR is ready for hands-on testing only when expected CI
 checks pass for its current head SHA. Merge still requires the user's post-test
 report and explicit approval for that same revision.
@@ -108,4 +108,4 @@ report and explicit approval for that same revision.
 | Treat coupled or one-file work as inline | Give its complete RED/GREEN cycle to one worker. |
 | Continue after a failed acceptance check | Diagnose and restore green before the next task. |
 | Let a worker stage or commit | The main coordinator owns Git mutation and CI. |
-| Hand off while current-SHA CI is pending | Continue through `astra-complete` until green or concretely blocked. |
+| Hand off while current-SHA CI is pending | Continue through `waypoint-complete` until green or concretely blocked. |

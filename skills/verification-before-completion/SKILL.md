@@ -43,7 +43,7 @@ configuration, environment, base revision, or merge candidate changed.
 Read [delivery authority and CI completion](../../references/ci-completion.md).
 Once the user requests implementation—including an ordinary "fix this," "add
 this," "build this," or "change this"—or approves a concrete implementation plan,
-invoke `$astra-complete` after local verification. That standing authorization
+invoke `$waypoint-complete` after local verification. That standing authorization
 covers normal commit, push, PR creation/update, CI diagnosis, and in-scope repair;
 do not ask for the same permission again. Design approval, a request for hands-on
 testing by itself, and automatic skill discovery do not imply implementation or
@@ -56,7 +56,7 @@ Skipped or neutral checks require evidence that they are legitimately inapplicab
 
 Honor an explicit plan-only, local-only, no-push, or no-PR boundary, including one
 set earlier in the task. Merge and deployment remain separate. Merge stays governed
-by `$astra-complete`, including hands-on testing and explicit approval of the exact
+by `$waypoint-complete`, including hands-on testing and explicit approval of the exact
 revision.
 
 ## Safe verification

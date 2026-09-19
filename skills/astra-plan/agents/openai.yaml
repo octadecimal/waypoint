@@ -1,6 +1,0 @@
-interface:
-  display_name: "Astra Plan"
-  short_description: "Brainstorm, preview UI, and plan with Astra"
-  default_prompt: "Use $astra-plan to brainstorm this change, preview UI options when useful, and propose a plan."
-policy:
-  allow_implicit_invocation: true

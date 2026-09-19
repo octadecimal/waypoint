@@ -22,7 +22,7 @@
 
   function sessionKey() {
     try {
-      return window.sessionStorage && window.sessionStorage.getItem('astra-preview-session-key');
+      return window.sessionStorage && window.sessionStorage.getItem('waypoint-preview-session-key');
     } catch (_) {
       return null;
     }
@@ -58,7 +58,7 @@
     if (tombstoneShown) return;
     tombstoneShown = true;
     const el = document.createElement('div');
-    el.id = 'astra-preview-paused';
+    el.id = 'waypoint-preview-paused';
     el.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;' +
       'align-items:center;justify-content:center;padding:2rem;text-align:center;' +
       'background:rgba(20,20,22,.92);color:#f5f5f7;font-family:system-ui,sans-serif';
@@ -143,7 +143,7 @@
     window.selectedChoice = element.dataset.choice;
   };
 
-  window.astraPreview = {
+  window.waypointPreview = {
     send: sendEvent,
     choice: (choice, metadata = {}) => sendEvent({ ...metadata, type: 'choice', choice })
   };

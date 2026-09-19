@@ -115,11 +115,11 @@ function isFullDocument(html) {
 }
 
 function bootstrapPage(key) {
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Opening preview</title></head><body><script>try { sessionStorage.setItem('astra-preview-session-key', ${JSON.stringify(String(key))}); } catch (_) {} location.replace('/');</script></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Opening preview</title></head><body><script>try { sessionStorage.setItem('waypoint-preview-session-key', ${JSON.stringify(String(key))}); } catch (_) {} location.replace('/');</script></body></html>`;
 }
 
 function waitingPage() {
-  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Astra UI Preview</title><style>body{font:16px system-ui,sans-serif;max-width:50rem;margin:4rem auto;padding:0 1rem;color:#444}</style></head><body><h1>Astra UI Preview</h1><p>Waiting for the agent to add a screen…</p></body></html>';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Waypoint UI Preview</title><style>body{font:16px system-ui,sans-serif;max-width:50rem;margin:4rem auto;padding:0 1rem;color:#444}</style></head><body><h1>Waypoint UI Preview</h1><p>Waiting for the agent to add a screen…</p></body></html>';
 }
 
 const FORBIDDEN_PAGE = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Session key required</title></head><body><h1>Session key required</h1><p>Open the complete preview URL from your coding agent, including its <code>?key=…</code> value.</p></body></html>';
@@ -177,7 +177,7 @@ function createPreviewServer(options) {
   let lifecycleTimer;
   let stopping = false;
   let actualPort = requestedPort;
-  let cookieName = 'astra-preview-key';
+  let cookieName = 'waypoint-preview-key';
 
   fs.mkdirSync(contentDir, { recursive: true, mode: 0o700 });
   fs.mkdirSync(stateDir, { recursive: true, mode: 0o700 });
@@ -356,7 +356,7 @@ function createPreviewServer(options) {
       server.listen(Number.isInteger(requestedPort) ? requestedPort : 0, host);
     });
     actualPort = server.address().port;
-    cookieName = `astra-preview-key-${actualPort}`;
+    cookieName = `waypoint-preview-key-${actualPort}`;
     writePrivate(portFile, actualPort);
     writePrivate(tokenFile, token);
     const info = {
@@ -379,18 +379,18 @@ function createPreviewServer(options) {
 }
 
 function configurationFromEnvironment() {
-  const sessionDir = process.env.ASTRA_PREVIEW_SESSION_DIR;
-  if (!sessionDir) throw new Error('ASTRA_PREVIEW_SESSION_DIR is required');
+  const sessionDir = process.env.WAYPOINT_PREVIEW_SESSION_DIR;
+  if (!sessionDir) throw new Error('WAYPOINT_PREVIEW_SESSION_DIR is required');
   return {
     sessionDir,
-    host: process.env.ASTRA_PREVIEW_HOST,
-    urlHost: process.env.ASTRA_PREVIEW_URL_HOST,
-    port: process.env.ASTRA_PREVIEW_PORT === undefined ? undefined : Number(process.env.ASTRA_PREVIEW_PORT),
-    token: process.env.ASTRA_PREVIEW_TOKEN,
-    ownerPid: process.env.ASTRA_PREVIEW_OWNER_PID,
-    idleTimeoutMs: process.env.ASTRA_PREVIEW_IDLE_TIMEOUT_MS,
-    lifecycleCheckMs: process.env.ASTRA_PREVIEW_LIFECYCLE_CHECK_MS,
-    openBrowser: process.env.ASTRA_PREVIEW_OPEN === '1',
+    host: process.env.WAYPOINT_PREVIEW_HOST,
+    urlHost: process.env.WAYPOINT_PREVIEW_URL_HOST,
+    port: process.env.WAYPOINT_PREVIEW_PORT === undefined ? undefined : Number(process.env.WAYPOINT_PREVIEW_PORT),
+    token: process.env.WAYPOINT_PREVIEW_TOKEN,
+    ownerPid: process.env.WAYPOINT_PREVIEW_OWNER_PID,
+    idleTimeoutMs: process.env.WAYPOINT_PREVIEW_IDLE_TIMEOUT_MS,
+    lifecycleCheckMs: process.env.WAYPOINT_PREVIEW_LIFECYCLE_CHECK_MS,
+    openBrowser: process.env.WAYPOINT_PREVIEW_OPEN === '1',
     exitOnStop: true
   };
 }
