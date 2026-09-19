@@ -46,6 +46,13 @@ authority by itself. Ask about a material unresolved design choice when needed,
 but do not turn planning into a second implementation or publication gate. Neither
 mode grants merge or deployment approval.
 
+Distinguish a needed design review from an execution handoff. Label a human review
+clearly and state what approval will unlock. When the user approves that checkpoint
+inside an already-authorized implementation task, acknowledge in commentary and
+perform the next action in the same turn. Do not finish with a recap or "next is
+implementing" when that work is authorized and unblocked. Preserve explicit
+brainstorm-only, design-only, and plan-only limits.
+
 ## 2. Understand and plan proportionally
 
 Inspect relevant code, callers, tests, project guidance, and CI definitions before

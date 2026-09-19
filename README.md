@@ -74,6 +74,10 @@ authorized scope.
 test stack; “do not run it” prevents startup. Choosing a mockup alone does not
 authorize implementation. Merge and deployment remain separate decisions.
 
+When a design needs your review, the agent says so explicitly. Your "ok" resolves
+that checkpoint: if implementation is already authorized, work continues in the
+same turn rather than stopping at an acknowledgement of what comes next.
+
 See [delivery authority and CI completion](references/ci-completion.md) for the
 full authorization and evidence rules. Repository instructions, available tools,
 credentials, and explicit task limits still apply.

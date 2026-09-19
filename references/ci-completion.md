@@ -15,6 +15,11 @@ expected checks pass for its current head. A normal "yes" or "go ahead" in respo
 to that plan supplies this implementation approval; do not ask separately whether
 to implement locally, push, or open the PR.
 
+A design-review checkpoint within that authorized implementation does not reset
+authority. Once the user approves it, continue the next task immediately; an
+acknowledgement describing future implementation is not execution. State changes
+in commentary and use tools to advance the work before ending the turn.
+
 Plan-only, brainstorm-only, local-only, no-push, and no-PR instructions override
 that default. Preserve an earlier explicit override unless the user later changes
 it. Approval of a design direction, mockup, or preview alone chooses the design; it

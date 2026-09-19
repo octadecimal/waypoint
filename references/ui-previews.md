@@ -64,8 +64,10 @@ recovery. HTTP success is reachability evidence, not browser rendering evidence.
 - Inspect browser previews at a representative desktop and narrow width where
   supported. Exercise the interactions used to make the decision. For an inline
   surface, follow its own verification rules. Report limitations honestly.
-- Share the preview and ask for the specific visual decision in collaborative
-  mode. Preview rendering and revision are reversible actions covered by the
+- When human design review is needed, label the handoff **Design review needed**,
+  link the preview, name the decision, and say what happens after approval. Do not
+  leave the user guessing whether a preview update requires a reply. Preview
+  rendering and revision are reversible actions covered by the
   current task; do not add a new consent gate. If preview preparation is unusually
   costly, explain the tradeoff instead of silently consuming a large budget.
 - Revise the same design when feedback calls for it, using clear revision labels.
@@ -73,6 +75,14 @@ recovery. HTTP success is reachability evidence, not browser rendering evidence.
   A radio selection, preview click, or "yes" to the visual choice approves only the
   design. Production implementation still needs an explicit implementation request
   or approval of the concrete implementation plan.
+- Once the user answers that review with "ok", "looks good", or equivalent,
+  record the selected design and perform the next authorized action in the same
+  turn. In an implementation workflow, the review was a checkpoint inside existing
+  authority: continue planning, dispatch implementation, and deliver through the
+  agreed verification/PR target. Acknowledge briefly in commentary, then act; do not
+  end with "next is implementing" or require another "go ahead". If the task was
+  explicitly brainstorm-only, design-only, or plan-only, keep that boundary. A
+  preview click alone is still not implementation authorization.
 - In auto mode, state the selected direction and proceed under existing authority;
   pause only for consequential unresolved choices. No mandatory approval carousel.
 - Stop only the preview process this task owns when finished. Keep the selected
