@@ -41,6 +41,11 @@ before writing the instructions. When subagent delegation is authorized, read
 [testing skills with subagents](references/testing-skills-with-subagents.md) to
 capture an unskilled baseline, skilled result, and any rationalizations.
 
+For Astra Workflow regressions, use the
+[repeatable trial kit](../../tests/behavioral-regressions.md) to select a changed
+decision and a nearby control. Capture actual dispatch and RED/GREEN tool evidence
+for routing trials; label simulated delivery decisions separately from live checks.
+
 Do not use paid API calls, live production sessions, or subscription-consuming
 smoke tests for skill evaluation. Local packaging checks and authorized Codex
 subagents are sufficient. If isolated subagent evaluation is unavailable or not

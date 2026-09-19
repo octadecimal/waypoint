@@ -149,9 +149,7 @@ and continue through green-PR delivery without another routine permission prompt
 An explicit plan-only, local-only, no-push, or no-PR request keeps its stated
 boundary.
 
-For work spanning multiple tasks or turns, keep a short checkpoint under
-`<git-common-dir>/astra-workflow/<task-id>.md` using a safe task identifier. Record
-scope, mode, authorization source, branch/worktree, task owners, pending work,
-verification revision, and PR/check links. Keep it out of commits and omit secrets.
-On resume, verify live state and current instructions; a checkpoint is a continuity
-aid, never a substitute for fresh merge approval. Update it before handing off.
+For work spanning multiple tasks or turns, maintain the
+[delivery checkpoint](../../references/delivery-checkpoint.md), including runtime
+ownership, data source, URL, and served revision when applicable. Keep it out of
+commits and reconcile live evidence on resume. Update it before handing off.

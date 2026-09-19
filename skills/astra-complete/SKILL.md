@@ -82,6 +82,10 @@ After a repair changes the revision, rebuild or restart the task-owned stack as
 needed and verify it serves the new head. Pending CI is ongoing work, not a handoff
 to the user.
 
+On both initial delivery and resume, sample CI status, then prepare or repair the
+authorized stack before entering a blocking CI watch. Do not put "wait until CI
+finishes" ahead of stack preparation in the action sequence.
+
 Do not disable tests, loosen assertions, bypass protection, or edit workflows merely
 to obtain green status. Legitimate test/workflow fixes need evidence that the
 requirement remains covered. External outages, missing credentials, required human
@@ -126,7 +130,7 @@ worktree. Restart from the primary checkout only when required and authorized by
 the repository's completion procedure or the user. Report exact leftovers and
 failures; a Windows directory lock is not permission for forced deletion.
 
-For interrupted work, update the short checkpoint established by Astra Plan, or
-create one under `<git-common-dir>/astra-workflow/<task-id>.md`. Record current PR
-revision, verification evidence, blockers, and next action. On resume, reconcile
-with live Git/GitHub state and current authorization before acting.
+Maintain the [delivery checkpoint](../../references/delivery-checkpoint.md)
+established by Astra Plan, or create it for standalone completion. Record runtime
+ownership, data source, verified URL, served revision, CI evidence, and next action.
+Reconcile live Git/GitHub and runtime evidence before reuse on resume.

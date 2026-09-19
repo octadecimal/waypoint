@@ -34,6 +34,11 @@ Docs and other work without a runnable surface get a focused review walkthrough
 instead of an invented URL. A genuine access, infrastructure, or scope blocker is
 reported explicitly; pending CI or a broken stack is not a successful handoff.
 
+Long-running work keeps a local [delivery checkpoint](references/delivery-checkpoint.md)
+with authorization, CI evidence, stack URL, process and data ownership, and served
+revision. Resuming checks those facts against live state. Progress updates focus on
+meaningful changes; required host heartbeats stay brief.
+
 ## Use natural prompts
 
 No special phrase or skill name is required. The skills allow automatic selection
@@ -225,7 +230,9 @@ They validate the complete skill catalogue, metadata, local references, and runn
 preview/execution helpers.
 They do not run paid model calls or prove agent behavior. The repeatable manual
 [behavior scenarios](tests/scenarios.md) cover planning ownership, routing,
-authorization, CI freshness, and the human testing boundary.
+authorization, CI freshness, and the human testing boundary. Use the
+[regression trial kit](tests/behavioral-regressions.md) for repeatable agent trials
+with recorded tool evidence and explicit simulation limits.
 
 When modifying the skills, also use the Codex plugin-creator and skill-creator
 validators if available. Run behavior trials for changed decisions, inspect their
