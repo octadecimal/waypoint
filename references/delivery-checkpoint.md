@@ -16,6 +16,9 @@ or explicit no-run work rather than inventing a stack.
 # <task>
 Scope / acceptance: <outcome and remaining conditions>
 Mode / authority: <user instruction, delivery target, local-only/no-run limits>
+Pending decision: <none, or exact question, artifact/revision, options,
+                   existing authority, and action each answer unlocks>
+Resolved decision: <answer and user-message source, revision, next authorized action>
 Workspace: <repository, worktree, branch, base>
 Workers / ledger: <task, agent, actual model/effort, status, evidence pointer>
 Revision: <local HEAD, dirty changes if any, PR URL and observed head>
@@ -46,6 +49,10 @@ revision plus an application health check. Record which evidence was available.
    and current CI status without waiting for CI to finish. Old passes and merge
    approval apply only to the revision they covered; the checkpoint cannot grant
    new authority.
+   Resolve any new reply against the recorded pending question using
+   [continuation](continuation.md); clear a resolved decision and act on it rather
+   than replaying the approval request. Clarify ambiguity without blocking
+   independent authorized work.
 2. Inspect the live runtime before reuse or mutation. Compare process start time,
    executable/command, and worktree evidence as well as PID: a PID or occupied port
    alone is not ownership. If evidence conflicts, preserve that process and resolve

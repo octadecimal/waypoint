@@ -151,6 +151,11 @@ test adequacy. Fix concrete findings; do not add ritual review rounds.
 
 ## 4. Finish or resume
 
+Apply the [continuation check](../../references/continuation.md) before ending the
+turn. An approved review, finished plan, or worker result leads to the next
+authorized task; ask only consequential questions and preserve pending decisions
+in the checkpoint so short replies still resolve them after compaction.
+
 For approved implementation, invoke [Astra Complete](../astra-complete/SKILL.md)
 and continue through green-PR delivery without another routine permission prompt.
 An explicit plan-only, local-only, no-push, or no-PR request keeps its stated

@@ -6,6 +6,9 @@ description: Finish an existing development branch through verification, review,
 # Astra Complete
 
 Own delivery until the PR is ready for human testing, or report a concrete blocker.
+Apply the [continuation check](../../references/continuation.md) before ending a
+coordinator turn. Continue authorized review, repair, runtime preparation, and CI
+work; stop at the actual human testing/approval boundary, not a phase transition.
 Use this independently on existing work or after Astra Plan. Do not repeat planning
 unless the work exposes a material scope or design decision. When that happens,
 read the routing guide and have Astra own the replan: use the current Astra model

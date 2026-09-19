@@ -78,6 +78,12 @@ When a design needs your review, the agent says so explicitly. Your "ok" resolve
 that checkpoint: if implementation is already authorized, work continues in the
 same turn rather than stopping at an acknowledgement of what comes next.
 
+The [continuation rule](references/continuation.md) checks for authorized remaining
+work before every coordinator handoff. Pending decisions survive in the checkpoint,
+worker reports lead directly into review and integration, and reversible details
+use reasonable defaults. Human reviews, meaningful unresolved decisions, explicit
+limits, and post-test merge approval remain real stopping points.
+
 See [delivery authority and CI completion](references/ci-completion.md) for the
 full authorization and evidence rules. Repository instructions, available tools,
 credentials, and explicit task limits still apply.
