@@ -1,63 +1,94 @@
 # Astra Workflow
 
-A private Codex plugin that replaces all 14 Superpowers workflows with Codex-native
-planning, execution, debugging, testing, reviews, worktrees, skill authoring, and
-completion. Astra owns planning and design; economical subagents do bounded
-implementation; authorized PR delivery continues until the current revision passes CI.
+A private Codex plugin for taking development work from an idea to a tested pull
+request. Astra owns planning and visual design; explicitly selected economical
+subagents implement and test the changes. The coordinator opens the PR, fixes CI
+failures, and prepares a running application for your hands-on testing.
 
-## Use
+It replaces all 14 Superpowers workflows: brainstorming, planning, execution,
+delegation, TDD, debugging, reviews, worktrees, verification, skill authoring, and
+completion. See the [replacement map](references/superpowers-parity.md) for the
+complete skill inventory and preserved helpers.
 
-Start a new Codex thread after installing. Select a skill in the composer, or use:
+## How it works
 
-```text
-Use $astra-plan to brainstorm export filters. Do not implement yet.
-```
+1. **Understand and plan.** Astra investigates the request, resolves meaningful
+   choices, and scales the plan to the size of the change.
+2. **Preview when useful.** For UI work, Astra creates and revises mockups. Browser
+   previews open automatically when supported; choosing a mockup selects a design.
+3. **Implement and verify.** A suitable economical worker owns the focused
+   red/green test cycle and implementation. The coordinator reviews and integrates
+   the work, runs appropriate checks, and preserves unrelated changes.
+4. **Open the PR and own CI.** An implementation request or approval includes
+   intended commits, push, and PR creation or updates. The agent diagnoses and fixes
+   ordinary failures until expected checks pass for the current head.
+5. **Prepare testing while CI runs.** For a runnable UI or service, start or safely
+   reuse the feature-worktree stack and prepare a short user checklist. If a repair
+   changes the revision, refresh and recheck the stack.
+6. **Hand off, then merge with approval.** Once CI and the applicable stack are
+   healthy at the same revision, provide the PR, working URL, and usually two to
+   four user actions with expected results. Keep the stack and worktree available.
+   Merge follows your hands-on testing and explicit approval of that revision.
 
-```text
-Use $astra-plan in auto mode to implement export filters. Use cheaper workers
-where the result is easy to verify.
-```
+Docs and other work without a runnable surface get a focused review walkthrough
+instead of an invented URL. A genuine access, infrastructure, or scope blocker is
+reported explicitly; pending CI or a broken stack is not a successful handoff.
 
-```text
-Use $astra-complete to finish this branch and prepare it for my hands-on testing.
-```
+## Use natural prompts
 
-The two main entry points are [astra-plan](skills/astra-plan/SKILL.md) for new
-work and [astra-complete](skills/astra-complete/SKILL.md) for finishing a branch.
-[using-astra-workflow](skills/using-astra-workflow/SKILL.md) routes debugging,
-TDD, planning, execution, parallel work, reviews, verification, worktrees, and
-skill authoring to the appropriate standalone skill. The
-[full replacement map](references/superpowers-parity.md) lists every original
-workflow, its replacement, preserved helpers, and intentional behavior changes.
+No special phrase or skill name is required. The skills allow automatic selection
+for matching development tasks. Add the [personal instructions below](#replace-superpowers-completely)
+to make Astra Workflow your default across repositories, then start a new thread.
 
-Collaborative mode is the default: approve the concrete implementation plan once.
-That approval includes commit, push, an open or updated PR, and current-head green
-CI unless the user explicitly says plan-only, local-only, no-push, or no-PR. A
-normal "yes" or "go ahead" to implementation is enough; do not add a separate PR
-approval gate. Auto mode proceeds within the requested scope without routine
-approval prompts. Design or mockup approval alone does not authorize production
-implementation, and automatic skill selection grants no authority by itself. See
-[delivery authority and CI completion](references/ci-completion.md).
+For example:
 
-The skill uses Astra in the main conversation when available, otherwise creates
-an Astra planning child automatically. Astra also creates and revises UI designs
-and mockups, including their HTML/CSS/interaction code. Routine production tests
-and implementation edits go automatically to an explicitly selected economical worker, including small or
-sequential tasks. The same worker owns the coupled red/green cycle; Astra
-coordinates and verifies. Model choices adapt to the live allowlist; see
-[routing](references/model-routing.md). A skill cannot switch the main model,
-guarantee model access, or measure savings without usage evidence.
+- “The session panel feels busy. Can we simplify it?”
+- “Implement option A.”
+- “Fix the loading indicator that never finishes.”
+- “Finish this branch and get it ready for me to test.”
 
-After implementation is requested or approved, ordinary CI failures stay with the
-agent until fixed or genuinely blocked. Once the PR is open, the agent starts the
-applicable feature-worktree test stack and prepares a brief testing checklist while
-CI runs. The normal handoff waits for both current-head green CI and a healthy stack
-serving that revision, then gives the clickable local URL and user actions with
-expected results. Explicit local-only or no-push/no-PR instructions keep publication
-local but still allow local testing unless the user says not to run it. Merge
-requires hands-on testing and explicit approval of the current revision. This plugin
-does not change GitHub branch protection; repositories retain their own enforcement
-and merge rules.
+Explicit skill selection remains available in the composer or by mentioning a
+skill when you want a particular entry point:
+
+| Need | Entry point |
+| --- | --- |
+| Brainstorm, plan, or design a UI | [Astra Plan](skills/astra-plan/SKILL.md), `$astra-plan` |
+| Diagnose a failure before editing | [Systematic Debugging](skills/systematic-debugging/SKILL.md), `$systematic-debugging` |
+| Finish a branch, repair CI, or perform an approved merge | [Astra Complete](skills/astra-complete/SKILL.md), `$astra-complete` |
+| Select the relevant development workflow | [Using Astra Workflow](skills/using-astra-workflow/SKILL.md), `$using-astra-workflow` |
+
+## Control how far it goes
+
+Collaborative mode is the default: discuss material choices and present a concrete
+plan. If implementation was already requested or approved, continue without asking
+for the same approval again. In auto mode, state the plan and proceed within the
+authorized scope.
+
+“Brainstorm only” or “do not implement” stops at a proposal. “Keep it local,”
+“no push,” and “no PR” prevent publication. Local-only work can still run a local
+test stack; “do not run it” prevents startup. Choosing a mockup alone does not
+authorize implementation. Merge and deployment remain separate decisions.
+
+See [delivery authority and CI completion](references/ci-completion.md) for the
+full authorization and evidence rules. Repository instructions, available tools,
+credentials, and explicit task limits still apply.
+
+## Model routing
+
+Astra owns architecture, planning, UI design, mockup authoring, and interpretation
+of visual feedback. If the coordinator is not Astra, it delegates those tasks to
+an available Astra planner/designer.
+
+Routine implementation, tests, and bounded investigations use an explicitly
+selected capable worker. Luna is a starting candidate for narrow tasks; Terra or
+Sol for broader implementation; harder diagnosis and review may use stronger
+models. The same worker owns coupled tests and implementation. The coordinator
+owns integration, publication, and the CI loop.
+
+Selection follows the live model allowlist and task difficulty; these are routing
+candidates, not a fixed price ranking or a promise of measured savings. A skill
+cannot change the main conversation's model or guarantee access to another model.
+See [model routing](references/model-routing.md) for the detailed policy.
 
 ## Preview UI designs
 
@@ -150,8 +181,8 @@ Clone the repository into that plugin directory if it is not already present:
 git clone https://github.com/octadecimal/astra-workflow.git ~/plugins/astra-workflow
 ```
 
-Before the initial implementation PR is merged, check out `feat/astra-workflow`
-to test that version. Do not clone over an existing checkout or worktree.
+A fresh clone uses the default `main` branch. Do not clone over an existing
+checkout or worktree.
 
 Register the following entry in the `plugins` array of the personal marketplace,
 preserving existing entries and metadata:
