@@ -1,6 +1,6 @@
 # Waypoint
 
-A private Codex plugin for taking development work from an idea to a tested pull
+A Codex plugin for taking development work from an idea to a tested pull
 request. Astra owns planning and visual design; explicitly selected economical
 subagents implement and test the changes. The coordinator opens the PR, fixes CI
 failures, and prepares a running application for your hands-on testing.
@@ -116,6 +116,11 @@ See [model routing](references/model-routing.md) for the detailed policy.
 
 ## Preview UI designs
 
+![Waypoint navigation-comparison example](assets/screenshots/ui-preview.png)
+
+*A capture of the bundled standalone UI comparison example, demonstrating a
+design-review artifact. This is not the Codex application interface.*
+
 ```text
 Use $waypoint-plan to compare two settings-page layouts. Show previews before we
 decide; do not implement yet.
@@ -183,8 +188,8 @@ see the replacement map for source version and derivation scope.
 
 ## Install locally
 
-This repository is private. Authenticate Git access as an account with access to
-`octadecimal/waypoint`. The plugin uses Codex's existing tools and account;
+This public repository can be cloned without authentication.
+The plugin uses Codex's existing tools and account;
 it contains no MCP server, session hooks, or paid API integration. Node.js 22+ is
 needed only for the live preview companion and JavaScript helper tools. Python
 3.12+ supports validation and the portable execution/debugging helpers. Graphviz
